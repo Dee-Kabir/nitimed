@@ -1,0 +1,36 @@
+.Dashboard{
+    min-width: 100vw;
+}
+.Dashboard_block{
+    margin: 8px;
+}
+.Dashboard_row { 
+    display: flex;
+}
+.Dashboard_menu_column{
+    flex-grow: 1;
+    background: #fafafa;
+    margin-right: 8px;
+    height: 100%;
+}
+.Dashboard_info_column{
+    flex-grow: 4;
+    background: #fcfcfc;
+}
+.Dashboard_menu_items{
+    height: 100%;
+}
+.Dashboard_menu_item{
+    margin-bottom: 8px;
+    padding: 16px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: rgb(85,26,139);
+    border-radius: 8px;
+}
+@media (max-width: 500px){
+    .Dashboard_row { 
+        display: block;
+    }
+}

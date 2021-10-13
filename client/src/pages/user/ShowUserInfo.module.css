@@ -1,0 +1,25 @@
+.ShowUserInfo_block{
+    width: 100%;
+    height: 100%;
+}
+.ShowUserInfo_block_heading{
+    font-size: 1.6rem;
+    color: black;
+    padding: 8px;
+    margin-bottom: 16px;
+    font-weight: 700;
+}
+.ShowUserInfo_block_info{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: left;
+    margin-bottom: 16px;
+}
+.ShowUserInfo_block_info > div {
+    width: 70%;
+}
+.ShowUserInfo_block_info > label {
+    width: 30%;
+    font-weight: 600;
+}

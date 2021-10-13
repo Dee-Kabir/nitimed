@@ -1,0 +1,147 @@
+import { Descriptions } from "antd";
+import React, { Fragment, useEffect, useState } from "react";
+import { Header,Button,Form,Table } from "semantic-ui-react";
+import { fetchAnimal, updateAnimalOwner } from "../../actions/animalApi";
+import { isAuthenticated } from "../../actions/auth";
+import SelectVaccine from "../../components/servicesComponents/SelectVaccine";
+import ErrorComponent from "../../utilities/ErrorComponent";
+import LoadingComponent from "../../utilities/LoadingComponent";
+import TableHeader from '../../components/tableComponents/TableHeader'
+import moment from 'moment'
+import { connect } from "react-redux";
+
+const AnimalPage = props => {
+    const [animal,setAnimal] = useState('');
+    const [phone, setPhone] = useState('')
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const loadAnimal = () => {
+        try{
+            const token = localStorage.getItem('token')
+            fetchAnimal(props.match.params.id,token).then(data => {
+                if(data.success){
+                    setAnimal({...data.animal})
+                    setError('');
+                }else{
+                    setError(data.message);
+                }
+            })
+        }catch(err){
+            setLoading(false);
+            setError("Network connection error")
+        }
+        setLoading(false);
+    }
+    const handleUpdateButton = (e) => {
+        e.preventDefault()
+        if(phone.length === 10){
+            setLoading(true)
+            const token = localStorage.getItem('token')
+            try{
+                updateAnimalOwner(animal.id,"+91"+phone,token).then(data => {
+                    if(data.success){
+                        alert(data.message)
+                        setLoading(false)
+                        props.history.goBack()
+                    }else{
+                        setLoading(false)
+                        setError(data.message)
+                    }
+                })
+            }catch(err){
+                console.log(err)
+            }
+        }else{
+            setError("Enter a valid mobile Number of 10 digits")
+        }
+    }
+    useEffect(()=>{
+        loadAnimal();
+    },[])
+    return(!loading ? animal &&
+        <div>
+        {error && <ErrorComponent error={error} />}
+        <div style={{padding : '8px 32px'}}>
+            <Descriptions
+            title="Information of Animal"
+            bordered
+            column={{ xxl: 3, xl: 2, lg: 3, md: 3, sm: 2, xs: 1 }}
+            >
+                <Descriptions.Item label="Unique Id">{animal.id}</Descriptions.Item>
+                <Descriptions.Item label="Name">{animal.name ? animal.name : "NAN"}</Descriptions.Item>
+                <Descriptions.Item label="Registration Number">{animal.registrationId ? animal.registrationId : "NAN"}</Descriptions.Item>
+                <Descriptions.Item label="Age">{animal.age} yrs</Descriptions.Item>
+                <Descriptions.Item label="Breed">{animal.breed}</Descriptions.Item>
+                <Descriptions.Item label="Gender">{animal.gender}</Descriptions.Item>
+            </Descriptions>
+            
+            <br/>
+            <Header>Suggested Vaccines Information</Header>
+            {animal.vaccines.length > 0 ?  <Table celled striped>
+            <TableHeader headerParams={["Sno","vaccine name","Given on","Next dose date"]} />
+            <Table.Body>
+                {
+                    animal.vaccines.filter(vacc => vacc.completed===false).map((vacc,_) =>(
+                        <Table.Row key={vacc.createdAt}>
+                        <Table.Cell>{_+1}</Table.Cell>
+                        <Table.Cell>{vacc.onThis.name}</Table.Cell>
+                        <Table.Cell>{moment(vacc.createdAt).fromNow()}</Table.Cell>
+                        <Table.Cell>{moment(moment(vacc.createdAt).add(vacc.onThis.timeGapInDays,"days")).fromNow()}</Table.Cell>
+                        </Table.Row>
+                    )) 
+                    
+                }
+                </Table.Body>
+            </Table>: <div>No vaccines taken till now</div>}
+            <br />
+            <Header>Vaccination Information</Header>
+            {animal.vaccines.length > 0 ?  <Table celled striped>
+            <TableHeader headerParams={["Sno","vaccine name","Given on","Next dose date"]} />
+            <Table.Body>
+                {
+                    animal.vaccines.filter(vacc => vacc.completed===true).map((vacc,_) =>(
+                        <Table.Row key={vacc.createdAt}>
+                        <Table.Cell>{_+1}</Table.Cell>
+                        <Table.Cell>{vacc.onThis.name}</Table.Cell>
+                        <Table.Cell>{moment(vacc.createdAt).fromNow()}</Table.Cell>
+                        <Table.Cell>{moment(moment(vacc.createdAt).add(vacc.onThis.timeGapInDays,"days")).fromNow()}</Table.Cell>
+                        </Table.Row>
+                    )) 
+                }
+                </Table.Body>
+            </Table>: <div>No vaccines taken till now</div>}
+            {props.userType!==0 && <Fragment><br/>
+            <div>
+            <Header>Suggest a vaccine for the animal</Header>
+            <SelectVaccine animalId = {animal.id} breed={animal.breed} />
+            </div></Fragment>}
+            <br />
+            <Descriptions title="Insemination Information" bordered column={{xxl: 3, xl: 2, lg: 3, md: 3, sm: 2, xs: 1}}>
+            {
+                animal.semination.length > 0 ?  animal.semination.map((vacc) =>(
+                    <Fragment key={vacc.createdAt}>
+                    <Descriptions.Item label="Vaccine Name">{vacc.name}</Descriptions.Item>
+                    </Fragment>
+                )) : <div>No semination done till now</div>
+            }
+        </Descriptions>
+        <br />
+            {animal.owner===isAuthenticated() && <div>
+                <Header>Update owner information while selling your animal.</Header>
+                <Form onSubmit={handleUpdateButton} loading={loading}>
+                <Form.Input type="text" inline
+                label="New Owner mobile Number"
+                name="phone"
+                placeholder="Enter Your 10 digit Mobile Number"
+                pattern="[1-9]{1}[0-9]{9}" onChange={(e) => setPhone(e.target.value)} />
+                <Button type="submit" onClick={handleUpdateButton}>Update</Button>
+                </Form>
+                </div>}
+        </div>
+        </div> : <LoadingComponent />
+    )
+}
+const mapStateToProps = state => ({
+    userType: state.user.user && state.user.user.isAdmin
+})
+export default connect(mapStateToProps)(AnimalPage)
