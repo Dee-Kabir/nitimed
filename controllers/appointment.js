@@ -7,7 +7,7 @@ exports.createAppointment = async(req,res) => {
     const {amount,completed,doctorId,userId,order_id,payment_id,razorpay_signature,animal} = req.body;
     if(mongoose.isValidObjectId(doctorId)){
     let appointment = new Appointment({
-        amount,completed,doctor: doctorId,user: userId,order_id,payment_id,razorpay_signature,animal
+        amount,completed,doctor: doctorId,user: userId,order_id,payment_id,razorpay_signature,animal:animal ? animal : null
     })
     try{
         appointment = await appointment.save();

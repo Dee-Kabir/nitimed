@@ -3,7 +3,10 @@ const User = require('../modals/user')
 const RefModel = require('../modals/refModel')
 const mongoose = require('mongoose')
 const Vaccine = require('../modals/vaccine')
-
+exports.addAnimals = async(req,res) => {
+    Animal.insertMany(req.body.animals
+        )
+}
 exports.getAnimalInfo = async(req,res) => {
     if(mongoose.isValidObjectId(req.params.id)){
         const animal = await Animal.findById(req.params.id).populate({path : 'vaccines',populate: {

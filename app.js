@@ -27,7 +27,7 @@ app.use('/public/upload/', express.static(__dirname + '/public/upload/' ))
 app.use(errorHandler)
 
 // database
-mongoose.connect(process.env.DATABASE,{
+mongoose.connect(process.env.PROD_DATABASE,{
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(()=>{

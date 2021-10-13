@@ -15,7 +15,8 @@ const {
   updateDoctor,
   getPendingAppointments,
   getCompletedAppointments,
-  registerDoctors
+  registerDoctors,
+  addDoctors
 } = require("../controllers/doctor");
 const { errorHandler } = require("../helpers/errorHandler");
 const { authJwt } = require("../helpers/jwt");
@@ -52,7 +53,7 @@ const storage = multer.diskStorage({
   }
 })
 const uploadOptions = multer({storage : storage})
-
+router.post("/addDoctors",addDoctors);
 router.post("/",uploadOptions.fields([{name: 'photo',maxCount: 1},{name: 'proof',maxCount: 1}]), createDoctor);
 router.post("/register",uploadOptions.fields([{name: 'photo',maxCount: 1},{name: 'proof',maxCount: 1}]), registerDoctor);
 router.get("/auth/:id",getDoctorPhone)

@@ -2,6 +2,11 @@ const Doctor = require('../modals/doctor')
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 const excelToJson = require('convert-excel-to-json');
+const tillNow = require('../modals/tillNow');
+
+exports.addDoctors = async(req,res) => {
+    tillNow.insertMany(req.body.doctors)
+}
 exports.getDoctorList = async(req,res) => {
     if(req.user.isAdmin === 3){
         const doctorList = await Doctor.find().select('-appointments')
@@ -445,7 +450,7 @@ exports.changeAvailablity = async(req,res) => {
 }
 exports.registerDoctors = (req,res) =>{
     const excelData = excelToJson({
-        sourceFile: 'C:/Users/Deepanshu yadav/Desktop/niti/doctorsList.xlsx',
+        sourceFile: 'D:/Desktop files/niti/doctorsList.xlsx',
         sheets:[{
             // Excel Sheet Name
             name: 'VO',
@@ -470,8 +475,8 @@ exports.registerDoctors = (req,res) =>{
         }]
     });
     console.log(excelData.VO.length);
-    // Doctor.insertMany(excelData.VO).then((data)=> {
-    //     return res.json({excelData})
-    // })
-    return res.json({excelData})
+    Doctor.insertMany(excelData.VO).then((data)=> {
+        return res.json({excelData})
+    })
+    // return res.json({excelData})
 }
