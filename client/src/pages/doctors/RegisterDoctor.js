@@ -90,7 +90,8 @@ const RegisterDoctor = (props) => {
       if(img.size > 2000000){
         setError( "Image size should be less than 2mb")
       }
-      else if(img.type === "jpeg" || img.type=== "jpg" || img.type==="png" ){
+      else if(img.type === "image/jpeg" || img.type=== "image/jpg" || img.type==="image/png" ){
+        console.log(img)
         if(e.target.name == "photo"){
           setDoctorPhoto(URL.createObjectURL(img));
           setPhoto(img)
@@ -104,6 +105,7 @@ const RegisterDoctor = (props) => {
         setError("")
       }
       else{
+   
         setError("Enter a valid image.Either in png, jpeg or jpg format")
       }
     }
