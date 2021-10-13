@@ -20,7 +20,7 @@ const Videos = ({ room, setRoom, roomId, twilioAccessToken }) => {
 
 const mapStoreStateToProps = (state) => {
   return {
-    ...state,
+    ...state.reducer,
   };
 };
 

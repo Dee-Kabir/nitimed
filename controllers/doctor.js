@@ -390,7 +390,7 @@ exports.getDoctorPhone = async(req,res) => {
     res.status(200).json({success:true,user: doctor,token: token})
 }
 exports.setRoomIdDoctor = async(req,res) => {
-    if( mongoose.isValidObjectId(req.params.id) && (req.user.userId === req.params.id || req.user.isAdmin === 3 )){
+    if( mongoose.isValidObjectId(req.params.id)){
     Doctor.findByIdAndUpdate(req.params.id,{
         roomId : req.body.roomId
     },{

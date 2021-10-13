@@ -103,7 +103,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStoreStateToProps = (state) => {
   return {
-    ...state,
+    ...state.reducer,
   };
 };
 

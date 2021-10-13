@@ -23,7 +23,7 @@ const Message = ({ author, content, sameAuthor, messageCreatedByMe }) => {
 const Messages = ({ messages }) => {
   return (
     <div className="messages_container">
-      {messages.map((message, index) => {
+      {messages && messages.map((message, index) => {
         const sameAuthor =
           index > 0 && message.identity === messages[index - 1].identity;
         return (
@@ -42,7 +42,7 @@ const Messages = ({ messages }) => {
 
 const mapStoreStateToProps = (state) => {
   return {
-    ...state,
+    ...state.reducer,
   };
 };
 

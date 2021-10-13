@@ -31,7 +31,7 @@ class TwilioRoom extends Component {
   }
 
   addParticipantToStore(participant) {
-    const participants = store.getState().participants;
+    const participants = store.getState().reducer.participants;
     if (participants.find((p) => p.identity === participant.identity)) {
       return;
     } else {

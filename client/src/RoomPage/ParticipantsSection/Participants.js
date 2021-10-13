@@ -16,7 +16,7 @@ const SingleParticipant = ({ identity, lastItem }) => {
 const Participants = ({ participants }) => {
   return (
     <div className="participants_container">
-      {participants.map((participant, index) => {
+      {participants && participants.map((participant, index) => {
         return (
           <SingleParticipant
             key={participant.identity}
@@ -31,7 +31,7 @@ const Participants = ({ participants }) => {
 
 const mapStoreStateToProps = (state) => {
   return {
-    ...state,
+    ...state.reducer,
   };
 };
 

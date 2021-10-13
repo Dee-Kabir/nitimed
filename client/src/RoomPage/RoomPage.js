@@ -34,7 +34,7 @@ const RoomPage = (props) => {
 
 const mapStoreStateToProps = (state) => {
   return {
-    ...state,
+    ...state.reducer,
   };
 };
 
