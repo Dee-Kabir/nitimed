@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 
 exports.createAppointment = async(req,res) => {
     const {amount,completed,doctorId,userId,order_id,payment_id,razorpay_signature,animal} = req.body;
-    if(mongoose.isValidObjectId(doctorId)){
+    if(mongoose.isValidObjectId(doctorId) && req.user.isAdmin===0){
     let appointment = new Appointment({
         amount,completed,doctor: doctorId,user: userId,order_id,payment_id,razorpay_signature,animal:animal ? animal : null
     })
@@ -32,54 +32,68 @@ exports.createAppointment = async(req,res) => {
     })}
     else{
         return res.status(400).json({
-            success:false, message: "Unable to save"
+            success:false, message: "Unable to Book"
         })
     }
 }
 exports.updateAppointment = async(req,res) => {
-    Appointment.findByIdAndUpdate(req.params.id,{
-        completed: req.body.completed
-    }, {
-        new: true
-    }).then((appointment) => {
-        if(!appointment){
-            return res.status(400).json({
-                success:false, message: "Unable to save"
-            })
-        }else{
-            console.log(appointment)
-            Doctor.findByIdAndUpdate(appointment.doctor,{$pull : {'appointments.pendingAppointments': appointment._id},
-            $push : {'appointments.completedAppointments' : appointment._id}
-            }).then(()=>{
-                return res.status(200).json({
-                    success:true,message: "Appointment updated"
+    if(mongoose.isValidObjectId(req.params.id)){
+        Appointment.findByIdAndUpdate(req.params.id,{
+            completed: req.body.completed
+        }, {
+            new: true
+        }).then((appointment) => {
+            if(!appointment){
+                return res.status(400).json({
+                    success:false, message: "Unable to save"
                 })
+            }else{
+                console.log(appointment)
+                Doctor.findByIdAndUpdate(appointment.doctor,{$pull : {'appointments.pendingAppointments': appointment._id},
+                $push : {'appointments.completedAppointments' : appointment._id}
+                }).then(()=>{
+                    return res.status(200).json({
+                        success:true,message: "Appointment updated"
+                    })
+                })
+            }
+        }).catch(err => 
+            res.status(400).json({
+                success:false,message: err
             })
-        }
-    }).catch(err => 
-        res.status(400).json({
-            success:false,message: err
+            )
+    }else{
+        return res.status(400).json({
+            success: 'false',
+            message: "Unable to update."
         })
-        )
+    }
 }
 exports.getAppointment = async(req,res) => {
-    Appointment.findById(req.params.id).populate({path: 'animal',populate: {
-        path:'vaccines'
-    }}).then(appointment => {
-        if(!appointment){
-            return res.status(400).json({
-                success:false,message: "Appointment not found"
+    if(mongoose.isValidObjectId(req.params.id)){
+        Appointment.findById(req.params.id).populate({path: 'animal',populate: {
+            path:'vaccines'
+        }}).then(appointment => {
+            if(!appointment){
+                return res.status(400).json({
+                    success:false,message: "Appointment not found"
+                })
+            }else{
+                return res.status(200).json({
+                    success:true,appointment: appointment
+                })
+            }
+        }).catch(err => {
+            res.status(400).json({
+                success:false,message: err
             })
-        }else{
-            return res.status(200).json({
-                success:true,appointment: appointment
-            })
-        }
-    }).catch(err => {
-        res.status(400).json({
-            success:false,message: err
         })
-    })
+    }else{
+        return res.status(400).json({
+            success: 'false',
+            message: "Unable to get the appointment."
+        })
+    }
 }
 exports.getCountAppointments = async(req,res) => {
     Appointment.countDocuments({completed: true},(err,count)=>{
