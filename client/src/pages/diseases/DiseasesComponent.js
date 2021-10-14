@@ -90,7 +90,7 @@ const DiseasesComponent = () => {
   return (!loading ? 
     <Grid className="m-4">
     <Grid.Row stretched>
-    <Form.Input style={{width: '50%',marginLeft:"16px"}} label="Disease or Breed Name" name="searchTerm" value={searchterm} onChange={handleSearchChange} type="text" placeholder="Enter breed or disease name" />
+    <Form.Input style={{width: '50%',marginLeft:"16px"}} label="Disease or Species Name" name="searchTerm" value={searchterm} onChange={handleSearchChange} type="text" placeholder="Enter breed or disease name" />
     </Grid.Row>
     <Grid.Row><Header>List of Diseases with Symptoms</Header>
     {searchterm.length > 0 ? displayList(result) : displayList(data)}

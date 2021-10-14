@@ -102,7 +102,6 @@ export const getUserAppointments = async(id,token) => {
   .catch(err => console.log(err))
 }
 export const findDoctorByName = async (name, category) => {
-  // let value = name.toUpperCase();
   return await fetch(`${API_URL}/doctors/query?category=${category}&name=${name}`,{
     method:'GET',
     headers: {

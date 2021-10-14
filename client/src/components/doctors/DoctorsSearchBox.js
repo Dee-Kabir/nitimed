@@ -91,7 +91,7 @@ const DoctorSearchBox = (props) => {
             value={state}
             name="state"
             handlePlaces={handlePlaces}
-            placeholder="state"
+            placeholder="State"
           />
         </div>
         <div style={{ margin: "0 8px", fontWeight: "700" }}>Or</div>
@@ -101,7 +101,7 @@ const DoctorSearchBox = (props) => {
             value={city}
             name="city"
             handlePlaces={handlePlaces}
-            placeholder="city"
+            placeholder="District"
           />
         </div>
         <div style={{ margin: "0 8px", fontWeight: "700" }}>Or</div>
@@ -116,7 +116,7 @@ const DoctorSearchBox = (props) => {
           />
         </div>
         <button onClick={findDoctor} className={classes.Find_A_Doctor_btn}>
-          Find Doctor
+          Find Doctors
         </button>
       </div>
       

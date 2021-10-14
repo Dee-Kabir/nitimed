@@ -47,7 +47,7 @@ const DispensaryComponent = () => {
     }, []);
     setResult(searchResults)
   };
-  const tableHeader = () =>(<TableHeader headerParams={["Sno.","State","District","Dispensary Name","Contact no."]} />) 
+  const tableHeader = () =>(<TableHeader headerParams={["Sno.","District","State","Dispensary Name","Contact no."]} />) 
   const tableDataRow = (d,_) =>(
     <Table.Row key={d.id}>
     <Table.Cell >{_+1}</Table.Cell>

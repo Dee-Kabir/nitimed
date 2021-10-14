@@ -34,15 +34,15 @@ const BookAppointment = (props) => {
             props.history.goBack()
         }
        
-        window.onbeforeunload = handleBeforeUnload
+        // window.onbeforeunload = handleBeforeUnload
       }, [props.selectedDoc]);
-      const handleBeforeUnload = (e) => {
-        e.preventDefault();
-        const message =
-          "Are you sure you want to leave? All provided data will be lost.";
-        e.returnValue = message;
-        return '';
-      };
+    //   const handleBeforeUnload = (e) => {
+    //     e.preventDefault();
+    //     const message =
+    //       "Are you sure you want to leave? All provided data will be lost.";
+    //     e.returnValue = message;
+    //     return '';
+    //   };
       const bookAppointmentWithDoctor = async(payment_id,order_id,razorpay_signature,amount) =>{
         setLoading(true)
         const doctorId = props.match.params.doctorId
@@ -107,7 +107,7 @@ const BookAppointment = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         try{
-            if(text ==="Book"){
+            if(text ==="Book" && selectedAnimal!==""){
 
                 if(props.selectedDoc.jobType === "private" && props.selectedDoc.fee != 0){
                     alert("You will be redirected to payment gateway")

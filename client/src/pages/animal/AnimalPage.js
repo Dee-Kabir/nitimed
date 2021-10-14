@@ -9,6 +9,7 @@ import LoadingComponent from "../../utilities/LoadingComponent";
 import TableHeader from '../../components/tableComponents/TableHeader'
 import moment from 'moment'
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 const AnimalPage = props => {
     const [animal,setAnimal] = useState('');
@@ -78,7 +79,7 @@ const AnimalPage = props => {
             <br/>
             <Header>Suggested Vaccines Information</Header>
             {animal.vaccines.length > 0 ?  <Table celled striped>
-            <TableHeader headerParams={["Sno","vaccine name","Given on","Next dose date"]} />
+            <TableHeader headerParams={["Sno","vaccine name","Given on","Next dose date","Action"]} />
             <Table.Body>
                 {
                     animal.vaccines.filter(vacc => vacc.completed===false).map((vacc,_) =>(
@@ -87,6 +88,7 @@ const AnimalPage = props => {
                         <Table.Cell>{vacc.onThis.name}</Table.Cell>
                         <Table.Cell>{moment(vacc.createdAt).fromNow()}</Table.Cell>
                         <Table.Cell>{moment(moment(vacc.createdAt).add(vacc.onThis.timeGapInDays,"days")).fromNow()}</Table.Cell>
+                        <Table.Cell><Link to={`/vaccination?id=${animal.id}&vaccName=${vacc.onThis.name}`}>Book Vaccination</Link></Table.Cell>
                         </Table.Row>
                     )) 
                     

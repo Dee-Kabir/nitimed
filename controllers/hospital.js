@@ -136,12 +136,12 @@ exports.addDoctorToHospital = async(req,res) => {
                 },{new:true}).then((result)=>{
                     if(!result){
                         return res.status(400).json({
-                            succcess : false,
+                            success : false,
                             message : "Unable to add doctor"
                         })
                     }else{
                         return res.status(200).json({
-                            succcess : true,
+                            success : true,
                             message : "Added doctor Successfully"
                         })
                     }
@@ -149,19 +149,19 @@ exports.addDoctorToHospital = async(req,res) => {
             })
         }else{
             return res.status(400).json({
-                succcess : false,
+                success : false,
                 message : "Unable to add doctor"
             })
         }  
         }catch(err){
             return res.status(400).json({
-                succcess : false,
+                success : false,
                 message : err.message
             })
         }
     }else{
         return res.status(400).json({
-            succcess : false,
+            success : false,
             message : "Unable to add doctor"
         })
     }

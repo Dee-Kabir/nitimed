@@ -52,7 +52,7 @@ const DoctorDashboard = (props) => {
         <div className={classes.Dashboard_menu_items}>
         <div className={classes.Dashboard_menu_item} onClick={() =>changeComponent('info')}>Account Information</div>
         <div className={classes.Dashboard_menu_item} onClick={() => changeComponent('edit')}>Edit Account Information </div>
-        <div className={classes.Dashboard_menu_item} onClick={() => changeComponent('appointments')}>check pending Appointments</div>
+        <div className={classes.Dashboard_menu_item} onClick={() => changeComponent('appointments')}>Check pending Appointments</div>
         <div className={classes.Dashboard_menu_item} onClick={() => changeComponent('appointmentHistory')}>Completed Appointments</div>
         </div>
         </div>

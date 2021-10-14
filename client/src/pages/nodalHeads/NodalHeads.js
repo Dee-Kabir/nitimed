@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import LoadingComponent from "../../utilities/LoadingComponent";
 import { Form, Grid, Header, Table } from "semantic-ui-react";
 import TableHeader from "../../components/tableComponents/TableHeader";
+
 const NodalHeads = () => {
   const [data, setdata] = useState("");
   const [loading,setLoading] = useState(false);
@@ -14,7 +15,7 @@ const NodalHeads = () => {
   }, []);
   const loadNodalHeads = () =>{
     setLoading(true)
-    firebase.database().ref("jsonfiles").child("nodal_Heads").orderByChild("State").once("value",(snap)=>{
+    firebase.database().ref("jsonfiles").child("nodal_Heads").orderByChild("/State ").once("value",(snap)=>{
       setdata(snap.val())
       setLoading(false)
     })

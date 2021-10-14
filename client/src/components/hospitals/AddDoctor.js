@@ -57,10 +57,9 @@ const AddDoctor = () => {
                   email,
                   phone:'+91'+phone,qualification,jobType,servingType,workTime,weekdays,speciality,fee,
                   address,city,state,timing,},
-                  
                   token
-                  ).then((data) => {
-                    if(data.success){
+                  ).then((doc) => {
+                    if(doc.success){
                       setError("")
                       alert("Doctor Added Successfully")
                       window.location.reload()

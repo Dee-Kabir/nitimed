@@ -238,7 +238,7 @@ exports.addVaccine = async(req,res) => {
 }
 exports.getVaccines = async(req,res) => {
     const {forBreed} = req.body;
-    const vaccines = await Vaccine.find({forBreed})
+    const vaccines = await Vaccine.find({forBreed :{$regex: forBreed, $options: 'i'} })
     if(vaccines){
         return res.status(200).json({
             success:true,
