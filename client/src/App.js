@@ -57,6 +57,8 @@ const App = (props) => {
         console.log(err);
         setLoading(false)
       }
+    }else{
+      setLoading(false)
     }
     
   },[])
