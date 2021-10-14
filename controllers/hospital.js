@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken')
 
 exports.registerHospital = async(req,res) => {
     const {name,email,phone,address,state,city,hospitalRegistration,password} = req.body
-    console.log(name,email,phone,address,state,city,hospitalRegistration,password)
     // const salt = bcrypt.genSaltSync(10)
     // console.log(salt);
     let hospital= new Hospital({

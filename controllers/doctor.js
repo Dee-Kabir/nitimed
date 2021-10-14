@@ -104,9 +104,7 @@ exports.createDoctor = async(req,res) => {
 
         Doctor.findByIdAndUpdate(doctor._id,
             updatingPhoto
-        ,{new :true}).then(()=>{
-            console.log("done")
-        })
+        ,{new :true})
     }catch(err){
         console.log(err)
         return res.status(400).json({
@@ -474,7 +472,6 @@ exports.registerDoctors = (req,res) =>{
             }
         }]
     });
-    console.log(excelData.VO.length);
     Doctor.insertMany(excelData.VO).then((data)=> {
         return res.json({excelData})
     })

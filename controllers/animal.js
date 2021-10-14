@@ -95,7 +95,6 @@ exports.updateAnimal = async(req,res) => {
                 message: "No user exists with this phone number"
             })
         }else{
-            console.log(user)
             Animal.findByIdAndUpdate(req.params.id,{
                 owner: user.id
             },{
@@ -108,7 +107,6 @@ exports.updateAnimal = async(req,res) => {
                         message: 'User data not exists'
                     })
                 }
-                console.log(animal)
                 return res.status(200).json({
                     success: true,
                     message: 'Animal data updated successfully.'

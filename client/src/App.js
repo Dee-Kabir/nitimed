@@ -47,16 +47,18 @@ const App = (props) => {
         checkUserTypeAndReturnData(token).then(data =>{
           if(data.success){
             props.setUserLoggedIn(data.user)
+            setLoading(false)
           }else if(data.success === false && data.message === "Not Auhtorized"){
             signout()
+            setLoading(false)
           }
         })
       }catch(err){
         console.log(err);
+        setLoading(false)
       }
     }
-    setLoading(false)
-    console.log("run")
+    
   },[])
   if(loading){
     return <LoadingComponent />
@@ -97,7 +99,7 @@ const App = (props) => {
           exact
           component={BookAppointment}
         />
-        <UserRoutes path="/animal/:id" exact component={AnimalPage} />
+        <Route path="/animal/:id" exact component={AnimalPage} />
         <DoctorRoutes
           path="/doctor-dashboard/:doctorId"
           exact

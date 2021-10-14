@@ -1,10 +1,14 @@
 import { isAuthenticated } from "../actions/auth"
 import {Route,Redirect} from "react-router-dom"
 import { connect } from "react-redux"
+import { useEffect } from "react"
 const UserRoutes = (props) => {
-    return (isAuthenticated() && props.isAdmin===0 ) ? <Route {...props} /> : <Redirect to="/not-authorised" />
+    useEffect(()=>{
+        console.log("userRoute",props.user)
+    })
+    return (isAuthenticated() && props.user.isAdmin===0 ) ? <Route {...props} /> : <Redirect to="/not-authorised" />
 }
 const mapStateToProps = state => ({
-    isAdmin : state.user.user
+    user : state.user.user
 })
 export default connect(mapStateToProps)(UserRoutes)

@@ -108,7 +108,7 @@ const BookAppointment = (props) => {
         e.preventDefault()
         try{
             if(text ==="Book" && selectedAnimal!==""){
-
+                setLoading(true)
                 if(props.selectedDoc.jobType === "private" && props.selectedDoc.fee != 0){
                     alert("You will be redirected to payment gateway")
                         createOrder({amount: props.selectedDoc.fee,currency: 'INR'}).then(data => {
@@ -122,6 +122,7 @@ const BookAppointment = (props) => {
                 }else{
                     bookAppointmentWithDoctor()
                 }
+                setLoading(false)
             }else{
                 setError("Enter the text correctly and select Animal for which treatment is needed.")
             }

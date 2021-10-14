@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 
 exports.createAppointment = async(req,res) => {
     const {amount,completed,doctorId,userId,order_id,payment_id,razorpay_signature,animal} = req.body;
-    if(mongoose.isValidObjectId(doctorId) && req.user.isAdmin===0){
+    if(mongoose.isValidObjectId(doctorId) && mongoose.isValidObjectId(userId) && req.user.isAdmin===0){
     let appointment = new Appointment({
         amount,completed,doctor: doctorId,user: userId,order_id,payment_id,razorpay_signature,animal:animal ? animal : null
     })
@@ -20,7 +20,7 @@ exports.createAppointment = async(req,res) => {
     ).then(()=>{
         Doctor.findByIdAndUpdate(doctorId,{
             $push : {'appointments.pendingAppointments': appointment}
-        },{new:true}).then(data => console.log(data))
+        },{new:true})
     })
     if(!appointment){
         return res.status(400).json({
@@ -48,7 +48,6 @@ exports.updateAppointment = async(req,res) => {
                     success:false, message: "Unable to save"
                 })
             }else{
-                console.log(appointment)
                 Doctor.findByIdAndUpdate(appointment.doctor,{$pull : {'appointments.pendingAppointments': appointment._id},
                 $push : {'appointments.completedAppointments' : appointment._id}
                 }).then(()=>{

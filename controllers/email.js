@@ -76,19 +76,16 @@ exports.sendOtp = async(req,res) => {
 }
 exports.verifyOtp = async(req,res) => {
   const {token,id,password} = req.body;
-  console.log(token,id,password)
   const hospital = await Hospital.findOne({_id:id,token,resetPasswordExpires : {$gt : Date.now()}})
   if(hospital && hospital.resetPasswordToken=== token){
     var newpassword  = bcrypt.hashSync(password,process.env.SECRET_PASS)
     Hospital.findByIdAndUpdate(hospital.id,{password : newpassword,resetPasswordToken:'',resetPasswordExpires:''}).then((data)=>{
       if(data){
-        console.log(data)
         return res.json({
           success: true,
           message: 'Password updated'
         })
       }else{
-        console.log(data,"rfrfr")
         return res.json({
           success: false,
           message: 'Either the link has expired or you are not authorised for this action'
