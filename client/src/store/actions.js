@@ -6,10 +6,10 @@ const Actions = {
   SET_TWILIO_ACCESS_TOKEN: "SET_TWILIO_ACCESS_TOKEN",
   SET_SHOW_OVERLAY: "SET_SHOW_OVERLAY",
   SET_PARTICIPANTS: "SET_PARTICIPANTS",
-  SET_MESSAGES: "SET_MESSAGES",
   SET_SELECTED_DOCTOR: "SET_SELECTED_DOCTOR",
   SET_USER_LOGGED_IN : "SET_USER_LOGGED_IN",
   SET_USER_MOBILE_NUMBER: "SET_USER_MOBILE_NUMBER",
+  SET_USER_LOGGED_OUT: "SET_USER_LOGGED_OUT"
 };
 
 export const setIdentity = (identity) => {
@@ -60,13 +60,6 @@ export const setParticipants = (participants) => {
     participants,
   };
 };
-
-export const setMessages = (messages) => {
-  return {
-    type: Actions.SET_MESSAGES,
-    messages,
-  };
-};
 export const setSelectedDoctor = (doctor) => {
   return {
     type: Actions.SET_SELECTED_DOCTOR,
@@ -85,5 +78,9 @@ export const setUserMobileNumber = (mobileNumber) => {
     mobileNumber
   }
 }
-
+export const setUserLoggedOut = () => {
+  return {
+    type: Actions.SET_USER_LOGGED_OUT
+  }
+}
 export default Actions;

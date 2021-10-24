@@ -37,6 +37,11 @@ const animalSchema = new mongoose.Schema({
             type:ObjectId,
             ref: 'Semination'
         }
+    ],
+    remarks: [
+        {
+            type:String
+        }
     ]
 },{timestamps: true})
 

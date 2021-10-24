@@ -110,15 +110,16 @@ const BookAppointment = (props) => {
             if(text ==="Book" && selectedAnimal!==""){
                 setLoading(true)
                 if(props.selectedDoc.jobType === "private" && props.selectedDoc.fee != 0){
-                    alert("You will be redirected to payment gateway")
-                        createOrder({amount: props.selectedDoc.fee,currency: 'INR'}).then(data => {
-                            if(data && data.error){
-                                setError("Internet Connection error")
-                            }
-                            else{
-                                displayRazorpay(data)
-                            }
-                        }).catch(err => setError(err))
+                    // alert("You will be redirected to payment gateway")
+                    //     createOrder({amount: props.selectedDoc.fee,currency: 'INR'}).then(data => {
+                    //         if(data && data.error){
+                    //             setError("Internet Connection error")
+                    //         }
+                    //         else{
+                    //             displayRazorpay(data)
+                    //         }
+                    //     }).catch(err => setError(err))
+                    alert("Fees should be payed directly to the doctor.")
                 }else{
                     bookAppointmentWithDoctor()
                 }
@@ -138,7 +139,7 @@ const BookAppointment = (props) => {
         }
     }
     return (<Fragment>
-        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',paddingTop: '16px'}}>
+        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',paddingTop: '16px',marginTop:"71px"}}>
         {error && <ErrorComponent error={error} />}
         <div style={{border: '4px solid #551D8B', borderRadius: '8px',padding:'8px'}} >
             <h2 style={{textAlign:'center'}}>Booking Details</h2>

@@ -52,7 +52,7 @@ class TwilioRoom extends Component {
 
   removeParticipantFromStore(participant) {
     const participants = store
-      .getState()
+      .getState().reducer
       .participants.filter((p) => p.identity !== participant.identity);
     store.dispatch(setParticipants(participants));
   }

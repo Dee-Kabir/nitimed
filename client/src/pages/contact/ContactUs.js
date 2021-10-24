@@ -34,7 +34,7 @@ const ContactUs = (props) => {
         }
     }
     return(
-        <Container style={{marginTop: "50px"}}>
+        <Container style={{marginTop: "85px"}}>
         {error && <ErrorComponent error={error}/>}
         <Header>Contact Us</Header>
         <Form>

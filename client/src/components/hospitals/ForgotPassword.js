@@ -34,7 +34,7 @@ const ForgotPassword = props => {
     }
     
     const emailForm = () => (
-        <div style={{padding: '16px',height:'70vh'}}>
+        <div style={{padding: '16px',height:'70vh',marginTop:"71px"}}>
         <Header>Reset Password using email</Header>
         <Form loading={loading} onSubmit={submitEmail}>
         <Form.Input type="email" label="Email Address" name="email" placeholder="Enter your Email" value={email} onChange={(e) => setEmail(e.target.value)} />

@@ -60,7 +60,7 @@ const AnimalPage = props => {
         loadAnimal();
     },[])
     return(!loading ? animal &&
-        <div>
+        <div style={{marginTop:"71px"}}>
         {error && <ErrorComponent error={error} />}
         <div style={{padding : '8px 32px'}}>
             <Descriptions
@@ -79,7 +79,7 @@ const AnimalPage = props => {
             <br/>
             <Header>Suggested Vaccines Information</Header>
             {animal.vaccines.length > 0 ?  <Table celled striped>
-            <TableHeader headerParams={["Sno","vaccine name","Given on","Next dose date","Action"]} />
+            <TableHeader headerParams={["Sno","vaccine name","Suggested on","Action"]} />
             <Table.Body>
                 {
                     animal.vaccines.filter(vacc => vacc.completed===false).map((vacc,_) =>(
@@ -87,7 +87,6 @@ const AnimalPage = props => {
                         <Table.Cell>{_+1}</Table.Cell>
                         <Table.Cell>{vacc.onThis.name}</Table.Cell>
                         <Table.Cell>{moment(vacc.createdAt).fromNow()}</Table.Cell>
-                        <Table.Cell>{moment(moment(vacc.createdAt).add(vacc.onThis.timeGapInDays,"days")).fromNow()}</Table.Cell>
                         <Table.Cell><Link to={`/vaccination?id=${animal.id}&vaccName=${vacc.onThis.name}`}>Book Vaccination</Link></Table.Cell>
                         </Table.Row>
                     )) 
@@ -128,6 +127,23 @@ const AnimalPage = props => {
             }
         </Descriptions>
         <br />
+        {animal.remarks && animal.remarks.length > 0 ?<Fragment><Header>Remarks </Header>
+            <Table celled striped>
+            <TableHeader headerParams={["#","remark"]} />
+            <Table.Body>
+            {
+                animal.remarks.map((remark,_) => (
+                    <Table.Row key={remark+_}>
+                    <Table.Cell>{_+1}</Table.Cell>
+                    <Table.Cell>{remark}</Table.Cell>
+                    </Table.Row>
+                ))
+            }
+            </Table.Body>
+            </Table>
+            </Fragment>
+        :null}
+        <br/>
             {animal.owner===isAuthenticated() && <div>
                 <Header>Update owner information while selling your animal.</Header>
                 <Form onSubmit={handleUpdateButton} loading={loading}>

@@ -119,6 +119,7 @@ const checkFormValidity = () => {
   
   return (!loading ? 
     <Fragment>
+    <div style={{marginTop: '71px'}}></div>
       {error && <ErrorComponent error={error} />}
       <div style={{margin: '16px auto',textAlign: 'center'}}>
         <Radio.Group buttonStyle="solid" value={formLogin}>

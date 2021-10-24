@@ -56,28 +56,35 @@ const DoctorSearchBox = (props) => {
     let result = [];
     let governmentResult = [];
     setLoading(true);
-    findDoctorByName(value, type).then((data) => {
-      if(data.success){
-        data.doctors.map((da) => {
-          if (da.jobType !== "private") {
-            governmentResult.push({ ...da});
-          } else {
-            result.push({ ...da });
-          }
-        });
-        setFindGovernmentDoctors(governmentResult);
-        setFindPrivateDoctors(result);
-      }else{
-        setValues({...values,error: data.message})
-      }
-    });
-    findHospitals(value, type).then((data) => {
-      if(data.success)
-      setFindHospitals([...data.hospitals]);
-      else
-      setFindHospitals([]);
-    });
-    setLoading(false);
+    try{
+      findDoctorByName(value, type).then((data) => {
+        if(data.success){
+          data.doctors && data.doctors.map((da) => {
+            if (da.jobType !== "private") {
+              governmentResult.push({ ...da});
+            } else {
+              result.push({ ...da });
+            }
+          });
+          setFindGovernmentDoctors(governmentResult);
+          setFindPrivateDoctors(result);
+        }else{
+          setValues({...values,error: data.message})
+        }
+        setLoading(false);
+      });
+      findHospitals(value, type).then((data) => {
+        if(data.success)
+        setFindHospitals([...data.hospitals]);
+        else
+        setFindHospitals([]);
+        setLoading(false);
+      });
+    }catch(err){
+      console.log(err)
+      setLoading(false);
+    }
+    
   };
   return (!loading ?
     <div className="m-3">

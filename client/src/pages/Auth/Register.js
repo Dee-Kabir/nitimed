@@ -99,6 +99,7 @@ const Register = (props) => {
   };
   return !loading ? (
     <Fragment>
+    <div style={{marginTop: '71px'}}></div>
       <ErrorComponent error={error} />
       <RegisterForm
         values={values}

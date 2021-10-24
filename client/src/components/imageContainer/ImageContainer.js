@@ -6,11 +6,10 @@ const ImageContainer = ({
   imageName2,
   imageName3,
   mainHeading,
-  desc,
 }) => {
   return (
     <div className={classes.imageContainer}>
-      <Carousel className={classes.imageContainer_bg} autoplay>
+      <Carousel effect="fade" className={classes.imageContainer_bg} autoplay>
         <Image className={classes.Carousel_Image} src={imageName1} />
         <Image className={classes.Carousel_Image} src={imageName2} />
         <Image className={classes.Carousel_Image} src={imageName3} />
@@ -19,7 +18,6 @@ const ImageContainer = ({
       <div className={classes.ImageContainer_main_heading}>
         <span>{mainHeading}</span>
       </div>
-      <div className={classes.ImageContainer_desc}>{desc}</div>
     </div>
   );
 };

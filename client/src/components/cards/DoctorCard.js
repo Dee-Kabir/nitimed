@@ -5,25 +5,17 @@ import { useHistory } from "react-router-dom";
 import TableHeader from "../tableComponents/TableHeader";
 import { connect } from "react-redux";
 import {setSelectedDoctor} from '../../store/actions'
-const week = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const week = ["Sun","Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const DoctorCard = ({ doctors, heading,setSelectedDoctor, searched = true }) => {
   const history = useHistory()
 
   const checkAvailability = (doctor) => {
     if (doctor.available) {
-      console.log(week[new Date().getDay()],"weekday")
-      if (doctor.jobType === "private") {
-        
-        if (doctor.weekdays.includes(week[new Date().getDay()])) {
-          
-          setSelectedDoctor(doctor)
-          history.push(`/appointment/${doctor.id}`)
-        } else {
-          alert("Doctor Not Available");
-        }
-      } else {
+      if (doctor.weekdays.includes(week[new Date().getDay()])) {
         setSelectedDoctor(doctor)
         history.push(`/appointment/${doctor.id}`)
+      } else {
+        alert("Doctor Not Available today");
       }
     } else {
       alert("Doctor Not Available");

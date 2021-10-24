@@ -38,6 +38,7 @@ import Appointment from "./pages/appointment/Appointment";
 import ForgotPassword from "./components/hospitals/ForgotPassword";
 import ResetPassword from "./components/hospitals/ResetPassword";
 import Vaccine from "./pages/vaccination/vaccine";
+import FaqContainer from "./components/imageContainer/FaqContainer"
 const App = (props) => {
   const [loading,setLoading] = useState(true);
   useEffect(()=>{
@@ -71,6 +72,7 @@ const App = (props) => {
       <MainHeader />
       <Switch>
         <Route path="/" exact component={Home} />
+        <Route path="/faq" exact component={FaqContainer} />
         <LoginRoutes path="/login/:userType" exact component={MobileLogin} />
         <MobileAuthRoutes
           path="/registration-after-mobile/user/:userId"
@@ -101,7 +103,7 @@ const App = (props) => {
           exact
           component={BookAppointment}
         />
-        <Route path="/animal/:id" exact component={AnimalPage} />
+        <DoctorRoutes path="/animal/:id" exact component={AnimalPage} />
         <DoctorRoutes
           path="/doctor-dashboard/:doctorId"
           exact
@@ -110,9 +112,9 @@ const App = (props) => {
         <Route path="/join-room">
           <JoinRoomPage />
         </Route>
-        <Route path="/room">
+        <DoctorRoutes path="/room">
           <RoomPage />
-        </Route>
+        </DoctorRoutes>
         <Route path="/video-page">
           <IntroductionPage />
         </Route>

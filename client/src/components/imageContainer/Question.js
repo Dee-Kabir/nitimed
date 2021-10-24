@@ -7,7 +7,7 @@ const Question = ({ ques }) => {
       <div onClick={() => setShow(!show)} className={classes.question}>
         {ques.question}
       </div>
-      {show && <div className={classes.answer}>{ques.answer}</div>}
+      {show && <div className={classes.answer}><a href={ques.answer} target="_blank">{ques.answer}</a></div>}
     </div>
   );
 };

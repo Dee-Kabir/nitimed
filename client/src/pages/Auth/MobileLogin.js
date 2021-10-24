@@ -103,11 +103,11 @@ const MobileLogin = (props) => {
                     if(data.success){
                       localStorage.setItem("user", data.user.id);
                       localStorage.setItem("token",data.token)
+                      props.setUserLoggedIn(data.user)
+                      localStorage.setItem("userType", props.match.params.userType === "user" ? "user" : "doctor");
+                      props.history.replace('/');
                     }
-                    props.setUserLoggedIn(data.user)
-                    setValues({ ...values, loading: false });
-                    localStorage.setItem("userType", props.match.params.userType === "user" ? "user" : "doctor");
-                    props.history.replace('/');
+                    
                   });
                 }
               }
@@ -141,6 +141,7 @@ const MobileLogin = (props) => {
   };
   return (
     <Fragment>
+      <div style={{marginTop: '71px'}}></div>
       <ErrorComponent error={error} />
       <MobileAndOtpForm
         handleChange={handleChange}

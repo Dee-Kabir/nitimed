@@ -7,7 +7,7 @@ import {
   LocalDataTrack,
   LocalVideoTrack,
 } from "twilio-video";
-import { setMessages, setShowOverlay } from "../store/actions";
+import { setShowOverlay } from "../store/actions";
 
 const audioConstraints = {
   video: false,
@@ -16,10 +16,7 @@ const audioConstraints = {
 
 const videoConstraints = {
   audio: true,
-  video: {
-    width: 640,
-    height: 480,
-  },
+  video: true
 };
 
 let dataChannel = null;
@@ -46,7 +43,7 @@ export const connectToRoom = async (
   setRoom
 ) => {
   // console.log("roomiD in utils",roomId)
-  const onlyWithAudio = store.getState().connectOnlyWithAudio;
+  const onlyWithAudio = store.getState().reducer.connectOnlyWithAudio;
   const constraints = onlyWithAudio ? audioConstraints : videoConstraints;
 
   navigator.mediaDevices
@@ -95,30 +92,3 @@ export const checkIfRoomExists = async (roomId) => {
 };
 
 // data channel utils
-export const sendMessageUsingDataChannel = (
-  content,
-  messageCreatedByMe = false
-) => {
-  const identity = store.getState().identity;
-  const ownMessage = {
-    identity,
-    content,
-    messageCreatedByMe,
-  };
-  addMessageToMessanger(ownMessage);
-
-  const messageToSend = {
-    identity,
-    content,
-  };
-
-  const stringifiedMessage = JSON.stringify(messageToSend);
-
-  dataChannel.send(stringifiedMessage);
-};
-
-export const addMessageToMessanger = (message) => {
-  const messages = [...store.getState().messages];
-  messages.push(message);
-  store.dispatch(setMessages(messages));
-};

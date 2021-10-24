@@ -112,6 +112,7 @@ const RegisterDoctor = (props) => {
   };
   return (!loading ? 
     <div className={classes.RegisterForm} >
+    <div style={{marginTop: '71px'}}></div>
     <div className={classes.RegisterForm_Block}>
     <div className={classes.Heading_Add_doctor}>Register on NitiMed</div>
     {error && <ErrorComponent error={error} /> }

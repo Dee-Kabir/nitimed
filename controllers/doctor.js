@@ -342,22 +342,28 @@ exports.getCompletedAppointments = async(req,res) => {
 exports.getDoctorByQuery = async(req,res) => {
     const {category, name} = req.query
     let filter = {[category] : {$regex : name, $options: 'i'}};
-    Doctor.find(filter).select('id name address email phone city state available fee jobType servingType speciality weekdays workTime').then(doctor => {
-        if(!doctor){
-            return res.status(400).json({
-                success: false,message: "Provide a valid query"
-            })
-        }
-        if(doctor.length > 0){
-            return res.status(200).json({
-                success: true, doctors: doctor
-            })
-        }else{
-            return res.status(400).json({
-                success: false,message: "No doctor found"
-            })
-        }
-    })
+    try{
+        Doctor.find(filter).select('id name address email phone city state available fee jobType servingType speciality weekdays workTime').then(doctor => {
+            if(!doctor){
+                return res.status(400).json({
+                    success: false,message: "Provide a valid query"
+                })
+            }
+            if(doctor.length > 0){
+                return res.status(200).json({
+                    success: true, doctors: doctor
+                })
+            }else if(doctor.length===0){
+                return res.status(400).json({
+                    success: true,message: "No doctor found"
+                })
+            }
+        })
+    }catch(err){
+        return res.status(400).json({
+            success: false,message: "Provide a valid query"
+        })
+    }
     
 }
 exports.doctorExists = async(req,res) => {
@@ -472,8 +478,10 @@ exports.registerDoctors = (req,res) =>{
             }
         }]
     });
-    Doctor.insertMany(excelData.VO).then((data)=> {
-        return res.json({excelData})
-    })
-    // return res.json({excelData})
+    // excelData.VO.map(async(doctor) =>  await Doctor.updateMany({phone: doctor.phone},{phone: "+91"+doctor.phone}));
+    // Doctor.insertMany(excelData.VO).then((data)=> {
+    //     return res.json({excelData})
+    // })
+    // Doctor.updateMany({},{phone});
+    return res.json({excelData})
 }

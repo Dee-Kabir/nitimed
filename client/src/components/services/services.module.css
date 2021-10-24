@@ -2,14 +2,17 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin: 32px;
+    margin: 16px;
     text-align: center;
     justify-content: center;
 }
 .services_box{
     margin-top: 32px;
 }
-.Services_heading {
-    text-align: center;
+.Service_box_Heading {
     font-size: 2.5rem;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 1.62px;
+    line-height: 1.3;
 }

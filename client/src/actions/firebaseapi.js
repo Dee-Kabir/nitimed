@@ -56,7 +56,7 @@ export const bookAppointment = async(data,token) => {
   }).then(res => res.json())
   .catch(err => console.log(err))
 }
-export const completeAppointments = async(id,completed,token) => {
+export const completeAppointments = async(id,completed,remark,token) => {
   return await fetch(`${API_URL}/appointments/${id}`,{
     method: 'PUT',
     headers: {
@@ -64,7 +64,7 @@ export const completeAppointments = async(id,completed,token) => {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     },
-    body: JSON.stringify({completed: completed})
+    body: JSON.stringify({completed: completed,remark})
   }).then(res => res.json())
   .catch(err => console.log(err))
 }

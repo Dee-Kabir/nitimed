@@ -3,6 +3,7 @@ import { Header, Table } from "semantic-ui-react";
 import LoadingComponent from "../../utilities/LoadingComponent";
 import TableHeader from "../tableComponents/TableHeader";
 import { getCompletedAppointments } from "../../actions/firebaseapi";
+import moment from "moment";
 class CompletedAppointments extends Component {
   state = { appointments: [], loading: false, error: "" };
   componentDidMount() {
@@ -11,13 +12,17 @@ class CompletedAppointments extends Component {
   loadAppointments = async () => {
     this.setState({ loading: true });
     const token = localStorage.getItem('token')
-    getCompletedAppointments(this.props.doctorId,token).then((data) => {
-      if(data.success)
-      this.setState({appointments: data.appointments.completedAppointments})
-      else
-      this.setState({error: data.message})
-    })
+    try{
+      getCompletedAppointments(this.props.doctorId,token).then((data) => {
+        if(data.success)
+        this.setState({appointments: data.appointments.completedAppointments})
+        else
+        this.setState({error: data.message})
+        this.setState({ loading: false })
+      })
+    }catch(err){
     this.setState({ loading: false });
+    }
   };
   render() {
     const { loading, appointments } = this.state;
@@ -26,18 +31,18 @@ class CompletedAppointments extends Component {
         <div>
           <Header>Completed Appointmets</Header>
           <Table celled striped >
-          <TableHeader headerParams={["Sno.","Patient Name","Created on","Completed on"]} />
+          <TableHeader headerParams={["Sno.","Owner Name","Created on","Completed on"]} />
             <Table.Body>
               {appointments.map((app, _) => (
-                <Table.Row key={app.id}>
+                <Table.Row key={app._id}>
                   <Table.Cell>{_ + 1}</Table.Cell>
                   <Table.Cell>{app.user.name}</Table.Cell>
                   <Table.Cell>
-                    {app.createdAt && app.createdAt.toLocaleString()}
+                    {app.createdAt && moment(app.createdAt).format('DD/MM/YYYY') }
                   </Table.Cell>
                   <Table.Cell>
                     {app.updatedAt &&
-                      app.updatedAt.toLocaleString()}
+                      moment(app.updatedAt).format('DD/MM/YYYY')}
                   </Table.Cell>
                 </Table.Row>
               ))}

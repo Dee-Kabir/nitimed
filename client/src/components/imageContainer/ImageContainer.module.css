@@ -1,68 +1,35 @@
 .imageContainer {
     position: relative;
     width: 100%;
-    height: 90vh;
-    margin-bottom: 8px;
+    height: 79vh;
+    margin-bottom: 71px;
+    top: 71px;
+    overflow: hidden;
 }
 .Carousel_Image{
     width: 100%;
-    height: 90vh;
+    height: 91vh;
 }
 
 .imageContainer_bg_mask{
-    background: black;
-    opacity: 0.6;
+    background: #1b33bd;
+    opacity: 0.8;
     position: absolute;
-    top: 0px;
+    bottom: -20vh;
     left: 0px;
     width: 100%;
-    height: 100%;
+    height: 40vh;
+    border-radius: 18%;
 }
 .ImageContainer_main_heading {
     font-size: 2.5rem;
     font-weight: 600;
     color: white;
     position: absolute;
-    top: 15%;
+    bottom: 10%;
     width: 100%;
     text-align: center;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-.ImageContainer_desc{
-    font-size: 1.4rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: white;
-    position: absolute;
-    top:30%;
-    width: 100%;
-    text-align: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-.ImageContainer_btns{
-    display: flex;
-    position: absolute;
-    bottom: 15%;
-    justify-content: center;
-    width: 100%;
-}
-.ImageContainer_btn {
-    color: white;
-    background: rgb(0,113,194);
-    text-decoration: none;
-    padding: 8px 16px;
-    border-radius: 4px 4px 0px 0px;
-    border: 0px;
-    border-radius: 4px;
-    box-shadow: none;
-    font-weight: 500;
-    font-size: 18px;
-    width: 180px;
-    margin: auto 16px;
-    cursor: pointer;
-    text-align: center;
-}
-.ImageContainer_btns >a:hover{
-    color: white;
 }
 .TillNow {
     width: 100%;

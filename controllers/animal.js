@@ -11,7 +11,7 @@ exports.getAnimalInfo = async(req,res) => {
     if(mongoose.isValidObjectId(req.params.id)){
         const animal = await Animal.findById(req.params.id).populate({path : 'vaccines',populate: {
             path: 'onThis'
-        }}).select('name id age breed registrationId gender vaccines semination')
+        }}).select('name id age breed registrationId gender owner vaccines semination remarks')
         if(animal){
             return res.status(200).json({
                 success: true,

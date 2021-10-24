@@ -2,18 +2,53 @@
     display: flex;
     height: 71px;
     width: 100%;
-    padding: 0px 32px;
-    box-shadow: 2px 2px #888;
+    padding: 0px 16px;
+    box-shadow: 2px 2px #eee;
+    background-color: #fff;
+    position: fixed;
+    top: 0px;
+    z-index: 2;
+}
+.NewHeader{
+    display: flex;
+    height: 71px;
+    width: 100%;
+    padding: 0px 16px;
+    box-shadow: 2px 2px #eee;
+    background-color: #fff;
+    z-index: 2;
+}
+.Header_Logo_Img{
+    width: 50px;
 }
 .mobileHeader{
     display: none !important;
+    position: fixed;
+    top: 0px;
+    z-index: 2;
+    width: 100%;
 }
-@media (max-width: 400px) {
+.Header_Login{
+    background-color: #fff;
+    color: #233286;
+    border: 2px solid #233286;
+    padding: 8px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+.Header_Login:hover{
+    background-color: #233286;
+    color: #fff;
+}
+@media (max-width: 500px) {
     .Header{
         display: none;
     }
     .mobileHeader{
         display: flex !important ;
+    }
+    .NewHeader{
+        display: none;
     }
 }
 
@@ -25,20 +60,25 @@
     flex-grow: 1;
 }
 .Logo_niti{
-    color: rgb(85,26,139);
+    color: #233286;
     font-size: 1.4rem;
+    display: flex;
 }
-.Logo_com{
-    font-size: inherit;
-    color: white;
-    background: rgb(85,26,139);
+.Web_Name{
+    font-weight: 500;
+    font-size: 1.7rem;
 }
 .Header_Items_Block{
     margin-left: 0px;
     display: flex;
     flex-grow: 4;
 }
-
+.NewHeader_Items_Block{
+    margin-left: 0px;
+    display: flex;
+    flex-grow: 4;
+    justify-content: space-around;
+}
 .Header_Auth_Block{
     padding: 20px;
     flex-grow: 1;

@@ -15,10 +15,10 @@ const Doctors = () => {
           How Nitimed helps in Doctor Consultation ?
         </Header>
         <div className={classes.Doctors_flow_points}>
-          <div className={classes.Doctors_flow_point}>Choose a Doctor</div>
-          <div className={classes.Doctors_flow_point}> Book a Slot</div>
-          <div className={classes.Doctors_flow_point}>Make Payment</div>
-          <div className={classes.Doctors_flow_point}>Make a video call</div>
+          <div className={classes.Doctors_flow_point}>Select Doctor</div>
+          <div className={classes.Doctors_flow_point}> Book Slot</div>
+          <div className={classes.Doctors_flow_point}>Payment</div>
+          <div className={classes.Doctors_flow_point}>Do video call</div>
           <div className={classes.Doctors_flow_point}>Problem solved</div>
         </div>
       </div>

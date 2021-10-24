@@ -6,6 +6,9 @@ import classes from "./services.module.css";
 const ServicesComponent = () => {
   const [services, setServices] = useState([])
   useEffect(()=>{
+    loadServices()
+  },[])
+  const loadServices = () => {
     try{
       getServices().then((data)=>{
         if(data.success){
@@ -15,10 +18,10 @@ const ServicesComponent = () => {
     }catch(err){
       console.log(err)
     }
-  },[])
+  }
   return (
     <div className={classes.services_box}>
-      <h1 className={classes.Services_heading}>Our Services</h1>
+    <p className={classes.Service_box_Heading}>Our <span style={{color:"#233286"}}>Services</span> Include</p>
       <div className={classes.Services}>
         {services && services.map((service, _) => (
           <ServiceCard key={service.title} service={service} />

@@ -1,5 +1,5 @@
 import TillNowCard from "../cards/TillNowCard";
-import classes from "./ImageContainer.module.css";
+import classes from "./services.module.css";
 import { useEffect, useState } from "react";
 import { getTillNow,getRecordsNumber } from "../../actions/queries";
 
@@ -34,9 +34,9 @@ const TillNow = () => {
     
   };
   return (
-    <div className={classes.TillNow}>
-      <div className={classes.TillNow_Heading}>Achievements Till Now</div>
-      <div className={classes.TillNow_items}>
+    <div className={classes.services_box}>
+    <p className={classes.Service_box_Heading}>Achievements Till Now</p>
+      <div className={classes.Services}>
         {workDone && workDone.map((work, _) => (
           <TillNowCard
             key={work.title}

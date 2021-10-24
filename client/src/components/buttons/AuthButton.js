@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import {Button} from "semantic-ui-react"
+import classes from "./AuthButton.module.css"
 const AuthButton = ({ text, to }) => {
   return (
       <Link to={to}>
-        <Button color="violet">{text}</Button>
+        <button className={classes.Header_Login} >{text}</button>
       </Link>
   );
 };

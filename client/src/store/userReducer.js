@@ -17,6 +17,11 @@ const userReducer = (state = intialState,action) => {
                 ...state,
                 mobileRegister: action.mobileNumber
             }
+        case Actions.SET_USER_LOGGED_OUT:
+            return{
+                ...state,
+                user : {}
+            }
         default:
             return{
                 ...state

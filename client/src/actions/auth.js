@@ -147,7 +147,6 @@ export const signout = () => {
   localStorage.removeItem('userInfo')
   localStorage.removeItem('userType')
   localStorage.removeItem('token')
-  window.location.reload()
 };
 export const typeOfUser = () => {
   let user = localStorage.getItem("userType");

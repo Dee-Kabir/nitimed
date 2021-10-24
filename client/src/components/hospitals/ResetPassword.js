@@ -36,6 +36,7 @@ const ResetPassword = props => {
     }
     return(
         <Fragment>
+        <div style={{marginTop: '71px'}}></div>
         {
             error && <ErrorComponent error={error} />
         }

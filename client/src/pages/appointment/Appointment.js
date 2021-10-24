@@ -16,7 +16,7 @@ const Appointment = props => {
     }
     return (appointment &&
         <Fragment>
-        <div>
+        <div style={{marginTop: "71px"}}>
         {JSON.stringify(appointment)}
         <Descriptions title="Information about the Appointment">
             <Descriptions.Item label="Animal registration Id">{appointment.animal.registrationId}</Descriptions.Item>
