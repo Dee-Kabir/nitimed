@@ -49,7 +49,7 @@ const ShowLists = (props) => {
     setResult([])
    }
   };
-  const DiseaseTableHeader = () => <TableHeader headerParams={props.headerList} />
+  const DiseaseTableHeader  = <TableHeader headerParams={props.headerList} />
 
   const DiseaseTableBodyRow = (d) => (
     <Table.Row  key={d._id}>
@@ -60,22 +60,22 @@ const ShowLists = (props) => {
     }
     </Table.Row>
   )
-  const NoData = () => (
+  const NoData = (
     <Message content="No result found" />
   )
   
   const displayList = (data) => {
     return( data.length>0 ? <Table celled striped>
-    {DiseaseTableHeader()}
+    {DiseaseTableHeader}
       {<TableBody>
         {data.map((d,_) => (
             DiseaseTableBodyRow(d,_)
           ))}
       </TableBody>}
-  </Table> : NoData()
+  </Table> : NoData
     )
   }
-  const controlButtons = (data) => (
+  const controlButtons = (
     <Grid>
     <Grid.Row columns={2} stretched className="m-4">
       <Grid.Column ><Button disabled={data[0] && data[0]["sNo"] === 1} secondary onClick={() => setFrom(from-100)} >Previous</Button></Grid.Column>
@@ -98,7 +98,7 @@ const ShowLists = (props) => {
           {searchterm.length > 0 ? displayList(result) : displayList(data)}
         </div>
         <div>
-          {searchterm.length === 0 ? controlButtons(data): null}
+          {searchterm.length === 0 ? controlButtons: null}
         </div>
       </div>
     </div> : <LoadingComponent loading={loading} />

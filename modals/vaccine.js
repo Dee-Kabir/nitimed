@@ -1,24 +1,28 @@
 const mongoose = require('mongoose')
 const {ObjectId} = mongoose.Schema
 const vaccineSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        unique: true
+    sNo: {
+        type:Number
     },
-    nextVaccine: {
-        type: ObjectId,
-        ref: 'Vaccine'
+    diseaseName: {
+        type: String,
+    },
+    ageAtFirstDose: {
+        type: String
     },
     uses: {
         type: String,
         default: ''
     },
-    timeGapInDays : {
-        type: Number
+    BoosterDose : {
+        type: String
     },
     forBreed: {
         type:String,
         default: ""
+    },
+    subsequentDoseOrRemark: {
+        type: String
     }
 },{timestamps: true})
 

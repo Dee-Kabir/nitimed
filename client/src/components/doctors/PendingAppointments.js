@@ -1,7 +1,7 @@
 import moment from "moment";
 import { Component } from "react";
 import { withRouter } from "react-router";
-import { Button, Header, Input, Modal, Table,Icon, FormTextArea } from "semantic-ui-react";
+import { Button, Header, Input, Modal, Table,Icon } from "semantic-ui-react";
 import { completeAppointments,getPendingAppointments } from "../../actions/firebaseapi";
 import ErrorComponent from "../../utilities/ErrorComponent";
 import LoadingComponent from "../../utilities/LoadingComponent";
@@ -57,7 +57,7 @@ class PendingAppointments extends Component {
           {error && <ErrorComponent error={error} />}
           <Header>Pending Appointments </Header>
           <Table celled>
-          <TableHeader headerParams={["SNo.","Owner Name","created","Status","More"]}/>
+          <TableHeader headerParams={["SNo.","Owner Name","created","Status","About animal","About Owner"]}/>
             <Table.Body>
               {appointments.map((app, _) => (
                 <Table.Row key={app._id}>
@@ -72,7 +72,6 @@ class PendingAppointments extends Component {
                     checked={this.state.open}
                     onChange={() =>{
                       this.setState({open: true})
-                      // this.makeAppointmentDone(app._id)
                     }
                     }
                     type="checkbox"
@@ -99,7 +98,8 @@ class PendingAppointments extends Component {
                   </Modal>
                     {" "}
                   </Table.Cell>
-                  <Table.Cell><Button onClick={() => this.props.history.push(`/animal/${app.animal}`)}>More</Button></Table.Cell>
+                  <Table.Cell onClick={() => this.props.history.push(`/animal/${app.animal}`)} style={{cursor: "pointer",color: "blue"}}>More</Table.Cell>
+                  <Table.Cell onClick={()=>this.props.history.push(`/appointmentInfo/${app._id}`) } style={{cursor: "pointer",color: "blue"}}>Owner</Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>

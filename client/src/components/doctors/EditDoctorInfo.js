@@ -74,27 +74,50 @@ const EditDoctorInfo = (props) => {
                 jobType:jobType,servingType: servingType,workTime:workTime,weekdays:weekdays,consultingTime:consultingTime,
                 speciality:speciality,address:address,state:state,city:city,fee:fee})    
     }
+    const formIsValid = () => {
+      if(!name) {
+        setError("Name is required")
+        return false
+      }else if(!email){
+        setError("Email is required")
+        return false
+      }else if(!qualification || !speciality){
+        setError("Quaification and speciality is required")
+        return false
+      }else if(!jobType || !servingType || !workTime){
+        setError("select job type, serving type and work time")
+        return false
+      }else if(weekdays.length===0){
+        setError("select working week days")
+        return false;
+      }else if(!address || !state || !city){
+        setError("enter your address,state and city");
+        return false
+      }else{
+        return true
+      }
+    }
     const handleSubmit = (e) =>{
         e.preventDefault()
         setLoading(true);
         const id = user.id
         const token = localStorage.getItem('token')
-          editDoctor(name,email,id,"+91"+phone,qualification,jobType,servingType,workTime,weekdays,address,speciality,state,city,fee,token).then((data)=>{
-            if(data.success){
-              getDoctor(id,token).then(data => {
-                if(data.success && loggedInUser.id === id)
-                props.setUserLoggedIn(data.user);
-                else{
-                  
-                }
-              })
-            }else{
-              setError(data.message)
-            }
-          }).catch((err) => {
-            console.log(err)
-          })   
-          setLoading(false) 
+        if(formIsValid()){
+          try{
+            editDoctor(name,email,id,"+91"+phone,qualification,jobType,servingType,workTime,weekdays,address,speciality,state,city,fee,consultingTime,token).then((data)=>{
+              if(data.success){
+                getDoctor(id,token).then(data => {
+                  if(data.success && loggedInUser.id === id)
+                  props.setUserLoggedIn(data.user)
+                })
+              }else{
+                setError(data.message)
+              }
+            }) 
+          }catch(err){
+            setError("Try again after some time.")
+          }  
+        }
     }
 
     return (!loading ? 

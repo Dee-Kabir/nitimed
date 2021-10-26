@@ -26,7 +26,7 @@ const DoctorCard = ({ doctors, heading,setSelectedDoctor, searched = true }) => 
       <Header>{heading}</Header>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         <Table celled>
-        <TableHeader headerParams={["Sr No.","state","District","Doctor Name","Mobile Number","Email","Fee(Rs)","Appointment"]} />
+        <TableHeader headerParams={["#","state","District","Doctor Name","Mobile Number","Email","Fee(Rs)","Appointment"]} />
           <Table.Body>
             {doctors.map((doc, _) => (
               <Table.Row key={doc.id}>

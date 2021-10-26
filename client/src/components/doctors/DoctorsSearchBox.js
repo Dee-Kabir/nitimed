@@ -10,7 +10,6 @@ import ErrorComponent from "../../utilities/ErrorComponent";
 import TableHeader from "../tableComponents/TableHeader";
 import LoadingComponent from "../../utilities/LoadingComponent";
 import { connect } from "react-redux";
-// import UploadFiles from "../../uploadFiles/UploadFiles";
 
 const DoctorSearchBox = (props) => {
   const [values, setValues] = useState({
@@ -75,15 +74,18 @@ const DoctorSearchBox = (props) => {
       });
       findHospitals(value, type).then((data) => {
         if(data.success)
-        setFindHospitals([...data.hospitals]);
+          setFindHospitals([...data.hospitals]);
         else
-        setFindHospitals([]);
+        {
+          setFindHospitals([]);
+          setValues({...values,error: data.message})
+        }
         setLoading(false);
       });
-    }catch(err){
-      console.log(err)
-      setLoading(false);
-    }
+      }catch(err){
+        console.log(err)
+        setLoading(false);
+      }
     
   };
   return (!loading ?

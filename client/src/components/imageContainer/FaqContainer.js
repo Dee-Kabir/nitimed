@@ -19,7 +19,7 @@ const FaqContainer = () => {
     <div className={classes.Faq}>
       <h1 className={classes.Faq_Heading}>Frequently Asked Questions?</h1>
       {questions.map((ques, i) => (
-        <Question ques={ques} key={i} />
+        <Question ques={ques} sNo = {i+1} key={i} />
       ))}
     </div>
   );

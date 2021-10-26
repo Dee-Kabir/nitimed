@@ -26,7 +26,7 @@ const loginButtons = () =>{
 }
 const MainHeader = (props) => {
   const [visible, setVisible] = useState(false);
-  const userCircle = () => (
+  const userCircle = (
     props.loggedIn && (
       <Link
         className={classes.User_Avatar}
@@ -49,15 +49,14 @@ const MainHeader = (props) => {
               </div>
             </Link>
   
-  const mobileHeader = () => {
-    return (
+  const mobileHeader = (
       <Fragment>
         <Menu className={classes.mobileHeader}>
           <Menu.Item position="left">
             {NitiVetLogo}
           </Menu.Item>
           <Menu.Item position="right">
-          {userCircle()}
+          {userCircle}
             
             <Icon
               name="sidebar"
@@ -179,11 +178,10 @@ const MainHeader = (props) => {
         </Grid>
       </Fragment>
     );
-  };
  
   return (
     <Fragment>
-      {mobileHeader()}
+      {mobileHeader}
       <div className={classes.Header}>
         <div className={classes.Header_Logo_Block}>
           {NitiVetLogo}
@@ -223,7 +221,7 @@ const MainHeader = (props) => {
           </Dropdown>
           )}
           
-          {userCircle()}
+          {userCircle}
           {props.loggedIn && (
             <div onClick={() => {signout() 
             props.setUserLoggedOut()
@@ -242,27 +240,3 @@ const mapStateToProps = state => ({
   userName: state.user.user && state.user.user.name
 })
 export default connect(mapStateToProps,{setUserLoggedOut})(MainHeader);
-// <HeaderItem
-          //   itemHeading="Pharmacy"
-          //   itemDesc="Medicines & health products"
-          //   to="/pharmacy"
-          //   active="pharmacy"
-          // />
-          // <HeaderItem
-          //   itemHeading="Diagonstics"
-          //   itemDesc="Get Lab test done"
-          //   to="/diagonstic-laboratories"
-          //   active="diagonsis"
-          // />
-          // <HeaderItem
-          //   itemHeading="Diseases"
-          //   itemDesc="Diseases and Symptoms"
-          //   to="/diseases"
-          //   active="diseases"
-          // />
-          // <HeaderItem
-          //   itemHeading="Health Services"
-          //   itemDesc="veterinary health services"
-          //   to="/health-services"
-          //   active="health-services"
-          // />

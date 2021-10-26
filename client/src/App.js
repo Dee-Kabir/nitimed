@@ -41,15 +41,16 @@ import Vaccine from "./pages/vaccination/vaccine";
 import FaqContainer from "./components/imageContainer/FaqContainer"
 const App = (props) => {
   const [loading,setLoading] = useState(true);
+  const {setUserLoggedIn} = props;
   useEffect(()=>{
     const token = localStorage.getItem('token')
     if(isAuthenticated()){
       try{
         checkUserTypeAndReturnData(token).then(data =>{
           if(data.success){
-            props.setUserLoggedIn(data.user)
+            setUserLoggedIn(data.user)
             setLoading(false)
-          }else if(data.success === false && data.message === "Not Auhtorized"){
+          }else if(data.success === false && data.message === "Not Authorized"){
             signout()
             setLoading(false)
           }
@@ -61,8 +62,7 @@ const App = (props) => {
     }else{
       setLoading(false)
     }
-    
-  },[])
+  },[setUserLoggedIn])
   if(loading){
     return <LoadingComponent />
   }
@@ -118,7 +118,7 @@ const App = (props) => {
         <Route path="/video-page">
           <IntroductionPage />
         </Route>
-        <LoginRoutes path="/appointmentInfo/:id" exact component={Appointment} />
+        <DoctorRoutes path="/appointmentInfo/:id" exact component={Appointment} />
         <LoginRoutes path="/forgotPassword" exact component={ForgotPassword} />
         <LoginRoutes path="/reset/:token/:id" exact component={ResetPassword} />
         <Route path="/vaccination" exact component={Vaccine} />

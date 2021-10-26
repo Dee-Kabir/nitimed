@@ -170,6 +170,7 @@ export const editDoctor = async (
   state,
   city,
   fee,
+  timing,
   token
 ) => {
   return await fetch(`${API_URL}/doctors/${id}`,{
@@ -192,7 +193,7 @@ export const editDoctor = async (
       speciality,
       state,
       city,
-      fee,})
+      fee,timing})
   }).then(res => res.json())
   .catch(err => console.log(err))
 };

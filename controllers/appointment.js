@@ -80,9 +80,7 @@ exports.updateAppointment = async(req,res) => {
 }
 exports.getAppointment = async(req,res) => {
     if(mongoose.isValidObjectId(req.params.id)){
-        Appointment.findById(req.params.id).populate({path: 'animal',populate: {
-            path:'vaccines'
-        }}).then(appointment => {
+        Appointment.findById(req.params.id).populate('user','name address phone state city email').then(appointment => {
             if(!appointment){
                 return res.status(400).json({
                     success:false,message: "Appointment not found"

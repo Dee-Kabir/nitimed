@@ -1,7 +1,7 @@
 import {Button, Form} from "semantic-ui-react"
 import classes from "../../pages/Auth/MobileLogin.module.css";
 const MobileAndOtpForm = ({handleChange,handleMobileNumberSubmit,handleotpSubmit,phone,otp,loading,mobileNumberSubmit,otpSubmit}) => {
-    const mobileNumberForm = () => (
+    const mobileNumberForm = (
     <Form loading={loading} onSubmit={handleMobileNumberSubmit}>
       <Form.Input 
         className={`${classes.mobile_number_input} mt-4`}
@@ -29,7 +29,7 @@ const MobileAndOtpForm = ({handleChange,handleMobileNumberSubmit,handleotpSubmit
       </Button>
     </Form>
   );
-  const otpForm = () => (
+  const otpForm = (
     <Form loading={loading} onSubmit={handleotpSubmit}>
       <Form.Input
         className={classes.mobile_number_input}
@@ -61,8 +61,8 @@ const MobileAndOtpForm = ({handleChange,handleMobileNumberSubmit,handleotpSubmit
             </p>
           </div>
           <div style={{ textAlign: "center",padding:'16px',marginBottom:'30px' }}>
-            {!mobileNumberSubmit && mobileNumberForm()}
-            {otpSubmit && otpForm()}
+            {!mobileNumberSubmit && mobileNumberForm}
+            {otpSubmit && otpForm}
           </div>
         </div>
       </div>

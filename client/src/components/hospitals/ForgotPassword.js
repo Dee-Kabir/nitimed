@@ -6,36 +6,37 @@ import { getOtp } from "../../actions/email";
 import ErrorComponent from '../../utilities/ErrorComponent'
 const ForgotPassword = props => {
     const [email,setEmail] = useState('');
-    const [values,setValues] = useState({
-        loading: false,
-        error: '',
-        message: '',
-    })
-    const { loading, error, message} = values;
+    const [loading,setLoading] = useState(false)
+    const [message,setMessage] = useState("")
+    const [error,setError] = useState("")
     const submitEmail = (e) => {
         e.preventDefault();
         if(email===''){
-            setValues({...values,error: 'Enter email'});
+            setError("Enter Email")
             return;
         }
-        setValues({...values,loading:true})
+        setLoading(true)
         try{
             getOtp(email).then(data => {
                 if(data.success){
-                    setValues({...values,message: data.message,error: ''})
+                    setMessage(data.message);
                 }else{
-                    setValues({...values,error: data.message,message: ''})
+                    setError(data.error)
                 }
+               setLoading(false)
             })
         }catch(err){
             console.log(err)
+            setLoading(false)
         }
-        setValues({...values,loading:false})
+        
     }
     
-    const emailForm = () => (
+    const emailForm = (
         <div style={{padding: '16px',height:'70vh',marginTop:"71px"}}>
         <Header>Reset Password using email</Header>
+        {error && <ErrorComponent error={error} />}
+        {message && <Message info>{message}</Message>}
         <Form loading={loading} onSubmit={submitEmail}>
         <Form.Input type="email" label="Email Address" name="email" placeholder="Enter your Email" value={email} onChange={(e) => setEmail(e.target.value)} />
         <Button type="submit" disabled={loading} loading={loading}>Get Otp</Button>
@@ -43,10 +44,9 @@ const ForgotPassword = props => {
         </div>
     )
     return(<Fragment>
-        {error && <ErrorComponent error={error} />}
-        {message && <Message info>{message}</Message>}
+        
         {
-            emailForm()
+            emailForm
         }
         </Fragment>
     )

@@ -12,15 +12,18 @@ class HospitalCard extends Component{
   showHospitalData = async() => {
     if(this.state.doctorsList.length === 0){
       this.setState({loading:true})
-      getDoctorsOfHospital(this.props.hospital.id).then((data) => {
-        if( data && data.success){
-          this.setState({doctorsList: data.doctors.doctors})
-        }
-      })
-    this.setState({loading:false})
-  }
-  this.setState({show: !this.state.show})
-    
+      try{
+        getDoctorsOfHospital(this.props.hospital.id).then((data) => {
+          if(data.success){
+            this.setState({doctorsList: data.doctors.doctors})
+          }
+          this.setState({loading:false})
+        })
+      }catch(err){
+        this.setState({loading:false})
+      }
+    }
+      this.setState({show: !this.state.show})
     }
     doctors = () => (<DoctorCard doctors={this.state.doctorsList} heading={`Doctors in hospital ${this.props.hospital.name}`} />)
     

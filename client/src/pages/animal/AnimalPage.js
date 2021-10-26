@@ -42,14 +42,16 @@ const AnimalPage = props => {
                 updateAnimalOwner(animal.id,"+91"+phone,token).then(data => {
                     if(data.success){
                         alert(data.message)
-                        setLoading(false)
+                       
                         props.history.goBack()
                     }else{
-                        setLoading(false)
+                        
                         setError(data.message)
                     }
+                    setLoading(false)
                 })
             }catch(err){
+                setLoading(false)
                 console.log(err)
             }
         }else{
@@ -79,15 +81,17 @@ const AnimalPage = props => {
             <br/>
             <Header>Suggested Vaccines Information</Header>
             {animal.vaccines.length > 0 ?  <Table celled striped>
-            <TableHeader headerParams={["Sno","vaccine name","Suggested on","Action"]} />
+            <TableHeader headerParams={["Sno","vaccine name","Suggested on","Age at first dose","Subsequent doses","Action"]} />
             <Table.Body>
                 {
                     animal.vaccines.filter(vacc => vacc.completed===false).map((vacc,_) =>(
                         <Table.Row key={vacc.createdAt}>
                         <Table.Cell>{_+1}</Table.Cell>
-                        <Table.Cell>{vacc.onThis.name}</Table.Cell>
+                        <Table.Cell>{vacc.onThis && vacc.onThis.diseaseName}</Table.Cell>
                         <Table.Cell>{moment(vacc.createdAt).fromNow()}</Table.Cell>
-                        <Table.Cell><Link to={`/vaccination?id=${animal.id}&vaccName=${vacc.onThis.name}`}>Book Vaccination</Link></Table.Cell>
+                        <Table.Cell>{vacc.onThis.ageAtFirstDose!="NA" ? vacc.onThis.ageAtFirstDose + " days" : "Not applicable" }</Table.Cell>
+                        <Table.Cell>{vacc.onThis.subsequentDoseOrRemark}</Table.Cell>
+                        <Table.Cell><Link to={`/vaccination?id=${animal.id}&vaccName=${vacc.onThis && vacc.onThis.diseaseName}`}>Book</Link></Table.Cell>
                         </Table.Row>
                     )) 
                     
@@ -103,9 +107,9 @@ const AnimalPage = props => {
                     animal.vaccines.filter(vacc => vacc.completed===true).map((vacc,_) =>(
                         <Table.Row key={vacc.createdAt}>
                         <Table.Cell>{_+1}</Table.Cell>
-                        <Table.Cell>{vacc.onThis.name}</Table.Cell>
+                        <Table.Cell>{vacc.onThis && vacc.onThis.diseaseName}</Table.Cell>
                         <Table.Cell>{moment(vacc.createdAt).fromNow()}</Table.Cell>
-                        <Table.Cell>{moment(moment(vacc.createdAt).add(vacc.onThis.timeGapInDays,"days")).fromNow()}</Table.Cell>
+                        <Table.Cell>{vacc.onThis && moment(moment(vacc.createdAt).add(vacc.onThis.timeGapInDays,"days")).fromNow()}</Table.Cell>
                         </Table.Row>
                     )) 
                 }
@@ -114,7 +118,7 @@ const AnimalPage = props => {
             {props.userType!==0 && <Fragment><br/>
             <div>
             <Header>Suggest a vaccine for the animal</Header>
-            <SelectVaccine animalId = {animal.id} breed={animal.breed} />
+            <SelectVaccine animalId = {animal.id} />
             </div></Fragment>}
             <br />
             <Descriptions title="Insemination Information" bordered column={{xxl: 3, xl: 2, lg: 3, md: 3, sm: 2, xs: 1}}>

@@ -9,8 +9,8 @@ const SelectVaccine = props => {
     useEffect(()=>{
         let vaccArr=[];
         try{
-            getVaccines(props.breed).then(data => {
-                data && data.vaccines.map((d) => vaccArr.push({key: d.id,text: d.name,value: d.id}))
+            getVaccines().then(data => {
+                data && data.vaccines.map((d) => vaccArr.push({key: d.id,text: d.diseaseName,value: d.id}))
             })
         }catch(err){
             console.log(err)

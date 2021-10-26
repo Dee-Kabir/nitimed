@@ -58,14 +58,13 @@ export const bookVaccine = async(id,vaccineId,token) => {
     }).then(res => res.json())
     .catch(err => console.log(err))
 }
-export const getVaccines = async(forBreed) => {
-    return await fetch(`${API_URL}/animals/getVaccines`,{
-        method: 'POST',
+export const getVaccines = async() => {
+    return await fetch(`${API_URL}/queries/vaccine`,{
+        method: 'GET',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({forBreed})
     }).then(res => res.json())
     .catch(err => console.log(err))
 }

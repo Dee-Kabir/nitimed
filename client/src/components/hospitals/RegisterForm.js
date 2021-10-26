@@ -138,7 +138,7 @@ const RegisterForm = ({
             loading={loading}
             type="submit"
             primary
-            size="large"
+            size="medium"
           >
             {edit ? "Edit" : "Register"}
           </Button>

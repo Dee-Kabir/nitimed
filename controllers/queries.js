@@ -5,10 +5,13 @@ const Dispensary = require('../modals/dispensary')
 const FAQ = require('../modals/faq')
 const Services = require('../modals/services')
 const TillNow = require('../modals/tillNow')
+const Vaccine = require('../modals/vaccine')
 const mapModals = {
     "Diagonstic" : Diagonstics,
     "Disease" : Disease,
-    "Dispensary" : Dispensary
+    "Dispensary" : Dispensary,
+    "Faq" : FAQ,
+    "Vaccine" : Vaccine
 }
 exports.getFaq = async(req,res) => {
     FAQ.find().then((data)=>{
@@ -70,6 +73,20 @@ exports.getTillNow = async(req,res) => {
         })
     })
 }
+exports.getVaccines = async(req,res) => {
+    const vaccines = await Vaccine.find()
+    if(vaccines){
+        return res.status(200).json({
+            success:true,
+            vaccines
+        })
+    }else{
+        return res.status(400).json({
+            success:false,
+            error: "Try again after some time."
+        })
+    }
+}
 exports.getListOfCenters = async(req,res) => {
     let {limit,which,what} = req.query;
     limit = parseInt(limit)
@@ -118,24 +135,47 @@ exports.getListOfCentersByName = async(req,res) =>{
     })
 }
 exports.postFaq = async(req,res) => {
-    FAQ.create(req.body).then((data)=>{
-        if(data){
-            return res.status(200).json({
-                success: true,
-                message: "Added successfully"
-            })
-        }else{
-            return res.status(400).json({
-                success: false,
-                message: "Try Again after sometime."
-            })
-        }
-    }).catch(err => {
-        return res.status(400).json({
-            success: false,
-            message: "Try Again after sometime."
-        })
+    // FAQ.create(req.body).then((data)=>{
+    //     if(data){
+    //         return res.status(200).json({
+    //             success: true,
+    //             message: "Added successfully"
+    //         })
+    //     }else{
+    //         return res.status(400).json({
+    //             success: false,
+    //             message: "Try Again after sometime."
+    //         })
+    //     }
+    // }).catch(err => {
+    //     return res.status(400).json({
+    //         success: false,
+    //         message: "Try Again after sometime."
+    //     })
+    // })
+    const excelData = excelToJson({
+        sourceFile: 'C:/Users/Deepanshu yadav/Desktop/faq.xlsx',
+        sheets:[{
+            // Excel Sheet Name 
+            name: 'Sheet1',
+            
+            // Header Row -> be skipped and will not be present at our result object.
+            // header:{
+            //     rows: 1
+            // },
+            // Mapping columns to keys
+            columnToKey: {
+                A: 'sNo',
+                B: 'question',
+                C: 'answer',
+            }
+        }]
+    });
+    FAQ.insertMany(excelData.Sheet1).then((data)=> {
+        return res.json({excelData})
     })
+    // console.log(excelData)
+    // return res.json({excelData})
 }
 exports.postTillNow = async(req,res) => {
     TillNow.create(req.body).then((data)=>{
@@ -177,84 +217,30 @@ exports.postServices = async(req,res) => {
         })
     })
 }
-exports.postDisease = (req,res) =>{
-    const excelData = excelToJson({
-        sourceFile: 'C:/Users/Deepanshu yadav/Desktop/disease.xlsx',
-        sheets:[{
-            // Excel Sheet Name
-            name: 'Disease',
-            
-            // Header Row -> be skipped and will not be present at our result object.
-            header:{
-                rows: 1
-            },
-            // Mapping columns to keys
-            columnToKey: {
-                A: 'sNo',
-                B: 'speciesName',
-                C: 'diseaseName',
-                D: 'diseaseSymptoms',
-            }
-        }]
-    });
-    // Disease.insertMany(excelData.Disease).then((data)=> {
-    //     return res.json({excelData})
-    // })
-    // console.log(excelData)
-    return res.json({excelData})
-}
-exports.postDispensary = (req,res) =>{
-    const excelData = excelToJson({
-        sourceFile: 'C:/Users/Deepanshu yadav/Desktop/dispensary_list.xlsx',
-        sheets:[{
-            // Excel Sheet Name 
-            name: 'dispensary',
-            
-            // Header Row -> be skipped and will not be present at our result object.
-            header:{
-                rows: 1
-            },
-            // Mapping columns to keys
-            columnToKey: {
-                A: 'sNo',
-                B: 'district',
-                C: 'state',
-                D: 'dispensaryName',
-                E: 'contactNumber'
-            }
-        }]
-    });
-    // Dispensary.insertMany(excelData.Disease).then((data)=> {
-    //     return res.json({excelData})
-    // })
-    console.log(excelData)
-    return res.json({excelData})
-}
 
-exports.postDiagonstic = (req,res) =>{
+exports.postData = async(req,res) => {
+    let locationOfFile = req.body.fileLocation;
+    let sheetName = req.body.sheetName;
+    // console.log(req.files);
+    // console.log(req.body);
+    let columnsInFile = req.body.columnsInFile
+    let modalName = req.body.modalName
     const excelData = excelToJson({
-        sourceFile: 'C:/Users/Deepanshu yadav/Desktop/disease.xlsx',
+        sourceFile: locationOfFile,
         sheets:[{
             // Excel Sheet Name
-            name: 'Disease',
+            name: sheetName,
             
             // Header Row -> be skipped and will not be present at our result object.
             header:{
                 rows: 1
             },
             // Mapping columns to keys
-            columnToKey: {
-                A: 'sNo',
-                B: 'district',
-                C: 'state',
-                D: 'diagonsticCenter',
-                E: 'contactNumber'
-            }
+            columnToKey: columnsInFile
         }]
     });
-    Diagonstics.insertMany(excelData.Disease).then((data)=> {
+    // console.log(excelData)
+    mapModals[modalName].insertMany(excelData[sheetName]).then((data)=> {
         return res.json({excelData})
     })
-    // console.log(excelData)
-    return res.json({excelData})
 }

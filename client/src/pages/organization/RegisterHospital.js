@@ -71,8 +71,8 @@ const RegisterHospital = (props) => {
     }
 }
 const checkFormValidity = () => {
-  if(password !== confirmPassword){
-    setError("password and confirm password should be same.")
+  if(password !== confirmPassword && password.length < 10){
+    setError("password and confirm password should be same of atleast 10 characters")
     return false;
   }else if(name === ""){
     setError("Name is required")
@@ -118,11 +118,11 @@ const checkFormValidity = () => {
   }
   
   return (!loading ? 
-    <Fragment>
-    <div style={{marginTop: '71px'}}></div>
-      {error && <ErrorComponent error={error} />}
+    <div style={{marginTop: "75px"}}>
+      
       <div style={{margin: '16px auto',textAlign: 'center'}}>
         <Radio.Group buttonStyle="solid" value={formLogin}>
+        {error && <ErrorComponent error={error} />}
           <Radio.Button style={{width: '100px'}} value="login" onClick={() => setFormLogin("login")}>
             Login
           </Radio.Button>
@@ -133,7 +133,7 @@ const checkFormValidity = () => {
       </div>
       {formLogin==="register" && <RegisterForm handleChange={handleChange} handlePlaces={handlePlaces} handleSubmit={handleSubmit} loading={loading} values={values} />}
       {formLogin==="login" && <LoginForm handleChange={handleChange} handleloginSubmit={handleloginSubmit} loading={loading} email={email} password={password}/>}
-    </Fragment> : <LoadingComponent loading={loading} />
+    </div> : <LoadingComponent loading={loading} />
   );
 };
 export default RegisterHospital;

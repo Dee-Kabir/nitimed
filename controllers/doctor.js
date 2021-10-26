@@ -273,9 +273,9 @@ exports.deleteDoctor = async(req,res) => {
 }
 exports.updateDoctor = async(req,res) => {
     if( mongoose.isValidObjectId(req.params.id) && (req.user.userId === req.params.id || req.user.isAdmin === 3)){
-        const {name,email,qualification,address,state,city,jobType,servingType,workTime,weekdays,speciality,fee} = req.body;
+        const {name,email,qualification,address,state,city,jobType,servingType,workTime,weekdays,speciality,fee,timing} = req.body;
     Doctor.findByIdAndUpdate(req.params.id,{
-        name,email,qualification,address,state,city,jobType,servingType,workTime,weekdays,speciality,fee
+        name,email,qualification,address,state,city,jobType,servingType,workTime,weekdays,speciality,fee,timing
     }).then(doctor => {
         if(doctor){
             return res.status(200).json({success: true,user:doctor, message: 'the doctor is updated'})

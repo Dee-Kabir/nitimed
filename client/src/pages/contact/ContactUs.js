@@ -1,12 +1,15 @@
 import { useState } from "react";
-import { Container, Divider, Form, Header } from "semantic-ui-react";
+import { Container, Divider, Form, Header, Message } from "semantic-ui-react";
 import { sendEmail } from "../../actions/email";
 import ErrorComponent from "../../utilities/ErrorComponent";
+import LoadingComponent from "../../utilities/LoadingComponent";
 
 const ContactUs = (props) => {
     const [from , setFrom] = useState("")
     const [body, setBody] = useState("")
     const [error, setError] = useState("")
+    const [message,setMessage] = useState("")
+    const [loading,setLoading] = useState("");
     const handleChange = (e) => {
         if(e.target.name==="from"){
             setFrom(e.target.value)
@@ -18,24 +21,34 @@ const ContactUs = (props) => {
     }
     const handleSubmit = (e) => {
         e.preventDefault()
+        setMessage("")
+        setError("")
         if(from && body.length > 100){
-            sendEmail(from,body).then((data)=> {
-                console.log(data)
-                if(data.error){
-                    setError("data.error")
-                }else{
-                    alert("Message sent Successfully")
-                    setBody("")
-                    setFrom("")
-                }
-            })
+            setLoading(true)
+            try{
+                sendEmail(from,body).then((data)=> {
+                    if(data.error){
+                        setError(data.error)
+                        
+                    }else{
+                        setMessage(data.message)
+                        setBody("")
+                        setFrom("")
+                    }
+                    setLoading(false)
+                })
+            }catch(err){
+                setError("Please try again after some time.")
+                setLoading(false)
+            }
         }else{
             setError("Email is required and Message should be at least 100 char long.")
         }
     }
-    return(
+    return(!loading ? 
         <Container style={{marginTop: "85px"}}>
         {error && <ErrorComponent error={error}/>}
+        {message && <Message info content={message}/>}
         <Header>Contact Us</Header>
         <Form>
         <Form.Input label="From" type="text" name="from" value={from} onChange={handleChange} required />
@@ -53,7 +66,7 @@ const ContactUs = (props) => {
         <p>
         <b>Phone:</b> 011 2309 6622
         </p>
-        </Container>
+        </Container> : <LoadingComponent />
     )
 }
 export default ContactUs;

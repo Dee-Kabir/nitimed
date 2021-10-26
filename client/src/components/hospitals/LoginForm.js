@@ -38,8 +38,8 @@ const LoginForm = ({
                 loading={loading}
                 type="submit"
                 primary
-                fluid
-                size="large"
+                
+                size="medium"
               >
                 Login
               </Button>
