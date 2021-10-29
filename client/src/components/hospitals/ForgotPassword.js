@@ -17,6 +17,8 @@ const ForgotPassword = props => {
         }
         setLoading(true)
         try{
+            setMessage("");
+            setError("")
             getOtp(email).then(data => {
                 if(data.success){
                     setMessage(data.message);

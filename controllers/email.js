@@ -45,9 +45,9 @@ exports.sendOtp = async(req,res) => {
         Hospital.findByIdAndUpdate(hospital.id,{resetPasswordToken,resetPasswordExpires},{new: true}).then((hosp) => {
           if(hosp){
             let transporter = nodemailer.createTransport({
-              host: "smtp.gmail.com",
-              port: 465,
-              secure: true, // true for 465, false for other ports
+              host: process.env.MAIL_HOST,
+              port: process.env.MAIL_PORT,
+              secure: process.env.MAIL_SECURE==="false"?false:true, // true for 465, false for other ports
               auth: {
                 user: process.env.EMAIL, // generated ethereal user
                 pass: process.env.EMAIL_PASSWORD, // generated ethereal password
@@ -58,7 +58,7 @@ exports.sendOtp = async(req,res) => {
             'https://' + req.headers.host + '/reset/' + resetPasswordToken +'/'+hosp.id + '\n\n' +
             'If you did not request this, please ignore this email and your password will remain unchanged.\n'
             const mailData = {
-                from: "nititele@gmail.com",  // sender address
+                from: process.env.EMAIL,  // sender address
                 to: req.body.email,   // list of receivers
                 subject: "Password Reset",
                 text: "email",
@@ -71,7 +71,11 @@ exports.sendOtp = async(req,res) => {
 
               }
               else
-                return res.json({success: true,message: 'Check your email Id for password reset'})
+                {
+                  console.log(mailData)
+                  console.log(info)
+                  return res.json({success: true,message: 'Check your email Id for password reset'})
+                }
            });
           }else{
             return res.json({success:false,error: 'Try Again later.'});

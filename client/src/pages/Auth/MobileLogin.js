@@ -144,6 +144,7 @@ const MobileLogin = (props) => {
       <div style={{marginTop: '71px'}}></div>
       <ErrorComponent error={error} />
       <MobileAndOtpForm
+        userType = {props.match.params.userType}
         handleChange={handleChange}
         handleMobileNumberSubmit={handleMobileNumberSubmit}
         mobileNumberSubmit={mobileNumberSubmit}

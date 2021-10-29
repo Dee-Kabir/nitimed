@@ -1,6 +1,7 @@
 import {Button, Form} from "semantic-ui-react"
+import { webName } from "../../Config";
 import classes from "../../pages/Auth/MobileLogin.module.css";
-const MobileAndOtpForm = ({handleChange,handleMobileNumberSubmit,handleotpSubmit,phone,otp,loading,mobileNumberSubmit,otpSubmit}) => {
+const MobileAndOtpForm = ({handleChange,handleMobileNumberSubmit,handleotpSubmit,phone,otp,loading,mobileNumberSubmit,otpSubmit,userType}) => {
     const mobileNumberForm = (
     <Form loading={loading} onSubmit={handleMobileNumberSubmit}>
       <Form.Input 
@@ -55,7 +56,7 @@ const MobileAndOtpForm = ({handleChange,handleMobileNumberSubmit,handleotpSubmit
       <div className={classes.authContainer}>
         <div className={classes.auth_input_container}>
           <div className={classes.register_heading}>
-            <h2>Register or Sign In for Nitimed</h2>
+            <h2>Register or Sign In for {webName} {userType==="user" ? "Farmer" : "Doctor"}</h2>
             <p style={{ color: "rgb(89,100,102)" }}>
               An OTP will be sent to your mobile number for verification
             </p>
