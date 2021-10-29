@@ -2,7 +2,7 @@ import { Button, Form, Grid, Header } from "semantic-ui-react";
 import SearchInput from "../search/SearchInput"
 import classes from "../../pages/Auth/RegisterForm.module.css";
 const RegisterForm = (props) => {
-    const {name,phone,address,state,city,loading} = props.values
+    const {name,phone,address,state,city,loading,aadharNumber} = props.values
     const {handlePlaces,handleChange,handleSubmit,heading} = props
     return (
         <Grid stackable>
@@ -16,7 +16,7 @@ const RegisterForm = (props) => {
                   value={name}
                   onChange={handleChange}
                   required />
-              <Form.Input label="Mobile Number" className={classes.Form_Input}
+              <Form.Input label="Mobile number" className={classes.Form_Input}
                   type="text"
                   name="phone"
                   placeholder="Enter Your 10 digit Mobile Number"
@@ -24,6 +24,13 @@ const RegisterForm = (props) => {
                   value={phone}
                   required
                   readOnly />
+            <Form.Input label="Aadhar number" className={classes.Form_Input}
+            type="text"
+            name="aadharNumber"
+            placeholder="Enter 14 digit aadhar number"
+            pattern="[0-9]{14}"
+            value={aadharNumber}
+            readOnly />
               <Form.Input label="Address" className={classes.Form_Input}
                   type="text"
                   name="address"

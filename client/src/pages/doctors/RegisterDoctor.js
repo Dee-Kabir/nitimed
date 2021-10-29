@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import classes from "./RegisterDoctor.module.css";
-import { savedoctor } from "../../actions/firebaseapi";
+import { savedoctor, scrollToTop } from "../../actions/firebaseapi";
 import LoadingComponent from "../../utilities/LoadingComponent"
 import ErrorComponent from "../../utilities/ErrorComponent"
 import RegisterDoctorForm from "../../components/doctors/RegisterDoctorForm";
@@ -20,7 +20,9 @@ const RegisterDoctor = (props) => {
     address: "",
     state: "",
     city: "",
-    timing: ""
+    timing: "",
+    registrationNumber:"",
+    aadharNumber:""
   });
   const [formData, setFormData] = useState(new FormData());
   const {
@@ -37,7 +39,9 @@ const RegisterDoctor = (props) => {
     address,
     state,
     city,
-    timing
+    timing,
+    registrationNumber,
+    aadharNumber
   } = values;
   const [loading,setLoading] = useState(false)
   const [photo,setPhoto] = useState("");
@@ -50,6 +54,11 @@ const RegisterDoctor = (props) => {
     document.title = "Nitimed | Register"
     checkmobileNUmber()
   },[])
+  useEffect(()=>{
+    if(error!==""){
+      scrollToTop()
+    }
+  },[error])
   const checkmobileNUmber = () => {
   formData.set('phone',props.match.params.userId)
       setValues({...values,phone: (props.match.params.userId).substr(3,10)})
@@ -66,7 +75,7 @@ const RegisterDoctor = (props) => {
   }
   const handleSubmit = (e) =>{ 
     e.preventDefault()
-    if(name && email && phone && qualification && jobType && servingType && workTime && weekdays.length > 0 && speciality && address && state && city && photo && proof){
+    if(name && email && phone && qualification && jobType && servingType && workTime && weekdays.length > 0 && speciality && address && state && city && photo && proof && registrationNumber && aadharNumber){
       setLoading(true);
       savedoctor(formData).then((data)=>{
         if(data.success){
@@ -105,7 +114,6 @@ const RegisterDoctor = (props) => {
         setError("")
       }
       else{
-   
         setError("Enter a valid image.Either in png, jpeg or jpg format")
       }
     }

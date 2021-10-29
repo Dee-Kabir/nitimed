@@ -39,7 +39,10 @@ const userSchema = new mongoose.Schema({
             type: ObjectId,
             ref: "Appointment"
         }
-    ]
+    ],
+    aadharNumber: {
+        type:String
+    }
 
 },{timestamps: true})
 

@@ -108,6 +108,7 @@ export const register = async ({
   address,
   state,
   city,
+  aadharNumber
 }) => {
   return await fetch(`${API_URL}/users/register`,{
     method: 'POST',
@@ -115,7 +116,7 @@ export const register = async ({
       Accept: 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({name,phone: "+91" + phone,address,state:state.toUpperCase(),city:city.toUpperCase()})
+    body: JSON.stringify({name,phone: "+91" + phone,address,state:state,city:city,aadharNumber})
   }).then(res => res.json())
   .catch(err => console.log(err))
 };

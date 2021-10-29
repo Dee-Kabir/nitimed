@@ -21,11 +21,13 @@ class AppointmentHistory extends Component {
             getUserAppointments(isAuthenticated(),token).then(data => {
                 if(data.success)
                 this.setState({appointments: data.appointments})
+                this.setState({loading:false})
             })
         }catch(err){
             console.log(err)
+            this.setState({loading:false})
         }
-        this.setState({loading:false})
+        
     }
     
     render(){
@@ -34,7 +36,7 @@ class AppointmentHistory extends Component {
         <div>
         <Header>Appointments</Header>
         <Table celled striped>
-        <TableHeader headerParams={["Sno.","Doctor Name","Completed","Action"]} />
+        <TableHeader headerParams={["#","Doctor Name","Completed","Action"]} />
         <Table.Body>
         {
             appointments.map((app,_)=>(

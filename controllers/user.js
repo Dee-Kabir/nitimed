@@ -48,25 +48,29 @@ exports.getUser = async(req,res) => {
     }
 }
 exports.createUser = async(req,res) => {
-    const {name,email,phone,isAdmin,address,city,state} = req.body
-    let user= new User({
-        name:name,phone,isAdmin,email: email,address,city:city,state,
-    })
+    const {name,email,phone,isAdmin,address,city,state,aadharNumber} = req.body
     try{
+        let user= new User({
+        name:name,phone,isAdmin,email: email,address,city:city,state,aadharNumber
+    })
+    
         user = await user.save()
-    }catch{
-        return res.status(400).json({
-            success: false,
-            message: "Already registerd with these details."
-        })
-    }
+    
     if(!user){
         return res.status(400).json({
             success: false,
             message: "Try Again!"
         })
     }
-    res.send("created successfully")
+    else{
+        return res.send("created successfully")
+    }
+}catch{
+        return res.status(400).json({
+            success: false,
+            message: "Already registerd with these details."
+        })
+    }
 }
 exports.getUserPhone = async(req,res) => {
     const user = await User.findOne({phone: req.params.id})
@@ -87,27 +91,29 @@ exports.getUserPhone = async(req,res) => {
     res.status(200).json({success: true,user: user,token: token})
 }
 exports.registerUser = async(req,res) => {
-    const {name,email,phone,isAdmin,address,city,state} = req.body
-    let user= new User({
-        name,phone,isAdmin,email,address,city,state
-    })
+    const {name,email,phone,isAdmin,address,city,state,aadharNumber} = req.body
     try{
+        let user= new User({
+        name,phone,isAdmin,email,address,city,state,aadharNumber
+    })
+    
         user = await user.save()
-    }catch(err){
-        console.log(err)
-        return res.status(400).json({
-            success: false,
-            message: "Already registerd with these details."
-        })
-    }
+    
     if(!user){
         return res.status(400).json({
             success: false,
             message: "Try Again!"
         })
+    }else{
+        return res.json({success: true})
     }
-   
-    res.json({success: true})
+}catch(err){
+    console.log(err)
+    return res.status(400).json({
+        success: false,
+        message: "Already registerd with these details."
+    })
+}
 }
 exports.loginUser = async(req,res) => {
     const user = await User.findOne({phone: req.body.phone})

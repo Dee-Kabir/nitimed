@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Header, Form, Button } from "semantic-ui-react";
+import { webName } from "../../Config";
 import classes from "../../pages/organization/RegisterHospital.module.css";
 const LoginForm = ({
   handleChange,
@@ -11,7 +12,7 @@ const LoginForm = ({
   return (
     <div className={classes.LoginForm_H}>
           <Form widths="equal" style={{width: '100%'}} onSubmit={handleloginSubmit} loading={loading}>
-            <Header className="text-center">Login to NitiMed</Header>
+            <Header className="text-center">Login to {webName} Hospital</Header>
             <Form.Input
               label="Email"
               className={classes.RegisterForm_HInput}

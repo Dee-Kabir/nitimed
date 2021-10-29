@@ -54,7 +54,7 @@ const DispensaryComponent = () => {
   const noData = () => (
     <Table.Body>
         <Table.Row>
-          <Table.Cell>No Dispensary Present</Table.Cell>
+          <Table.Cell>No Vaccination center Present</Table.Cell>
         </Table.Row>
         </Table.Body>
   )

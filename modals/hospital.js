@@ -9,10 +9,12 @@ const hospitalSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
+        unique: true
     },
     phone: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     isAdmin: {
         type: Number,
@@ -32,7 +34,8 @@ const hospitalSchema = new mongoose.Schema({
     },
     hospitalRegistration: {
         type:String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type:String,

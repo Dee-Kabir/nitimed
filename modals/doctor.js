@@ -73,8 +73,15 @@ const doctorSchema = new mongoose.Schema({
         type:String,
         default: 'fullTime'
     },
-    gujSVC_Regi_No:{
-        type: String
+    registrationNumber:{
+        type: String,
+        required: true,
+        unique: true
+    },
+    aadharNumber:{
+        type:String,
+        required: true,
+        unique: true
     },
     appointments: 
         {

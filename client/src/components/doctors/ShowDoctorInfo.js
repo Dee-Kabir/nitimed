@@ -25,6 +25,8 @@ const ShowDoctorInfo = ({ user }) => {
     <Descriptions.Item label="Name">Dr. {user.name}</Descriptions.Item>
     <Descriptions.Item label="Mobile No.">{user.phone}</Descriptions.Item>
     <Descriptions.Item label="Address">{user.address}</Descriptions.Item>
+    <Descriptions.Item label="Aadhar number">{user.aadharNumber}</Descriptions.Item>
+    <Descriptions.Item label="Registration Number">{user.registrationNumber}</Descriptions.Item>
     <Descriptions.Item label="State">{user.state}</Descriptions.Item>
     <Descriptions.Item label="District">{user.city}</Descriptions.Item>
     <Descriptions.Item label="Available"><input

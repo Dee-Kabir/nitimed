@@ -133,7 +133,7 @@ const DoctorSearchBox = (props) => {
        
         {foundHospitals.length > 0 &&
           <Table celled striped>
-          <TableHeader headerParams={["Sno","name","State","District","Mobile no.","Doctors"]} />
+          <TableHeader headerParams={["#","name","State","District","Mobile no.","Doctors"]} />
           <Table.Body>
           {foundHospitals.map((hosp, _) => (
             <HospitalCard sno={_+1} key={hosp.id} hospital={hosp} />

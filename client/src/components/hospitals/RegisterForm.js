@@ -2,6 +2,7 @@ import { Button, Form, Header } from "semantic-ui-react";
 import classes from "../../pages/organization/RegisterHospital.module.css";
 import SearchInput from "../search/SearchInput";
 import { Fragment } from "react";
+import { webName } from "../../Config";
 const RegisterForm = ({
   values,
   handleChange,
@@ -34,7 +35,7 @@ const RegisterForm = ({
       >
         {!edit && (
           <Header className="text-center">
-            Register Your Hospital with NitiMed
+            Register Your Hospital with {webName}
           </Header>
         )}
         <Form.Input

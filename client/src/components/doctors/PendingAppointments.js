@@ -57,7 +57,7 @@ class PendingAppointments extends Component {
           {error && <ErrorComponent error={error} />}
           <Header>Pending Appointments </Header>
           <Table celled>
-          <TableHeader headerParams={["SNo.","Owner Name","created","Status","About animal","About Owner"]}/>
+          <TableHeader headerParams={["#","Owner Name","created","Status","About animal","About Owner"]}/>
             <Table.Body>
               {appointments.map((app, _) => (
                 <Table.Row key={app._id}>

@@ -5,6 +5,7 @@ import RegisterForm from "../../components/hospitals/RegisterForm";
 import LoginForm from "../../components/hospitals/LoginForm";
 import ErrorComponent from "../../utilities/ErrorComponent";
 import { Radio } from "antd";
+import { scrollToTop } from "../../actions/firebaseapi";
 const RegisterHospital = (props) => {
   const [values, setValues] = useState({
     name: "",
@@ -28,6 +29,9 @@ const RegisterHospital = (props) => {
   useEffect(()=>{
     document.title="Nitimed | Register"
   },[])
+  useEffect(()=>{
+    scrollToTop()
+  },[error])
   const handlePlaces = (data) => {
     setValues({...values,[data.category]: data.text})
     setError("")
@@ -60,12 +64,14 @@ const RegisterHospital = (props) => {
                 })
                 setFormLogin("login")
               }else{
+                scrollToTop()
                 setError(data.message);
               }
             }).catch(err => setError(err))
         setLoading(false);
     }catch{
         setError("Error while connecting")
+        scrollToTop()
         setLoading(false)
     }
     }

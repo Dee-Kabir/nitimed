@@ -7,6 +7,8 @@ import ErrorComponent from "../../utilities/ErrorComponent";
 import LoadingComponent from "../../utilities/LoadingComponent";
 import { connect } from "react-redux";
 import {setUserMobileNumber} from "../../store/actions"
+import { webName } from "../../Config";
+import { scrollToTop } from "../../actions/firebaseapi";
 const Register = (props) => {
   const [values, setValues] = useState({
     name: "",
@@ -14,10 +16,11 @@ const Register = (props) => {
     address: "",
     state: "",
     city: "",
+    aadharNumber: ""
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { name, phone, address, state, city } = values;
+  const { name, phone, address, state, city, aadharNumber } = values;
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
     setError("");
@@ -45,7 +48,11 @@ const Register = (props) => {
     checkmobileNUmber();
     window.onbeforeunload = handleBeforeUnload
   }, []);
-  
+  useEffect(()=>{
+    if(error!==""){
+      scrollToTop()
+    }
+  },[error])
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formIsValid()) {
@@ -54,18 +61,15 @@ const Register = (props) => {
       try {
         firebase.auth().onAuthStateChanged((user) => {
           if (user.phoneNumber === id)
-            register({ name, phone, address, state, city }).then(
+            register({ name, phone, address, state, city,aadharNumber }).then(
               (data) => {
                 if(data.success){
-                  try {
                       props.setUserMobileNumber('')
                       setLoading(false);
                       setError("");
                       props.history.replace("/login/user");
-                  } catch (err) {
-                    setLoading(false);
-                    setError("Connectivity Problem!!" && err.message);
-                  }
+                }else{
+                  setError("Try again after sometime.")
                 }
               }
             );
@@ -73,12 +77,14 @@ const Register = (props) => {
             props.history.replace("/dnjdfdf");
           }
         });
-      } catch (err) {
-        setLoading(false);
-        setError("Connectivity Problem!!" && err.message);
-      }
-    }
-  };
+  } catch (err) {
+    setLoading(false);
+    setError("Connectivity Problem!!" && err.message);
+  }
+}else{
+  scrollToTop()
+}
+  }
   const formIsValid = () => {
     if (!name) {
       setError("name is required");
@@ -103,7 +109,7 @@ const Register = (props) => {
       <ErrorComponent error={error} />
       <RegisterForm
         values={values}
-        heading="Register for NitiMed"
+        heading={`Register for ${webName} `}
         handlePlaces={handlePlaces}
         handleChange={handleChange}
         handleSubmit={handleSubmit}

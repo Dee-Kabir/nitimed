@@ -62,7 +62,7 @@ exports.sendOtp = async(req,res) => {
                 to: req.body.email,   // list of receivers
                 subject: "Password Reset",
                 text: "email",
-                html: `<b>From: nititele@gmail.com</b><br/><p>${message}</p>`,
+                html: `<b>From: ${process.env.EMAIL}</b><br/><p>${message}</p>`,
           };
           transporter.sendMail(mailData, function (err, info) {
               if(err){

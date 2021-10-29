@@ -8,20 +8,39 @@ exports.registerHospital = async(req,res) => {
     const {name,email,phone,address,state,city,hospitalRegistration,password} = req.body
     // const salt = bcrypt.genSaltSync(10)
     // console.log(salt);
-    let hospital= new Hospital({
-        name,email,phone,address,state,city,hospitalRegistration,password : bcrypt.hashSync(password,process.env.SECRET_PASS)
+    try{
+        let hospital = await Hospital.findOne({$or : [{phone},{email}]})
+    
+        if(hospital){
+            return res.status(400).json({
+                success:false,
+                message: "Already registered with this mobile number or email"
+            })
+        }else{
+            hospital= new Hospital({
+                name,email,phone,address,state,city,hospitalRegistration,password : bcrypt.hashSync(password,process.env.SECRET_PASS)
+            })
+            hospital = await hospital.save()
+            if(!hospital){
+                return res.status(400).json({
+                    success: false,
+                    message: 'All the details are necessary for registration.Try Again!'
+                })
+            }else{
+                return res.status(200).json({
+                    success:true,
+                    message: 'Registerd Successfully'
+                })
+            }
+            
+        }
+}catch(err){
+    return res.status(400).json({
+        success: false,
+        message: err
     })
-    hospital = await hospital.save()
-    if(!hospital){
-        return res.status(400).json({
-            success: false,
-            message: 'All the details are necessary for registration.Try Again!'
-        })
-    }
-    return res.status(200).json({
-        success:true,
-        message: 'Registerd Successfully'
-    })
+}
+    
 }
 exports.loginHospital = async(req,res) => {
     const hospital = await Hospital.findOne({email: req.body.email})
@@ -44,7 +63,7 @@ exports.loginHospital = async(req,res) => {
     }
 }
 exports.getHospital = async(req,res) => {
-    if(mongoose.isValidObjectId(req.params.id) && (req.user.isAdmin === 3 || req.user.userId === req.params.id )){
+    if(mongoose.isValidObjectId(req.params.id)){
         const hospital = await Hospital.findById(req.params.id)
         if(!hospital){
             return res.status(400).json({
@@ -61,7 +80,7 @@ exports.getHospital = async(req,res) => {
     
 }
 exports.updateHospital = async(req,res) => { 
-    if(mongoose.isValidObjectId(req.params.id) && (req.user.isAdmin === 3 || req.user.userId === req.params.id )){
+    if(mongoose.isValidObjectId(req.params.id) && req.user.userId === req.params.id){
         Hospital.findByIdAndUpdate(req.params.id,req.body).then(user => {
             if(user){
                 return res.status(200).json({success: true,user:user, message: 'Hospital data is updated'})
@@ -88,7 +107,7 @@ exports.findHospitals = async(req,res) => {
     }
 }
 exports.addDoctorToHospital = async(req,res) => {
-    if(mongoose.isValidObjectId(req.params.id) && (req.user.userId === req.params.id || req.user.isAdmin === 3)){
+    if(mongoose.isValidObjectId(req.params.id)){
         const {name,
             email,
             phone,

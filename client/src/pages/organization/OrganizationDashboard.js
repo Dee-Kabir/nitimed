@@ -15,14 +15,18 @@ const OrganizationDashboard = (props) => {
     })
     const [showComp,setShowComp] = useState('info')
     const [error, setError] = useState("")
-    const changeComponent = (name) => {
-        setShowComp(name)
-    }
+    
     const {user,loading} = values;
     useEffect(()=>{
         document.title="Nitimed | Dashboard"
         loadUser()
     },[props.location.search])
+    const changeComponent = (name) => {
+        if(name!==showComp){
+            props.history.push(`?show=${name}`)
+        }
+        setShowComp(name)
+    }
     const loadUser = () => {
         if(isAuthenticated() != props.match.params.hospitalId){
             window.location.href = "/nvjnvjdv"

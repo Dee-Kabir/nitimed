@@ -1,12 +1,13 @@
 import { useEffect, useState, Fragment } from "react";
 import { authenticateUser,checkUser} from "../../actions/auth";
 import firebase from "../../firebaseHelper";
-import {setLanguageCode,sigininWithPhoneNumber,} from "../../actions/firebaseapi";
+import {scrollToTop, setLanguageCode,sigininWithPhoneNumber,} from "../../actions/firebaseapi";
 import MobileAndOtpForm from "../../components/auth/MobileAndOtpForm";
 import ErrorComponent from "../../utilities/ErrorComponent";
 import { connect } from "react-redux";
 import { setUserMobileNumber,setUserLoggedIn } from "../../store/actions";
 const MobileLogin = (props) => {
+  const {userType} = props.match.params;
   const [values, setValues] = useState({
     phone: "",
     otp: "",
@@ -19,12 +20,13 @@ const MobileLogin = (props) => {
   useEffect(() => {
     document.title = "Nitimed | Login"
     if (
-      props.match.params.userType !== "user" &&
-      props.match.params.userType !== "doctor"
+      userType !== "user" &&
+      userType !== "doctor"
     ) {
       props.history.replace("/dfdsfs");
     }
   }, []);
+  
   const {
     phone,
     otp,
@@ -34,6 +36,11 @@ const MobileLogin = (props) => {
     firebaseEvent,
     loading,
   } = values;
+  useEffect(()=>{
+    if(error!==""){
+      scrollToTop()
+    }
+  },[error])
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value, error: "" });
   };
@@ -87,25 +94,25 @@ const MobileLogin = (props) => {
         firebaseEvent
           .confirm(otp)
           .then((result) => {
-            checkUser(result.user.phoneNumber, props.match.params.userType).then(
+            checkUser(result.user.phoneNumber, userType).then(
               (data) => {
                 if (!data) {
                   props.setUserMobileNumber(result.user.phoneNumber)
                   setValues({ ...values, loading: false });
                   props.history.replace(
-                    `/registration-after-mobile/${props.match.params.userType}/${result.user.phoneNumber}`
+                    `/registration-after-mobile/${userType}/${result.user.phoneNumber}`
                   );
                 } else {
                   authenticateUser(
                     result.user.phoneNumber,
-                    props.match.params.userType
+                    userType
                   ).then((data) => {
                     if(data.success){
                       localStorage.setItem("user", data.user.id);
                       localStorage.setItem("token",data.token)
                       props.setUserLoggedIn(data.user)
-                      localStorage.setItem("userType", props.match.params.userType === "user" ? "user" : "doctor");
-                      props.history.replace('/');
+                      localStorage.setItem("userType", userType === "user" ? "user" : "doctor");
+                      props.history.replace(`${userType==="user" ? "/" : "/doctor-dashboard/"+data.user.id+"/?show=appointments"}`);
                     }
                     
                   });
@@ -132,6 +139,7 @@ const MobileLogin = (props) => {
         });
       }
     } else {
+
       setValues({
         ...values,
         error: "Enter 6 digit valid OTP",
@@ -144,7 +152,7 @@ const MobileLogin = (props) => {
       <div style={{marginTop: '71px'}}></div>
       <ErrorComponent error={error} />
       <MobileAndOtpForm
-        userType = {props.match.params.userType}
+        userType = {userType}
         handleChange={handleChange}
         handleMobileNumberSubmit={handleMobileNumberSubmit}
         mobileNumberSubmit={mobileNumberSubmit}

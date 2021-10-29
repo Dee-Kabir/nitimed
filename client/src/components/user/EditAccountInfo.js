@@ -41,21 +41,21 @@ const EditAccountInfo = (props) => {
               getUser(isAuthenticated(),token).then((data) => {
                 if(data.success){
                   props.setUserLoggedIn(data.user)
-                  setValues({ ...values, error: ""});
+                  setValues({ ...values, error: "",loading:false});
                 }else{
-                  setValues({...values,error: data.message})
+                  setValues({...values,error: data.message,loading:false})
                 }
                 });
             }else{
-              setValues({...values,error: data.message})
+              setValues({...values,error: data.message,loading:false})
             }
             })}catch(err) {
               setValues({
-                ...values,
+                ...values,loading:false,
                 error: "Connectivity Problem!!" && err.message,
               });
             }
-            setValues({...values,loading:false})
+            
         }
       };
       const formIsValid = () => {

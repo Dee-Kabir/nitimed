@@ -1,11 +1,11 @@
-import { useRef } from "react";
+import { Fragment, useRef } from "react";
 import { Button, Form, Grid, Image } from "semantic-ui-react";
 import SearchInput from "../search/SearchInput";
 import classes from "../../pages/doctors/RegisterDoctor.module.css";
 const week = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 
 const RegisterDoctorForm = ({handleSubmit,handleChange,setValues,values,handlePlaces,doctorPhoto,handleImageChange,qualificationProof,loading,edit = false,addDoctor=false,formData}) => {
-    const {name,email,phone,qualification,jobType,servingType,workTime,weekdays,address,state,city,fee,speciality,timing}=values
+    const {name,email,phone,qualification,jobType,servingType,workTime,weekdays,address,state,city,fee,speciality,timing,registrationNumber,aadharNumber}=values
     const photoInputRef = useRef(null);
     const proofInputRef = useRef(null);
     return(
@@ -27,6 +27,27 @@ const RegisterDoctorForm = ({handleSubmit,handleChange,setValues,values,handlePl
             onChange={handleChange}
             required
           />
+          {
+            !edit && <Fragment>
+            <Form.Input label="Registration Number" className={classes.RegisterForm_HInput}
+            type="text"
+            name="registrationNumber"
+            placeholder="Enter Your registration number"
+            value={registrationNumber}
+            onChange={handleChange}
+            required
+          />
+          <Form.Input label="Aadhar number" className={classes.RegisterForm_HInput}
+            type="text"
+            name="aadharNumber"
+            placeholder="Enter Your Aadhar number"
+            value={aadharNumber}
+            onChange={handleChange}
+            pattern="[1-9]{14}"
+            required
+          />
+            </Fragment>
+          }
         <Form.Input label="Mobile Number" className={classes.RegisterForm_HInput}
             type="number"
             name="phone"

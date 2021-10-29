@@ -66,8 +66,11 @@ exports.createDoctor = async(req,res) => {
         servingType,
         speciality,
         weekdays,
-        workTime} = req.body
+        workTime,
+    registrationNumber,
+aadharNumber} = req.body
 
+try{
     let doctor= new Doctor({
         name,
         email,
@@ -83,13 +86,15 @@ exports.createDoctor = async(req,res) => {
         qualification,
         servingType,
         speciality,
-        workTime
+        workTime,
+        registrationNumber,
+        aadharNumber
     })
     if(weekdays){
         let weekDays = weekdays.split(',')
         doctor.weekdays = [...weekDays]   
     }
-    try{
+    
         doctor = await doctor.save()
         let updatingPhoto = {}
         // console.log(`${basePathPhoto}${req.files['photo'][0].filename}`)
@@ -105,20 +110,23 @@ exports.createDoctor = async(req,res) => {
         Doctor.findByIdAndUpdate(doctor._id,
             updatingPhoto
         ,{new :true})
-    }catch(err){
-        console.log(err)
-        return res.status(400).json({
-            success: false,
-            message: "Already registered with these details."
-        })
-    }
+    
     if(!doctor){
         return res.status(400).json({
             success: false,
             message: "Unable to save. Try Again!"
         })
     }
-    res.json({success:true,message:"created successfully"})
+    else{
+    return res.json({success:true,message:"created successfully"})
+}
+}catch(err){
+    console.log(err)
+    return res.status(400).json({
+        success: false,
+        message: "Already registered with these details."
+    })
+}
 }
 exports.registerDoctor = async(req,res) => {
     const basePathPhoto = `${req.protocol}://${req.get('host')}/public/upload/photo/`;
@@ -139,9 +147,12 @@ exports.registerDoctor = async(req,res) => {
         speciality,
         weekdays,
         workTime,
-    timing} = req.body
+    timing,
+    registrationNumber,
+    aadharNumber} = req.body
         
-    let doctor= new Doctor({
+    try{
+        let doctor= new Doctor({
         name,
         email,
         phone,
@@ -157,13 +168,15 @@ exports.registerDoctor = async(req,res) => {
         servingType,
         speciality,
         workTime,
-        timing
+        timing,
+        registrationNumber,
+        aadharNumber
     })
     if(typeof(weekdays) === 'string'){
          let weekDays = weekdays.split(',')
          doctor.weekdays = [...weekDays]   
     }
-    try{
+   
         doctor = await doctor.save()
         let updatingPhoto = {}
         // console.log(`${basePathPhoto}${req.files['photo'][0].filename}`)
@@ -469,12 +482,13 @@ exports.registerDoctors = (req,res) =>{
                 B: 'name',
                 C: 'phone',
                 D: 'email',
-                E: 'gujSVC_Regi_No',
+                E: 'registrationNumber',
                 F: 'available',
                 G : 'state',
                 H : 'jobType',
                 I: 'servingType',
-                J: 'workTime'
+                J: 'workTime',
+                K: 'aadharNumber'
             }
         }]
     });

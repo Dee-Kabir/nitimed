@@ -13,18 +13,21 @@ const UserDashboard = (props) =>{
         loading : false
     })
     const [showComp,setShowComp] = useState('info')
-    const changeComponent = (name) => {
-        setShowComp(name);
-        props.history.push(`?show=${name}`)
-    }
+    
     const {user,loading} = values;
     useEffect(()=>{
         document.title="Nitimed | Dashboard"
         loadUser()
     },[props.user,props.location.search])
+    const changeComponent = (name) => {
+        if(name!==showComp){
+            props.history.push(`?show=${name}`)
+        }
+        setShowComp(name);
+    }
     const loadUser = () => {
         if(props.user.id !== props.match.params.userId){
-            // props.history.goBack()
+            props.history.goBack()
         }else{
             const par = new URLSearchParams(props.location.search).get('show')
         setShowComp(par);

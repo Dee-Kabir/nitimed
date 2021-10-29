@@ -31,7 +31,7 @@ class CompletedAppointments extends Component {
         <div>
           <Header>Completed Appointmets</Header>
           <Table celled striped >
-          <TableHeader headerParams={["Sno.","Owner Name","Created on","Completed on"]} />
+          <TableHeader headerParams={["#","Owner Name","Created on","Completed on"]} />
             <Table.Body>
               {appointments.map((app, _) => (
                 <Table.Row key={app._id}>

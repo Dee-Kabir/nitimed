@@ -7,6 +7,7 @@ import CompletedAppointments from "../../components/doctors/CompletedAppointment
 import classes from "../../pages/user/UserDashboard.module.css"
 import LoadingComponent from "../../utilities/LoadingComponent"
 import ErrorComponent from "../../utilities/ErrorComponent"
+import { connect } from "react-redux"
 const DoctorDashboard = (props) => {
     const [values,setValues] = useState({
         info:true,
@@ -18,9 +19,6 @@ const DoctorDashboard = (props) => {
     const [showComp,setShowComp] = useState('info');
     const [loading,setLoading] = useState(false)
     const [error, setError] = useState("")
-    const changeComponent = (name) => {
-        setShowComp(name)
-    }
     const {user} = values;
     useEffect(()=>{
         document.title = "Nitimed | Dashboard"
@@ -30,18 +28,28 @@ const DoctorDashboard = (props) => {
         const para = new URLSearchParams(props.location.search).get('show')
         setShowComp(para)
     },[props.location.search])
+    const changeComponent = (name) => {
+        if(name!==showComp){
+            props.history.push(`?show=${name}`)
+        }
+        setShowComp(name)
+    }
     const loadUser = () => {
         const token = localStorage.getItem('token')
         setLoading(true)
+        try{
+            getDoctor(props.match.params.doctorId,token).then(data => {
+                if(data.success){
+                    setValues({...values,user:data.user})
+                }else{
+                    setError(data.message)
+                }
+                setLoading(false)
+            })
+        }catch(err){
+            setLoading(false)
+        }
         
-        getDoctor(props.match.params.doctorId,token).then(data => {
-            if(data.success){
-                setValues({...values,user:data.user})
-            }else{
-                setError(data.message)
-            }
-        })
-        setLoading(false)
     }
     return(!loading ? <Fragment>
         {error && <ErrorComponent error={error} />}
