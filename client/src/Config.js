@@ -1,4 +1,4 @@
-export const API_URL = "http://localhost:8000/api/v1"
+export const API_URL = "/api/v1"
 export const homeImageName1 = "https://firebasestorage.googleapis.com/v0/b/teleniti.appspot.com/o/files%2F1.jpeg?alt=media&token=846d26be-8617-4315-965c-06b3fd6855c3"
 export const homeImageName2 = "https://firebasestorage.googleapis.com/v0/b/teleniti.appspot.com/o/files%2F2.jpeg?alt=media&token=1997d59a-5a89-4e17-8b6d-a71f46c401e3"
 export const homeImageName3= "https://firebasestorage.googleapis.com/v0/b/teleniti.appspot.com/o/files%2F3.jpeg?alt=media&token=25714590-7ff5-4fe9-adbf-254949dddc7b"
