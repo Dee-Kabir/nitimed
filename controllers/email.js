@@ -65,8 +65,11 @@ exports.sendOtp = async(req,res) => {
                 html: `<b>From: nititele@gmail.com</b><br/><p>${message}</p>`,
           };
           transporter.sendMail(mailData, function (err, info) {
-              if(err)
+              if(err){
+                console.log(err)
                 return res.status(400).json({success: false,error: "unable to send message"})
+
+              }
               else
                 return res.json({success: true,message: 'Check your email Id for password reset'})
            });
@@ -82,6 +85,7 @@ exports.sendOtp = async(req,res) => {
       })
     }
   }catch(err){
+    console.log(err)
     return res.json({
       success:false,error: "Try again after some time"
     })
