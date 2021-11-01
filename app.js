@@ -16,6 +16,7 @@ const razorpayRoutes = require('./routes/razorpay')
 const hospitalRoutes = require('./routes/hospital')
 const animalRoutes = require('./routes/animal')
 const queryRoutes = require('./routes/queries')
+const adminRoutes = require('./routes/admin')
 // middlewares
 app.use(cors());
 app.options('*',cors())
@@ -47,6 +48,7 @@ app.use(`${api}/razorpay`,razorpayRoutes)
 app.use(`${api}/hospitals`,hospitalRoutes)
 app.use(`${api}/animals`,animalRoutes)
 app.use(`${api}/queries`,queryRoutes)
+app.use(`${api}/admin`,adminRoutes)
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));

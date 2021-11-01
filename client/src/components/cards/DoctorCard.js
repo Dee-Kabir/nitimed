@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import TableHeader from "../tableComponents/TableHeader";
 import { connect } from "react-redux";
 import {setSelectedDoctor} from '../../store/actions'
+import { isAuthenticated } from "../../actions/auth";
 const week = ["Sun","Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const DoctorCard = ({ doctors, heading,setSelectedDoctor, searched = true }) => {
   const history = useHistory()
@@ -38,9 +39,9 @@ const DoctorCard = ({ doctors, heading,setSelectedDoctor, searched = true }) => 
                 <Table.Cell>{doc.email}</Table.Cell>
                 <Table.Cell>{doc.fee}</Table.Cell>
                 <Table.Cell>
-                  <Button onClick={() => checkAvailability(doc)}>
-                    Book Appointment
-                  </Button>
+                  {
+                    isAuthenticated() ? <Button onClick={() => checkAvailability(doc)}>Book Appointment</Button> : <Button onClick={() => history.push("/login/user")}>Login to Book</Button>
+                  }
                 </Table.Cell>
               </Table.Row>
             ))}

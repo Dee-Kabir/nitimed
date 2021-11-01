@@ -35,10 +35,11 @@ const MainHeader = (props) => {
             ? `/dashboard/${props.loggedIn}?show=info`
             : props.userType === 2
             ? `/hospital-dashboard/${props.loggedIn}?show=info`
+            : props.userType ===3 ? `/admin/dashboard/${props.loggedIn}?show=info`
             : `/doctor-dashboard/${props.loggedIn}?show=info`
         }
       >
-        {props.userName[0].toUpperCase()}
+        {props.userName && props.userName[0].toUpperCase()}
       </Link>
     )
   )

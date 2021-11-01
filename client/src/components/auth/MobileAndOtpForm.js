@@ -56,7 +56,7 @@ const MobileAndOtpForm = ({handleChange,handleMobileNumberSubmit,handleotpSubmit
       <div className={classes.authContainer}>
         <div className={classes.auth_input_container}>
           <div className={classes.register_heading}>
-            <h2>Register or Sign In for {webName} {userType==="user" ? "Farmer" : "Doctor"}</h2>
+            <h2>Login or Register for {webName} {userType==="user" ? "Farmer" : "Doctor"}</h2>
             <p style={{ color: "rgb(89,100,102)" }}>
               An OTP will be sent to your mobile number for verification
             </p>

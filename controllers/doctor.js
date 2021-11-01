@@ -353,10 +353,11 @@ exports.getCompletedAppointments = async(req,res) => {
     }
 }
 exports.getDoctorByQuery = async(req,res) => {
-    const {category, name} = req.query
+    let {category, name,from} = req.query
+    from = parseInt(from)
     let filter = {[category] : {$regex : name, $options: 'i'}};
     try{
-        Doctor.find(filter).select('id name address email phone city state available fee jobType servingType speciality weekdays workTime').then(doctor => {
+        Doctor.find(filter).select('id name address email phone city state available fee jobType servingType speciality weekdays workTime').limit(50).skip(from).then(doctor => {
             if(!doctor){
                 return res.status(400).json({
                     success: false,message: "Provide a valid query"

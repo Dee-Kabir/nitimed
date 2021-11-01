@@ -7,7 +7,6 @@ import CompletedAppointments from "../../components/doctors/CompletedAppointment
 import classes from "../../pages/user/UserDashboard.module.css"
 import LoadingComponent from "../../utilities/LoadingComponent"
 import ErrorComponent from "../../utilities/ErrorComponent"
-import { connect } from "react-redux"
 const DoctorDashboard = (props) => {
     const [values,setValues] = useState({
         info:true,

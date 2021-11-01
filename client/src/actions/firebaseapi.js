@@ -101,8 +101,8 @@ export const getUserAppointments = async(id,token) => {
   }).then(res => res.json())
   .catch(err => console.log(err))
 }
-export const findDoctorByName = async (name, category) => {
-  return await fetch(`${API_URL}/doctors/query?category=${category}&name=${name}`,{
+export const findDoctorByName = async (name, category,from) => {
+  return await fetch(`${API_URL}/doctors/query?category=${category}&name=${name}&from=${from}`,{
     method:'GET',
     headers: {
       Accept: 'application/json',

@@ -120,9 +120,8 @@ const BookAppointment = (props) => {
                     //         }
                     //     }).catch(err => setError(err))
                     alert("Fees should be payed directly to the doctor.")
-                }else{
-                    bookAppointmentWithDoctor()
                 }
+                bookAppointmentWithDoctor()
                 setLoading(false)
             }else{
                 setError("Enter the text correctly and select Animal for which treatment is needed.")

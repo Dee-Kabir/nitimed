@@ -39,6 +39,9 @@ import ForgotPassword from "./components/hospitals/ForgotPassword";
 import ResetPassword from "./components/hospitals/ResetPassword";
 import Vaccine from "./pages/vaccination/vaccine";
 import FaqContainer from "./components/imageContainer/FaqContainer"
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminRoutes from "./secureRoutes/AdminRoutes";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 const App = (props) => {
   const [loading,setLoading] = useState(true);
   const {setUserLoggedIn} = props;
@@ -49,11 +52,10 @@ const App = (props) => {
         checkUserTypeAndReturnData(token).then(data =>{
           if(data.success){
             setUserLoggedIn(data.user)
-            setLoading(false)
           }else if(data.success === false && data.message === "Not Authorized"){
             signout()
-            setLoading(false)
           }
+          setLoading(false)
         })
       }catch(err){
         console.log(err);
@@ -71,6 +73,8 @@ const App = (props) => {
     <ErrorBoundary>
       <MainHeader />
       <Switch>
+        <LoginRoutes path="/admin/login" exact component={AdminLogin} />
+        <AdminRoutes path="/admin/dashboard/:id" exact component={AdminDashboard} />
         <Route path="/" exact component={Home} />
         <Route path="/faq" exact component={FaqContainer} />
         <LoginRoutes path="/login/:userType" exact component={MobileLogin} />

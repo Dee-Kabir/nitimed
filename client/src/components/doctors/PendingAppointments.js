@@ -62,7 +62,7 @@ class PendingAppointments extends Component {
               {appointments.map((app, _) => (
                 <Table.Row key={app._id}>
                   <Table.Cell>{_ + 1}</Table.Cell>
-                  <Table.Cell>{app.user.name}</Table.Cell>
+                  <Table.Cell>{app.user && app.user.name}</Table.Cell>
                   <Table.Cell>
                     {app.createdAt && moment(app.createdAt).fromNow()}
                   </Table.Cell>

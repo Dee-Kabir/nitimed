@@ -13,6 +13,7 @@ const Footer = () => {
                     <div className={classes.Menu_Item}><Link to="/faq" >FAQs</Link></div>
                     <div className={classes.Menu_Item}><Link to="/" >Terms & Conditions</Link></div>
                     <div className={classes.Menu_Item}><Link to="/contact-us" >Contact Us</Link></div>
+                    <div className={classes.Menu_Item}><Link to="/admin/login" >Admin</Link></div>
                 </div>
                 <div className={classes.Footer_menu}>
                     <div className={classes.Menu_heading}>More</div>

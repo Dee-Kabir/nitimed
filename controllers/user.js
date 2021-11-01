@@ -3,6 +3,7 @@ const Doctor = require('../modals/doctor')
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 const Hospital = require('../modals/hospital')
+const Admin = require('../modals/admin')
 exports.getUserList = async(req,res) => {
     let userList;
     try{
@@ -246,16 +247,29 @@ exports.checkUserType = async(req,res) => {
         }
         return res.json({user:user,success:true})
     }else if(isAdmin===2){
-        const hospital = await Hospital.findById(userId)
+        const hospital = await Hospital.findById(userId).select("-password")
         if(!hospital){
             return res.status(400).json({
                 success: false,
-                message : "No hospital Found."
+                message : "No User Found."
             })
         }else{
             return res.status(200).json({
                 success: true,
                 user : hospital 
+            })
+        }
+    }else if(isAdmin===3){
+        const admin = await Admin.findById(userId)
+        if(!admin){
+            return res.status(400).json({
+                success: false,
+                message : "No User Found."
+            })
+        }else{
+            return res.status(200).json({
+                success: true,
+                user : admin 
             })
         }
     }
