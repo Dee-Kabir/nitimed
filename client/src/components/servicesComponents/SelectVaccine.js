@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import {Button, Form} from 'semantic-ui-react'
-import { bookVaccine, getVaccines } from "../../actions/animalApi";
+import { suggestVaccine, getVaccines } from "../../actions/animalApi";
+import { isAuthenticated } from "../../actions/auth";
 
 const SelectVaccine = props => {
     const [vaccine,setVaccine] = useState("");
@@ -25,9 +26,10 @@ const SelectVaccine = props => {
         const token = localStorage.getItem('token');
         try{
             setLoading(true);
-            bookVaccine(props.animalId,vaccine,token).then(data=>{
+            suggestVaccine(props.animalId,vaccine,token,props.doctorId).then(data=>{
                 if(data.success){
-                    alert("Vaccine booked");
+                    alert("Vaccine suggested.");
+                    props.loadAnimal()
                 }
             })
         }catch(err){
@@ -45,7 +47,7 @@ const SelectVaccine = props => {
         placeholder="Slect Vaccine"
         options={vaccines}
         />
-        <Button type="submit" onClick={handlebookVaccine}>Book</Button>
+        <Button type="submit">Book</Button>
         </Form>
         </Fragment>
     )

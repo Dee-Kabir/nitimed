@@ -30,7 +30,8 @@ const RegisterForm = (props) => {
             placeholder="Enter 14 digit aadhar number"
             pattern="[0-9]{14}"
             value={aadharNumber}
-            readOnly />
+            onChange={handleChange}
+            />
               <Form.Input label="Address" className={classes.Form_Input}
                   type="text"
                   name="address"

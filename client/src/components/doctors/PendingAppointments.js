@@ -1,6 +1,7 @@
 import moment from "moment";
 import { Component } from "react";
 import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 import { Button, Header, Input, Modal, Table,Icon } from "semantic-ui-react";
 import { completeAppointments,getPendingAppointments } from "../../actions/firebaseapi";
 import ErrorComponent from "../../utilities/ErrorComponent";
@@ -15,9 +16,9 @@ class PendingAppointments extends Component {
     this.setState({ loading: true });
     const token = localStorage.getItem('token')
     try{
-      getPendingAppointments(this.props.doctorId,token).then(data => {
+      getPendingAppointments(this.props.doctorId,token,this.props.category,this.props.status).then(data => {
         if(data.success)
-        this.setState({appointments: [...data.appointments.pendingAppointments]})
+        this.setState({appointments: [...data.appointments[this.props.status]]})
         else
         this.setState({error: data.message})
         this.setState({ loading: false });
@@ -33,7 +34,7 @@ class PendingAppointments extends Component {
     this.setState({ loading: true });
     let remark = document.getElementById("remarkText").value;
     try{
-      completeAppointments(id,true,remark,token).then((data) => {
+      completeAppointments(id,true,remark,token,this.props.category).then((data) => {
         if(data.success){
           let newappoint = [];
           this.state.appointments.forEach((appointment) => {
@@ -98,8 +99,11 @@ class PendingAppointments extends Component {
                   </Modal>
                     {" "}
                   </Table.Cell>
-                  <Table.Cell onClick={() => this.props.history.push(`/animal/${app.animal}`)} style={{cursor: "pointer",color: "blue"}}>More</Table.Cell>
-                  <Table.Cell onClick={()=>this.props.history.push(`/appointmentInfo/${app._id}`) } style={{cursor: "pointer",color: "blue"}}>Owner</Table.Cell>
+                  <Table.Cell style={{cursor: "pointer",color: "blue"}}><Link to={{
+                    pathname: `/animal/${app.animal}`, state:{doctorId: this.props.doctorId}
+                  }}>More</Link></Table.Cell>
+                  <Table.Cell style={{cursor: "pointer",color: "blue"}}><Link to={`/app-info/${app._id}/${this.props.category}/${this.props.doctorId}`
+                  }> Owner</Link></Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>

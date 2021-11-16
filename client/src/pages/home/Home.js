@@ -12,10 +12,10 @@ const Home = () => {
     },[])
     return (
         <Fragment>
-        <ImageContainer imageName1={homeImageName1} imageName2={homeImageName2} imageName3={homeImageName3} mainHeading={MainPageImageHeading}/>
-       
-        <br/>
         <NewHeader />
+        <ImageContainer imageName1={homeImageName1} imageName2={homeImageName2} imageName3={homeImageName3} mainHeading={MainPageImageHeading}/>
+        <br/>
+        
         <DividerComponent />
         <ServicesComponent />
         <DividerComponent />

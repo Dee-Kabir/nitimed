@@ -5,4 +5,4 @@ export const homeImageName3= "https://firebasestorage.googleapis.com/v0/b/teleni
 export const homeImageName4="https://firebasestorage.googleapis.com/v0/b/teleniti.appspot.com/o/files%2F4.jpeg?alt=media&token=6e209ac3-a5d8-4273-98ec-02561099dae3"
 export const homeImageName5 = "https://firebasestorage.googleapis.com/v0/b/teleniti.appspot.com/o/files%2F5.jpeg?alt=media&token=c8dacc7a-8b00-4533-b227-78cc75b640a8"
 export const webName = "NITIVet"
-export const MainPageImageHeading = "Heading Title"
+export const MainPageImageHeading = "Telemedicine for livestocks- NITIVet"

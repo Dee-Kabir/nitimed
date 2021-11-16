@@ -43,7 +43,7 @@ const RegisterDoctorForm = ({handleSubmit,handleChange,setValues,values,handlePl
             placeholder="Enter Your Aadhar number"
             value={aadharNumber}
             onChange={handleChange}
-            pattern="[1-9]{14}"
+            pattern="[0-9]{14}"
             required
           />
             </Fragment>

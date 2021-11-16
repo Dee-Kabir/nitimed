@@ -10,7 +10,7 @@ const refModelSchema = new mongoose.Schema({
     onModel: {
         type:String,
         required: true,
-        enum: ['Vaccine']
+        enum: ['Vaccine','Animal']
     },
     completed: {
         type: Boolean,

@@ -14,7 +14,9 @@ const ImageContainer = ({
         <Image className={classes.Carousel_Image} src={imageName2} />
         <Image className={classes.Carousel_Image} src={imageName3} />
       </Carousel>
-      <div className={classes.imageContainer_bg_mask}></div>
+      <div className={classes.imageContainer_bg_mask}>
+      
+      </div>
       <div className={classes.ImageContainer_main_heading}>
         <span>{mainHeading}</span>
       </div>

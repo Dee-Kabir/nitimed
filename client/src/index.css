@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: scroll;
+  width: 100%;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -37,4 +37,7 @@ input {
   margin-top: 40px;
   display: flex;
   flex-wrap: wrap;
+}
+.ui.grid {
+  margin-right: 0!important;
 }

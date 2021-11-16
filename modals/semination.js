@@ -1,16 +1,9 @@
 const mongoose = require('mongoose')
 const {ObjectId} = mongoose.Schema
 const seminationSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        unique: true
-    },
     whose: {
         type: ObjectId,
         ref: 'Animal'
-    },
-    timeGapInDays : {
-        type: Number
     }
 },{timestamps: true})
 

@@ -12,6 +12,7 @@ import LoadingComponent from "../../utilities/LoadingComponent";
 import { connect } from "react-redux";
 
 const DoctorSearchBox = (props) => {
+  const {userCity, category} = props;
   const [values, setValues] = useState({
     state: "",
     city: "",
@@ -20,10 +21,10 @@ const DoctorSearchBox = (props) => {
   const [searched, setSearched] = useState(false);
   const [loading, setLoading] = useState(false)
   useEffect(() => {
-    if (isAuthenticated() && props.userCity) {
-      findDoctors(props.userCity, "city");
+    if (isAuthenticated() && userCity) {
+      findDoctors(userCity, "city");
     }
-  }, [props.userCity]);
+  }, []);
   const { state, city, error } = values;
   const [doctorName, setDoctorName] = useState("");
   const [foundPrivateDoctors, setFindPrivateDoctors] = useState("");
@@ -136,16 +137,16 @@ const DoctorSearchBox = (props) => {
           <TableHeader headerParams={["#","name","State","District","Mobile no.","Doctors"]} />
           <Table.Body>
           {foundHospitals.map((hosp, _) => (
-            <HospitalCard sno={_+1} key={hosp.id} hospital={hosp} />
+            <HospitalCard category={category} sno={_+1} key={hosp.id} hospital={hosp} />
           ))}
           </Table.Body>
           </Table>
             }
  
         <Divider horizontal/>
-        <DoctorCard doctors={foundGovernmentDoctors} searched={searched} heading="Government Doctors" />
+        <DoctorCard category={category} doctors={foundGovernmentDoctors} searched={searched} heading="Government Doctors" />
         <Divider />
-        <DoctorCard doctors={foundPrivateDoctors} searched={searched} heading="Private Doctors" />
+        <DoctorCard category={category} doctors={foundPrivateDoctors} searched={searched} heading="Private Doctors" />
     </div> : <LoadingComponent/>
   );
 };

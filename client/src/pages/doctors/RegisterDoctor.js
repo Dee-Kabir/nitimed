@@ -5,6 +5,8 @@ import LoadingComponent from "../../utilities/LoadingComponent"
 import ErrorComponent from "../../utilities/ErrorComponent"
 import RegisterDoctorForm from "../../components/doctors/RegisterDoctorForm";
 import { connect } from "react-redux";
+import { setUserMobileNumber, setUserLoggedIn  } from "../../store/actions";
+import { authenticateUser } from "../../actions/auth";
 const RegisterDoctor = (props) => {
   const [values, setValues] = useState({
     name: "",
@@ -77,18 +79,37 @@ const RegisterDoctor = (props) => {
     e.preventDefault()
     if(name && email && phone && qualification && jobType && servingType && workTime && weekdays.length > 0 && speciality && address && state && city && photo && proof && registrationNumber && aadharNumber){
       setLoading(true);
-      savedoctor(formData).then((data)=>{
-        if(data.success){
-          setLoading(false)
-          props.history.replace("/login/doctor")
-        }else{
-          setLoading(false)
-          setError(data.message)
-        }
-      }).catch((err) => {
-        setError(err.message)
+      try{
+        savedoctor(formData).then((data)=>{
+          if(data.success){
+            props.setUserMobileNumber('')
+            authenticateUser(
+              "+91"+phone,
+              "user"
+            ).then((userData) => {
+              if(userData.success){
+                setLoading(false);
+                localStorage.setItem("user", userData.user.id);
+                localStorage.setItem("token",userData.token)
+                props.setUserLoggedIn(userData.user)
+                localStorage.setItem("userType","user" );
+                props.history.replace("/doctor-dashboard/"+userData.user.id+"/?show=appointments");
+              }else{
+                setError("Error occurred.")
+                setLoading(false)
+              }
+              
+            })
+            // props.history.replace("/login/doctor")
+          }else{
+            setLoading(false)
+            setError(data.message)
+          }
+        })
+      }catch(err){
         setLoading(false)
-      })
+        setError("Error occurred.")
+      }
     }else{
       setError("All marked Fields are required");
     }
@@ -100,7 +121,6 @@ const RegisterDoctor = (props) => {
         setError( "Image size should be less than 2mb")
       }
       else if(img.type === "image/jpeg" || img.type=== "image/jpg" || img.type==="image/png" ){
-        console.log(img)
         if(e.target.name == "photo"){
           setDoctorPhoto(URL.createObjectURL(img));
           setPhoto(img)
@@ -133,4 +153,4 @@ const RegisterDoctor = (props) => {
 const mapStateToProps = (state) => ({
   mobileRegister : state.user.mobileRegister
 })
-export default connect(mapStateToProps)(RegisterDoctor);
+export default connect(mapStateToProps,{setUserMobileNumber,setUserLoggedIn})(RegisterDoctor);

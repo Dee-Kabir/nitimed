@@ -71,8 +71,8 @@ const MainHeader = (props) => {
             <Sidebar.Pushable
               as={Segment}
               style={{
-                position: "absolute",
-                top: "12px",
+                position: "fixed",
+                top: "4px",
                 height: "100vh",
                 zIndex: "16",
                 width: "50vw",
@@ -102,7 +102,7 @@ const MainHeader = (props) => {
                   <HeaderItem
                     itemHeading="Doctors"
                     itemDesc="Book an appointment"
-                    to="/doctors"
+                    to="/doctors/appointment"
                     active="doctors"
                   />
                 </Menu.Item>
@@ -135,7 +135,7 @@ const MainHeader = (props) => {
                 <HeaderItem
             itemHeading="Artifical Insemination"
             itemDesc="Book artificial insemination"
-            to="/"
+            to="/doctors/artificialInsemination"
             active=""
           />
           </Menu.Item>
@@ -143,7 +143,7 @@ const MainHeader = (props) => {
           <HeaderItem
             itemHeading="Vaccination"
             itemDesc="Book vaccination"
-            to="/vaccination"
+            to="/doctors/vaccination"
             active="vaccination"
           />
           </Menu.Item>
@@ -156,7 +156,9 @@ const MainHeader = (props) => {
                   />
                 </Menu.Item>
                 {props.loggedIn && (
-                  <Menu.Item onClick={() => signout()}>
+                  <Menu.Item onClick={() => {signout() 
+                    props.setUserLoggedOut()
+                    }}>
                     <AuthButton text="Logout" to="/" />
                   </Menu.Item>
                 )}
@@ -199,19 +201,19 @@ const MainHeader = (props) => {
           <HeaderItem
             itemHeading="Doctors"
             itemDesc="Book an appointment"
-            to="/doctors"
+            to="/doctors/appointment"
             active="doctors"
           />
           <HeaderItem
             itemHeading="Artifical Insemination"
             itemDesc="Book artificial insemination"
-            to="/"
+            to="/doctors/artificialInsemination"
             active=""
           />
           <HeaderItem
             itemHeading="Vaccination"
             itemDesc="Book vaccination"
-            to="/vaccination"
+            to="/doctors/vaccination"
             active="vaccination"
           />
         </div>

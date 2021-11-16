@@ -13,10 +13,11 @@ const EditAccountInfo = (props) => {
         address: "",
         state: "",
         city: "",
+        aadharNumber: "",
         loading: true,
         error: "", 
       });
-      const { name,phone, address, loading, error,state,city } =values;
+      const { name,phone, address, loading, error,state,city,aadharNumber } =values;
       const handleChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value, error: "" });
       };
@@ -27,8 +28,8 @@ const EditAccountInfo = (props) => {
         loadUserInfo()
     },[])
     const loadUserInfo = () => {
-      let {name,phone,address,state,city} = props.userData;
-      setValues({...values,name:name,phone:phone,address:address,state:state,city:city,loading: false})
+      let {name,phone,address,state,city,aadharNumber} = props.userData;
+      setValues({...values,name:name,phone:phone,address:address,state:state,city:city,loading: false,aadharNumber})
     }
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -36,7 +37,7 @@ const EditAccountInfo = (props) => {
           setValues({ ...values, loading: true });
           const token = localStorage.getItem('token')
           const id = isAuthenticated()
-          try {editInfo(name, address, state, city,id,token ).then((data) => {
+          try {editInfo(name, address, state, city,id,token,aadharNumber ).then((data) => {
             if(data.success){
               getUser(isAuthenticated(),token).then((data) => {
                 if(data.success){

@@ -27,7 +27,7 @@ exports.getDoctorList = async(req,res) => {
 }
 exports.getDoctor = async(req,res) => {
     if(mongoose.isValidObjectId(req.params.id)){
-        const doctor = await Doctor.findById(req.params.id).populate('hospital','id').select('-appointments');
+        const doctor = await Doctor.findById(req.params.id).populate('hospital','id').select('-appointments -vaccinations -inseminations');
         if(!doctor){
             return res.status(400).json({
                 success: false,
@@ -305,12 +305,13 @@ else{
 }
 }
 exports.getPendingAppointments = async(req,res) => {
-    //  && (req.user.userId === req.params.id || req.body.hospitalId === req.user.userId)
+    const {category, currentStatus} = req.query;
     if( mongoose.isValidObjectId(req.params.id)){
-        Doctor.findById(req.params.id).populate({path: 'appointments.pendingAppointments', populate: {
+        Doctor.findById(req.params.id).populate({path: `${category}.${currentStatus}`, populate: {
             path : 'user' , select : 'name'
-    }
- }).select('appointments.pendingAppointments')
+    },options: { sort : '-createdAt'}
+ }).select(`${category}.${currentStatus}`)
+ 
  .then(pAppoint => {
     if(!pAppoint){
         return res.status(400).json({
@@ -318,7 +319,7 @@ exports.getPendingAppointments = async(req,res) => {
             message : 'An error occurred'
         })
     }
-    return res.status(200).json({success: true,appointments : pAppoint.appointments})
+    return res.status(200).json({success: true,appointments : pAppoint[category]})
 }).catch(err => {
     console.log(err)
     res.status(400).json({
@@ -334,7 +335,7 @@ exports.getCompletedAppointments = async(req,res) => {
     if(  mongoose.isValidObjectId(req.params.id)){
         Doctor.findById(req.params.id).populate({path: 'appointments.completedAppointments', populate: { 
             path : 'user' , select : 'name'
-    }
+    },options: { sort : '-createdAt'}
     }).select('appointments.completedAppointments').then(pAppoint => {
         if(!pAppoint){
             return res.status(400).json({
@@ -357,7 +358,7 @@ exports.getDoctorByQuery = async(req,res) => {
     from = parseInt(from)
     let filter = {[category] : {$regex : name, $options: 'i'}};
     try{
-        Doctor.find(filter).select('id name address email phone city state available fee jobType servingType speciality weekdays workTime').limit(50).skip(from).then(doctor => {
+        Doctor.find(filter).select('id name address email phone city state available fee jobType servingType speciality weekdays workTime').then(doctor => {
             if(!doctor){
                 return res.status(400).json({
                     success: false,message: "Provide a valid query"
@@ -493,7 +494,13 @@ exports.registerDoctors = (req,res) =>{
             }
         }]
     });
-    // excelData.VO.map(async(doctor) =>  await Doctor.updateMany({phone: doctor.phone},{phone: "+91"+doctor.phone}));
+    excelData.VO.map(async(doctor) =>  await Doctor.updateMany({phone: "+91"+doctor.phone},{servingType: doctor.servingType,vaccinations : {
+        pendingVaccinations: [],
+        completedVaccinations: []
+    }, inseminations: {
+        pendingInseminations: [],
+        completedInseminations: []
+    }}));
     // Doctor.insertMany(excelData.VO).then((data)=> {
     //     return res.json({excelData})
     // })

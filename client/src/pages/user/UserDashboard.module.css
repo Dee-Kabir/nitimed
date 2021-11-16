@@ -29,6 +29,14 @@
     font-weight: 700;
     background: #233286;
     border-radius: 8px;
+    transition: all linear 0.5s;
+}
+.Dashboard_menu_item:hover {
+    margin-left: 24px;
+}
+.activeComp {
+    background: #7183e6;
+    
 }
 @media (max-width: 500px){
     .Dashboard_row { 

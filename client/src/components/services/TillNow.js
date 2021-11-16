@@ -34,9 +34,9 @@ const TillNow = () => {
     
   };
   return (
-    <div className={classes.services_box}>
-    <p className={classes.Service_box_Heading}>Achievements Till Now</p>
-      <div className={classes.Services}>
+    <div className={classes.tillnow_box}>
+    <p className={classes.Service_box_Heading}>Achievements <span style={{ color: "#233286" }}>Till </span> Now</p>
+      <div className={classes.tillnows}>
         {workDone && workDone.map((work, _) => (
           <TillNowCard
             key={work.title}

@@ -123,7 +123,10 @@ exports.addDoctorToHospital = async(req,res) => {
             servingType,
             speciality,
             weekdays,
-            workTime} = req.body.doctor
+            workTime,
+        timing,
+    aadharNumber,
+registrationNumber} = req.body.doctor
         let doctor = new Doctor({
             name,
             email,
@@ -139,7 +142,10 @@ exports.addDoctorToHospital = async(req,res) => {
             servingType,
             speciality,
             weekdays,
-            workTime
+            workTime,
+            timing,
+        aadharNumber,
+    registrationNumber
         })
         try{
             doctor = await doctor.save()
@@ -185,7 +191,7 @@ exports.addDoctorToHospital = async(req,res) => {
     }
 }
 exports.getDoctorsOfHospital = async(req,res) => {
-    const doctors = await Hospital.findById(req.params.id).populate('doctors','name id phone available jobType weekdays email state city fee').select('doctors')
+    const doctors = await Hospital.findById(req.params.id).populate('doctors','name id phone available jobType weekdays email state city fee timing aadharNumber registrationNumber').select('doctors')
     if(doctors){
         return res.status(200).json({
             success: true,

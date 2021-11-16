@@ -1,15 +1,20 @@
 import { Descriptions } from "antd";
 import React, { Fragment, useEffect, useState } from "react";
+import { useLocation } from "react-router";
 import {getAppointment} from "../../actions/firebaseapi"
+import MessageSection from "../../RoomPage/MessageSection/MessageSection";
 const Appointment = props => {
     const [appointment,setAppointment] = useState('')
+    const search = useLocation().search;
     useEffect(()=>{
         loadAppointment()
     },[])
     const loadAppointment = () => {
         const token = localStorage.getItem('token')
         try{
-            getAppointment(props.match.params.id,token).then((data)=>{
+            const category =  props.match.params.category
+            const appointmentId = props.match.params.appointmentId
+            getAppointment(appointmentId,token,category).then((data)=>{
                 if(data.success){
                     setAppointment(data.appointment.user)
                 }
@@ -29,6 +34,7 @@ const Appointment = props => {
             <Descriptions.Item label="District">{appointment.city}</Descriptions.Item>
             <Descriptions.Item label="Email">{appointment.email}</Descriptions.Item>
         </Descriptions>
+        <MessageSection userId={props.match.params.doctorId} typeOfUser="Doctor" appointmentId={props.match.params.appointmentId} category={props.match.params.category}  />
         </div>
         </Fragment>
     )

@@ -42,6 +42,7 @@ import FaqContainer from "./components/imageContainer/FaqContainer"
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminRoutes from "./secureRoutes/AdminRoutes";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import LoggedInRoutes from "./secureRoutes/LoggedInRoutes";
 const App = (props) => {
   const [loading,setLoading] = useState(true);
   const {setUserLoggedIn} = props;
@@ -73,6 +74,7 @@ const App = (props) => {
     <ErrorBoundary>
       <MainHeader />
       <Switch>
+      <Route path="/app-info/:appointmentId/:category/:doctorId" component={Appointment} />
         <LoginRoutes path="/admin/login" exact component={AdminLogin} />
         <AdminRoutes path="/admin/dashboard/:id" exact component={AdminDashboard} />
         <Route path="/" exact component={Home} />
@@ -92,7 +94,7 @@ const App = (props) => {
         <Route path="/nodal-heads" exact component={NodalHeads} />
         <Route path="/diagonstic-laboratories" exact component={Diagonstics} />
         <Route path="/diseases" exact component={DiseasesComponent} />
-        <Route path="/doctors" exact component={Doctors} />
+        <Route path="/doctors/:category" exact component={Doctors} />
         <Route path="/health-services" exact component={HealthServices} />
         <Route path="/pharmacy" exact component={DispensaryComponent} />
         <Route path="/contact-us" exact component={ContactUs} />
@@ -103,7 +105,7 @@ const App = (props) => {
         />
         <UserRoutes path="/dashboard/:userId" exact component={UserDashboard} />
         <UserRoutes
-          path="/appointment/:doctorId"
+          path="/appointment/:doctorId/:category"
           exact
           component={BookAppointment}
         />
@@ -122,7 +124,7 @@ const App = (props) => {
         <Route path="/video-page">
           <IntroductionPage />
         </Route>
-        <DoctorRoutes path="/appointmentInfo/:id" exact component={Appointment} />
+        
         <LoginRoutes path="/forgotPassword" exact component={ForgotPassword} />
         <LoginRoutes path="/reset/:token/:id" exact component={ResetPassword} />
         <Route path="/vaccination" exact component={Vaccine} />

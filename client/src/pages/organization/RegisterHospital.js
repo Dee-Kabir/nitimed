@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { loginHospital, registerHospital } from "../../actions/auth";
 import LoadingComponent from "../../utilities/LoadingComponent";
 import RegisterForm from "../../components/hospitals/RegisterForm";
@@ -124,7 +124,7 @@ const checkFormValidity = () => {
   }
   
   return (!loading ? 
-    <div style={{marginTop: "75px"}}>
+    <div style={{marginTop: "96px"}}>
       
       <div style={{margin: '16px auto',textAlign: 'center'}}>
         <Radio.Group buttonStyle="solid" value={formLogin}>

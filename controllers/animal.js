@@ -11,6 +11,8 @@ exports.getAnimalInfo = async(req,res) => {
     if(mongoose.isValidObjectId(req.params.id)){
         const animal = await Animal.findById(req.params.id).populate({path : 'vaccines',populate: {
             path: 'onThis'
+        }}).populate({path : 'semination',populate: {
+            path: 'onThis' ,select: "name age"
         }}).select('name id age breed registrationId gender owner vaccines semination remarks')
         if(animal){
             return res.status(200).json({
@@ -152,7 +154,8 @@ exports.BookVaccinationForAnimal = async(req,res) => {
         let refm = new RefModel({
             onThis : req.body.vaccineId,
             onModel : 'Vaccine',
-            done: false
+            completed: false,
+            byWhom: req.body.doctorId
         })
         refm = await refm.save();
         if(refm){
@@ -186,40 +189,57 @@ exports.BookVaccinationForAnimal = async(req,res) => {
     }
 }
 exports.BookSeminationForAnimal = async(req,res) => {
-    if(mongoose.isValidObjectId(req.params.id) && mongoose.isValidObjectId(req.body.semineId)){
-        let refm = new RefModel({
-            onThis : req.body.semineId,
-            onModel : 'Insemination',
-            done: false
-        })
-        refm = await refm.save();
-        if(refm){
-            const animal = await Animal.findByIdAndUpdate(req.params.id,{
-                $push : {semination : refm.id}
-            },{
-                new: true
+    if(mongoose.isValidObjectId(req.params.id) && mongoose.isValidObjectId(req.body.bullId)){
+        try{
+            Animal.findById(req.body.bullId).then(async(data) => {
+                if(data && data.gender === 'M' && req.body.bullId !== req.params.id){
+                    let refm = new RefModel({
+                        onThis : req.body.bullId,
+                        onModel : 'Animal',
+                        completed: true,
+                        byWhom: req.body.doctorId
+                    })
+                    refm = await refm.save();
+                    if(refm){
+                        const animal = await Animal.findByIdAndUpdate(req.params.id,{
+                            $push : {semination : refm._id}
+                        },{
+                            new: true
+                        })
+                        if(animal){
+                            return res.status(200).json({
+                                success: true,
+                                message: "semination done successfully"
+                            })
+                        }else{
+                            return res.status(400).json({
+                                success:false,
+                                message: "Try again after some time."
+                            })
+                        }
+                    }else{
+                        return res.status(400).json({
+                            success:false,
+                            message: "Try again after some time."
+                        })
+                    }
+                }else{
+                    return res.status(400).json({
+                        success:false,
+                        message: "Animal should be male and registered."
+                    })
+                }
             })
-            if(animal){
-                return res.status(200).json({
-                    success: true,
-                    message: "semination booked successfully"
-                })
-            }else{
-                return res.status(400).json({
-                    success:false,
-                    error: "Try again after some time."
-                })
-            }
-        }else{
+        }catch(err){
             return res.status(400).json({
-                success:false,
-                error: "Try again after some time."
+                success: false,
+                message: "Valid animal id is required."
             })
         }
     }else{
         return res.status(400).json({
             success:false,
-            error: "Try again after some time."
+            message: "Try again after some time."
         })
     }
 }
@@ -234,4 +254,26 @@ exports.addVaccine = async(req,res) => {
         message: "added"
     })
 }
-
+exports.vaccinationForAnimal = async(req,res) =>{
+    if(mongoose.isValidObjectId(req.params.id) && mongoose.isValidObjectId(req.body.refId) && req.user.isAdmin!==0){
+        
+        let refm = await RefModel.findByIdAndUpdate(req.body.refId,{completed: true})
+        
+        if(refm){
+            return res.status(200).json({
+                success: true,
+                message: "vaccination done successfully"
+            })
+        }else{
+            return res.status(400).json({
+                success:false,
+                message: "Try again after some time."
+            })
+    }
+    }else{
+        return res.status(400).json({
+            success:false,
+            message: "Try again after some time."
+        })
+    }
+}

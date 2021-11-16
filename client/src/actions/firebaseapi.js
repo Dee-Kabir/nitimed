@@ -19,7 +19,7 @@ export const editHospitalInfo = async (data, id,token) => {
   }).then(res => res.json())
   .catch(err => console.log(err))
 };
-export const editInfo = async (name, address, state, city,id,token) => {
+export const editInfo = async (name, address, state, city,id,token,aadharNumber) => {
   return await fetch(`${API_URL}/users/${id}`,{
     method: 'PUT',
     headers: {
@@ -27,7 +27,7 @@ export const editInfo = async (name, address, state, city,id,token) => {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     },
-    body: JSON.stringify({name,address,city,state})
+    body: JSON.stringify({name,address,city,state,aadharNumber})
   }).then(res => res.json())
   .catch(err => console.log(err))
 };
@@ -56,7 +56,31 @@ export const bookAppointment = async(data,token) => {
   }).then(res => res.json())
   .catch(err => console.log(err))
 }
-export const completeAppointments = async(id,completed,remark,token) => {
+export const bookVaccination = async(data,token) => {
+  return await fetch(`${API_URL}/appointments/vaccination`,{
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({...data})
+  }).then(res => res.json())
+  .catch(err => console.log(err))
+}
+export const bookInsemination = async(data,token) => {
+  return await fetch(`${API_URL}/appointments/insemination`,{
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({...data})
+  }).then(res => res.json())
+  .catch(err => console.log(err))
+}
+export const completeAppointments = async(id,completed,remark,token,category) => {
   return await fetch(`${API_URL}/appointments/${id}`,{
     method: 'PUT',
     headers: {
@@ -64,12 +88,12 @@ export const completeAppointments = async(id,completed,remark,token) => {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     },
-    body: JSON.stringify({completed: completed,remark})
+    body: JSON.stringify({completed: completed,remark,category})
   }).then(res => res.json())
   .catch(err => console.log(err))
 }
-export const getPendingAppointments = async(id,token) => {
-  return await fetch(`${API_URL}/doctors/pending-appointments/${id}`,{
+export const getPendingAppointments = async(id,token,category,status) => {
+  return await fetch(`${API_URL}/doctors/pending-appointments/${id}?category=${category}&currentStatus=${status}`,{
     method: 'GET',
     headers: {
       Accept: 'application/json',
@@ -79,19 +103,8 @@ export const getPendingAppointments = async(id,token) => {
   }).then(res => res.json())
   .catch(err => console.log(err))
 }
-export const getCompletedAppointments = async(id,token) => {
-  return await fetch(`${API_URL}/doctors/completed-appointments/${id}`,{
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    }
-  }).then(res => res.json())
-  .catch(err => console.log(err))
-}
-export const getUserAppointments = async(id,token) => {
-  return await fetch(`${API_URL}/users/get/appointments/${id}`,{
+export const getUserAppointments = async(id,token,category) => {
+  return await fetch(`${API_URL}/users/get/appointments/${id}?category=${category}`,{
     method: 'GET',
     headers: {
       Accept: 'application/json',
@@ -211,7 +224,6 @@ export const setRoomIdOfHostInFirebase = async(roomId, userId,token) => {
   .catch(err => console.log(err))
 }
 export const getRoomId = async(doctorId,token) => {
-  console.log("doctorId",doctorId)
   return await fetch(`${API_URL}/users/roomId/${doctorId}`,{
     method: 'GET',
     headers: {
@@ -233,8 +245,8 @@ export const getDoctorsOfHospital = async(id,token) => {
   }).then(res => res.json())
   .catch(err => console.log(err))
 }
-export const getAppointment = async(id,token) =>{
-  return await fetch(`${API_URL}/appointments/${id}`,{
+export const getAppointment = async(id,token,category) =>{
+  return await fetch(`${API_URL}/appointments/${id}?category=${category}`,{
     method: 'GET',
     headers: {
       Accept: 'application/json',

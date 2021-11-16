@@ -46,7 +46,7 @@ const LoginForm = ({
               </Button>
             </div>
           </Form>
-          <div><Link to="/forgotPassword">Forgot Password?</Link></div>
+          <div style={{marginTop: "16px"}}><Link to="/forgotPassword">Forgot Password?</Link></div>
     </div>
   );
 };

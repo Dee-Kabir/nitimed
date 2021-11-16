@@ -178,48 +178,61 @@ else{
 }
 }
 exports.getAppointments = async(req,res) => {
-    if(req.user.userId === req.params.id || req.user.isAdmin === 3) {
-    User.findById(req.params.id).populate({path : 'appointments', populate : {
-        path : 'doctor',
-        select : 'name'
-    }}).then(appointments => {
-        if(!appointments){
-            return res.status(400).json({
+    const {category} = req.query;
+    try{
+        if(req.user.userId === req.params.id || req.user.isAdmin === 3) {
+            User.findById(req.params.id).populate({path : category, populate : {
+                path : 'doctor',
+                select : 'name phone'
+            },options: { sort : '-createdAt'}}).then(appointments => {
+                if(!appointments){
+                    return res.status(400).json({
+                        success: false,
+                        message: "Error while fetching appointments"
+                    })
+                }
+
+                return res.status(200).json({success: true,[category]:appointments[category]})
+            }).catch(err => {
+                console.log(err)
+                res.status(400).json({
                 success: false,
-                message: "Error while fetching appointments"
-            })
+                message: "Unable to find appointments."
+            })})
         }
-        return res.status(200).json({success: true,appointments:appointments.appointments})
-    }).catch(err => {
-        console.log(err)
-        res.status(400).json({
-        success: false,
-        message: err
-    })})
-}
-else{
-    return res.status(400).json({success: false, message: "user id not found"})
-}
+        else{
+            return res.status(400).json({success: false, message: "user id not found"})
+        }
+    }catch(err){
+        return res.status(400).json({success: false, message: "user id not found"})
+    }
 }
 exports.getRoomId = async(req,res) => {
-    if(mongoose.isValidObjectId(req.params.id)){
-        Doctor.findById(req.params.id).then(data => {
-            if(data){
-                return res.status(200).json({
-                    success: true,
-                    roomId : data.roomId
-                })
-            }else{
-                return res.status(400).json({
-                    success: false,
-                    message: "Doctor not found"
-                })
-            }
-        }).catch(err => res.status(400).json({
-            success: false,
-            message: "Doctor not found.Try Again!"
-        }))
-    }else{
+    try{
+        if(mongoose.isValidObjectId(req.params.id)){
+            Doctor.findById(req.params.id).then(data => {
+                if(data){
+                    return res.status(200).json({
+                        success: true,
+                        roomId : data.roomId
+                    })
+                }else{
+                    return res.status(400).json({
+                        success: false,
+                        message: "Doctor not found"
+                    })
+                }
+            }).catch(err => res.status(400).json({
+                success: false,
+                message: "Doctor not found.Try Again!"
+            }))
+        }else{
+            return res.status(400).json({
+                success: false,
+                message: "Doctor not found"
+            })
+        }
+    }catch(err){
         return res.status(400).json({
             success: false,
             message: "Doctor not found"

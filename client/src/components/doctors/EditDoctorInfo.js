@@ -24,6 +24,7 @@ const EditDoctorInfo = (props) => {
         address: "",
         state: "",
         city: "", 
+        timing: ""
     });
     const {
     name,
@@ -39,7 +40,8 @@ const EditDoctorInfo = (props) => {
     address,
     state,
     city,
-    fee
+    fee,
+    timing
     } = values;
     const [loading,setLoading] = useState(false)
     const [error,setError] = useState("");
@@ -69,10 +71,10 @@ const EditDoctorInfo = (props) => {
                 address,
                 state,
                 fee,
-                city} = user;
+                city,timing} = user;
             setValues({...values,name:name,email: email,phone:phone.substr(3,10),qualification:qualification,
                 jobType:jobType,servingType: servingType,workTime:workTime,weekdays:weekdays,consultingTime:consultingTime,
-                speciality:speciality,address:address,state:state,city:city,fee:fee})    
+                speciality:speciality,address:address,state:state,city:city,fee:fee,timing})    
     }
     const formIsValid = () => {
       if(!name) {

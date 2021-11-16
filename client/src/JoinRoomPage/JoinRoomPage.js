@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { isAuthenticated } from "../actions/auth";
+import MessageSection from "../RoomPage/MessageSection/MessageSection";
 import { setIsRoomHost } from "../store/actions";
 import JoinRoomContent from "./JoinRoomContent";
 import "./JoinRoomPage.css";
@@ -11,10 +13,13 @@ const JoinRoomPage = (props) => {
   const { setIsRoomHostAction, isRoomHost } = props;
   const [name, setName] = useState("")
   const [userId, setUserId] = useState("")
+  const [appointmentId, setAppointmentId] = useState("");
+  const [category, setCategory] = useState("");
   const search = useLocation().search;
   useEffect(()=>{
     const hostName = new URLSearchParams(search).get("name");
     setName(hostName)
+    
   },[search])
   useEffect(() => {
     const isRoomHost = new URLSearchParams(search).get("host");
@@ -30,7 +35,12 @@ const JoinRoomPage = (props) => {
   }, [search, setIsRoomHostAction]);
 
   const [showLoadingOverlay, setShowLoadingOverlay] = useState(false);
-
+  useEffect(()=>{
+    const appointmentId = new URLSearchParams(search).get("appointmentId");
+    setAppointmentId(appointmentId)
+    const category = new URLSearchParams(search).get("category");
+    setCategory(category)
+  },[])
   return (
     <div className="join_room_page_container">
       <div className="join_room_page_panel">
@@ -38,6 +48,7 @@ const JoinRoomPage = (props) => {
         <JoinRoomContent setShowLoadingOverlay={setShowLoadingOverlay} name={name} userId={userId} />
         {showLoadingOverlay && <LoadingOverlay />}
       </div>
+      {((isRoomHost==="false" || isRoomHost===false) && appointmentId!=="" && userId!=="" && category!=="") ? <MessageSection userId={isAuthenticated()} typeOfUser= 'User' appointmentId={appointmentId} category={category} />: null}
     </div>
   );
 };

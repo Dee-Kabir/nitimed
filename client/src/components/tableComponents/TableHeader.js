@@ -5,7 +5,7 @@ const TableHeader = ({headerParams}) => {
         <Table.Header>
             <Table.Row>
             {
-                headerParams.map(param => <Table.HeaderCell key={param}>{param}</Table.HeaderCell>)
+                headerParams.map(param => param ? <Table.HeaderCell key={param}>{param}</Table.HeaderCell> : null)
             }
             </Table.Row>
           </Table.Header>

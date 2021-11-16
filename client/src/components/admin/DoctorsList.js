@@ -6,11 +6,10 @@ import TableHeader from "../tableComponents/TableHeader"
 const DoctorsList = (props) => {
     const [doctors, setDoctors] = useState([])
     const [result, setResult] = useState([]);
-    const [from, setFrom] = useState(0);
     const [searchterm, setSearchterm] = useState("")
     const loadDoctorList = () => {
         try{
-            findDoctorByName(props.district, "city",from).then(data => {
+            findDoctorByName(props.district, "city").then(data => {
                 if(data.success){
                     setDoctors(data.doctors)
                 }else{
@@ -23,11 +22,10 @@ const DoctorsList = (props) => {
     }
     useEffect(()=>{
         loadDoctorList()
-    },[from]);
+    },[]);
     const searchDoctor = () => {
         let name = document.getElementById("doctorName").value
         try{
-            setFrom(0);
             findDoctorByNameAndCity(props.district,name).then(data => {
                 if(data.success){
                     setResult(data.doctors)
@@ -44,7 +42,7 @@ const DoctorsList = (props) => {
         return(
             doctors.map((doctor,_)=> (
                 <Table.Row key={doctor.id}>
-                <Table.Cell>{from+_+1}</Table.Cell>
+                <Table.Cell>{_+1}</Table.Cell>
                 <Table.Cell>{doctor.name}</Table.Cell>
                 <Table.Cell>{doctor.city}</Table.Cell>
                 <Table.Cell>{doctor.phone}</Table.Cell>
@@ -52,14 +50,6 @@ const DoctorsList = (props) => {
             ))
         )
     }
-    const controlButtons = (
-        <Grid>
-        <Grid.Row columns={2} stretched className="m-4">
-          <Grid.Column ><Button disabled={from <= 0} secondary onClick={() => setFrom(from-50)} >Previous</Button></Grid.Column>
-          <Grid.Column ><Button disabled={doctors.length<50} positive onClick={() => setFrom(from+50)} >Next</Button></Grid.Column>
-      </Grid.Row>
-        </Grid>
-      )
     return(
         <div>
         <Grid className="m-4">
@@ -76,7 +66,6 @@ const DoctorsList = (props) => {
         {searchterm.length > 0 ? doctorsComp(result) : doctorsComp(doctors)}
         </Table.Body>
         </Table> 
-        {searchterm.length === 0 ? controlButtons: null}
         </div>
     )
 }

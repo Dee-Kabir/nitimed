@@ -25,7 +25,7 @@ class HospitalCard extends Component{
     }
       this.setState({show: !this.state.show})
     }
-    doctors = () => (<DoctorCard doctors={this.state.doctorsList} heading={`Doctors in hospital ${this.props.hospital.name}`} />)
+    doctors = () => (<DoctorCard category={this.props.category} doctors={this.state.doctorsList} heading={`Doctors in hospital ${this.props.hospital.name}`} />)
     
     render(){
       const {loading,show} = this.state;

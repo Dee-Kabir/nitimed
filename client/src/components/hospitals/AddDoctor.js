@@ -21,7 +21,9 @@ const AddDoctor = () => {
     address:"",
     city:"",
     state:"",
-    timing: ""
+    timing: "",
+    registrationNumber: "",
+    aadharNumber: ""
   });
   const { name,
     email,
@@ -36,7 +38,9 @@ const AddDoctor = () => {
     fee,
     address,
     state,
-    city } = values;
+    city,
+    registrationNumber,
+    aadharNumber} = values;
   
   const [error,setError] = useState("");
   const [loading,setLoading] = useState(false);
@@ -48,7 +52,7 @@ const AddDoctor = () => {
   const handleSubmit = (e) => {
       e.preventDefault();
       try{
-          if(name && email && phone.length === 10 && address && city && state){
+          if(name && email && phone.length === 10 && address && city && state && registrationNumber && aadharNumber){
             const token = localStorage.getItem('token')
             setLoading(true)
             checkdoctorb(`+91${phone}`).then(data => {
@@ -56,7 +60,7 @@ const AddDoctor = () => {
                 addDoctortoHospital(isAuthenticated(),{name: name.toUpperCase(),
                   email,
                   phone:'+91'+phone,qualification,jobType,servingType,workTime,weekdays,speciality,fee,
-                  address,city,state,timing,},
+                  address,city,state,timing,aadharNumber,registrationNumber},
                   token
                   ).then((doc) => {
                     if(doc.success){

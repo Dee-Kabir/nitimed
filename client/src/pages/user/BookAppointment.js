@@ -5,9 +5,10 @@ import { createOrder } from "../../actions/payment"
 import {verifySignature,capturePayments} from "../../actions/payment"
 import { Divider } from "antd"
 import { Button ,Input} from "semantic-ui-react"
-import { bookAppointment } from "../../actions/firebaseapi"
+import { bookAppointment, bookVaccination, bookInsemination } from "../../actions/firebaseapi"
 import { connect } from "react-redux"
 import ShowAnimals from "../../components/animals/ShowAnimals"
+import ChargesNote from "../../components/doctors/ChargesNote"
 const loadRazorpay = async(data) => {
     return new Promise((resolve)=>{
       const script = document.createElement('script')
@@ -22,8 +23,13 @@ const loadRazorpay = async(data) => {
       document.body.appendChild(script)
     })
 }
-
+const appointmentCategory = {
+    "appointment": bookAppointment,
+    "vaccination" : bookVaccination,
+    "artificialInsemination": bookInsemination
+}
 const BookAppointment = (props) => {
+    const category = props.match.params.category;
     const [text,setText] = useState("")
     const [error,setError] = useState("")
     const [loading,setLoading] = useState(false)
@@ -48,14 +54,20 @@ const BookAppointment = (props) => {
         const doctorId = props.match.params.doctorId
         const token = localStorage.getItem('token')
         // const animalId = props.state.params
-        bookAppointment({amount,doctorId,userId: isAuthenticated(),order_id,payment_id,razorpay_signature,animal:selectedAnimal},token).then(data => {
-            if(data.success){
-                alert('Appointment Booked check your Appointment History on your dashboard')
-                props.history.replace(`/dashboard/${isAuthenticated()}?show=appointmentHistory`)
-            }else{
-                setError("No token available for today")
-            }
-        })
+        // assign function on basis of category
+        try{
+            appointmentCategory[category]({amount,doctorId,userId: isAuthenticated(),order_id,payment_id,razorpay_signature,animal:selectedAnimal},token).then(data => {
+                if(data.success){
+                    alert('Appointment Booked check your Appointment History on your dashboard')
+                    props.history.replace(`/dashboard/${isAuthenticated()}?show=${category}s`)
+                }else{
+                    setError("No token available for today")
+                }
+            })
+        }catch(err){
+            console.log(err)
+            setError("Not Allowed.")
+        }
       }
     const displayRazorpay = async(data) => {
         const res = await loadRazorpay()
@@ -146,7 +158,8 @@ const BookAppointment = (props) => {
             <div style={{fontSize:'16px'}}><span style={{fontWeight:'600'}}>Doctor</span>- Dr.{props.selectedDoc.name}</div>  
             <div style={{fontSize:'16px'}}><span style={{fontWeight:'600'}}>Fee</span>- Rs {props.selectedDoc.fee}</div>
             <Divider/>
-            <div style={{fontWeight: '600',textAlign: 'center'}}>write Book in the below box<br/> <span>and</span><br/>Select one of your animal for which you need assistance.</div>
+            <ChargesNote category={category} />
+        
             <form onSubmit={handleSubmit} style={{display: 'flex' ,justifyContent: 'space-between'}}>
             <Input type="text" value={text} style={{flex: "1"}} onChange={(e)=> {setText(e.target.value)
             setError("")

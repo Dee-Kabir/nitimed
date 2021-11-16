@@ -46,7 +46,19 @@ export const updateAnimalOwner = async(id,phone,token) => {
     }).then(res => res.json())
     .catch(err => console.log(err))
 }
-export const bookVaccine = async(id,vaccineId,token) => {
+export const suggestVaccine = async(id,vaccineId,token,doctorId) => {
+    return await fetch(`${API_URL}/animals/suggestVaccine/${id}`,{
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({vaccineId,doctorId})
+    }).then(res => res.json())
+    .catch(err => console.log(err))
+}
+export const bookVaccine = async(id,refId,token) => {
     return await fetch(`${API_URL}/animals/bookVaccine/${id}`,{
         method: 'PUT',
         headers: {
@@ -54,7 +66,19 @@ export const bookVaccine = async(id,vaccineId,token) => {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({vaccineId})
+        body: JSON.stringify({refId})
+    }).then(res => res.json())
+    .catch(err => console.log(err))
+}
+export const seminationCompleted = async(id,bullId,token,doctorId) => {
+    return await fetch(`${API_URL}/animals/seminationCompleted/${id}`,{
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({bullId,doctorId})
     }).then(res => res.json())
     .catch(err => console.log(err))
 }

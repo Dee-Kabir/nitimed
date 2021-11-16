@@ -40,18 +40,22 @@ const UserDashboard = (props) =>{
         <div className={classes.Dashboard_row}>
         <div className={classes.Dashboard_menu_column}>
         <div className={classes.Dashboard_menu_items}>
-        <div className={classes.Dashboard_menu_item} onClick={() =>changeComponent('info')}>Account Information</div>
-        <div className={classes.Dashboard_menu_item} onClick={() => changeComponent('edit')}>Edit Account </div>
-        <div className={classes.Dashboard_menu_item} onClick={() => changeComponent('appointmentHistory')}>Appointment History</div>
-        <div className={classes.Dashboard_menu_item} onClick={() => changeComponent('addAnimal')}>Add Animal</div>
-        <div className={classes.Dashboard_menu_item} onClick={() => changeComponent('animals')}>Show Animals</div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='info' ? classes.activeComp : ""}`} onClick={() =>changeComponent('info')}>Account Information</div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='edit' ? classes.activeComp : ""}`} onClick={() => changeComponent('edit')}>Edit Account </div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='appointments' ? classes.activeComp : ""}`} onClick={() => changeComponent('appointments')}>Appointment History</div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='vaccinations' ? classes.activeComp : ""}`} onClick={() => changeComponent('vaccinations')}>Vaccination bookings</div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='artificialInseminations' ? classes.activeComp : ""}`} onClick={() => changeComponent('artificialInseminations')}>Artificial Insemination bookings</div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='addAnimal' ? classes.activeComp : ""}`} onClick={() => changeComponent('addAnimal')}>Add Animal</div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='animals' ? classes.activeComp : ""}`} onClick={() => changeComponent('animals')}>Show Animals</div>
         </div>
         </div>
         <div className={classes.Dashboard_info_column}>
         {!loading  ? <Fragment>
         {showComp === 'info' && <ShowUserInfo user={user}  /> }
         {showComp === 'edit' && <EditAccountInfo props={props} />}
-        {showComp === 'appointmentHistory' && <AppointmentHistory userName={user.name}  />}
+        {showComp === 'appointments' && <AppointmentHistory category="appointments" userName={user.name}  />}
+        {showComp === 'vaccinations' && <AppointmentHistory category="vaccinations" userName={user.name}  />}
+        {showComp === 'artificialInseminations' && <AppointmentHistory category="inseminations" userName={user.name}  />}
         {showComp ==='addAnimal' && <AddAnimal userId={user.id} />}
         {showComp === 'animals' && <ShowAnimals userId={user.id} />}
         </Fragment>

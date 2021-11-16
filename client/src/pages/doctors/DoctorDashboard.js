@@ -57,10 +57,14 @@ const DoctorDashboard = (props) => {
         <div className={classes.Dashboard_row}>
         <div className={classes.Dashboard_menu_column}>
         <div className={classes.Dashboard_menu_items}>
-        <div className={classes.Dashboard_menu_item} onClick={() =>changeComponent('info')}>Account Information</div>
-        <div className={classes.Dashboard_menu_item} onClick={() => changeComponent('edit')}>Edit Account Information </div>
-        <div className={classes.Dashboard_menu_item} onClick={() => changeComponent('appointments')}>Check pending Appointments</div>
-        <div className={classes.Dashboard_menu_item} onClick={() => changeComponent('appointmentHistory')}>Completed Appointments</div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='info' ? classes.activeComp : ""}`} onClick={() =>changeComponent('info')}>Account Information</div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='edit' ? classes.activeComp : ""}`} onClick={() => changeComponent('edit')}>Edit Account Information </div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='appointments' ? classes.activeComp : ""}`} onClick={() => changeComponent('appointments')}>Pending Appointments</div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='vaccinations' ? classes.activeComp : ""}`} onClick={() => changeComponent('vaccinations')}>Pending Vaccinations</div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='inseminations' ? classes.activeComp : ""}`} onClick={() => changeComponent('inseminations')}>Pending Artificial Inseminations</div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='appointmentHistory' ? classes.activeComp : ""}`} onClick={() => changeComponent('appointmentHistory')}>Completed Appointments</div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='vaccinationHistory' ? classes.activeComp : ""}`} onClick={() => changeComponent('vaccinationHistory')}>Completed Vaccinations</div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='inseminationHistory' ? classes.activeComp : ""}`} onClick={() => changeComponent('inseminationHistory')}>Completed Artificial Inseminations</div>
         </div>
         </div>
         <div className={classes.Dashboard_info_column}>
@@ -68,8 +72,12 @@ const DoctorDashboard = (props) => {
             {error && <ErrorComponent error={error}/>}
             {showComp==='info' && <ShowDoctorInfo user={user}  /> }
             {showComp==='edit' && <EditDoctorInfo user={user} />}
-            {showComp==='appointments' && <PendingAppointments doctorId = {user.id}/>}
-            {showComp==='appointmentHistory' && <CompletedAppointments doctorId = {user.id}/>}
+            {showComp==='appointments' && <PendingAppointments category="appointments" status="pendingAppointments" doctorId = {user.id}/>}
+            {showComp==='appointmentHistory' && <CompletedAppointments category="appointments" status="completedAppointments" doctorId = {user.id}/>}
+            {showComp==='vaccinations' && <PendingAppointments category="vaccinations" status="pendingVaccinations" doctorId = {user.id}/>}
+            {showComp==='vaccinationHistory' && <CompletedAppointments category="vaccinations" status="completedVaccinations" doctorId = {user.id}/>}
+            {showComp==='inseminations' && <PendingAppointments category="inseminations" status="pendingInseminations" doctorId = {user.id}/>}
+            {showComp==='inseminationHistory' && <CompletedAppointments category="inseminations" status="completedInseminations" doctorId = {user.id}/>}
             </Fragment>
             : <LoadingComponent loading={loading} />
             }

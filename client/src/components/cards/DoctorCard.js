@@ -7,14 +7,16 @@ import { connect } from "react-redux";
 import {setSelectedDoctor} from '../../store/actions'
 import { isAuthenticated } from "../../actions/auth";
 const week = ["Sun","Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-const DoctorCard = ({ doctors, heading,setSelectedDoctor, searched = true }) => {
+const DoctorCard = ({ doctors, heading,setSelectedDoctor,category, searched = true }) => {
   const history = useHistory()
 
-  const checkAvailability = (doctor) => {
+  const checkAvailability = (doctor,category) => {
     if (doctor.available) {
+      console.log(week[new Date().getDay()])
       if (doctor.weekdays.includes(week[new Date().getDay()])) {
+        
         setSelectedDoctor(doctor)
-        history.push(`/appointment/${doctor.id}`)
+        history.push(`/appointment/${doctor.id}/${category}`)
       } else {
         alert("Doctor Not Available today");
       }
@@ -40,7 +42,10 @@ const DoctorCard = ({ doctors, heading,setSelectedDoctor, searched = true }) => 
                 <Table.Cell>{doc.fee}</Table.Cell>
                 <Table.Cell>
                   {
-                    isAuthenticated() ? <Button onClick={() => checkAvailability(doc)}>Book Appointment</Button> : <Button onClick={() => history.push("/login/user")}>Login to Book</Button>
+                    isAuthenticated() ? category==="appointment" ? <Button onClick={() => checkAvailability(doc,"appointment")}>Book Appointment</Button> : category==="vaccination" ?
+                    <Button onClick={() => checkAvailability(doc,"vaccination")}>Book Vaccination</Button> : 
+                    <Button onClick={() => checkAvailability(doc,"artificialInsemination")}>Book Artificial Insemination</Button>
+                    : <Button onClick={() => history.push("/login/user")}>Login to Book</Button>
                   }
                 </Table.Cell>
               </Table.Row>

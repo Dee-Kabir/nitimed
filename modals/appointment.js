@@ -22,6 +22,10 @@ const appointmentSchema = new mongoose.Schema({
         type: ObjectId,
         ref: 'Animal'
     },
+    messages: [
+        {type: ObjectId,
+        ref: 'Message'}
+    ],
     order_id: {
         type:String
     },

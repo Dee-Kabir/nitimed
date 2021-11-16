@@ -1,5 +1,5 @@
 .RegisterForm_H {
-    width: 100%;
+    max-width: 700px;
     background: #fcfcfc; 
     display: flex;
     flex-direction: column;
@@ -10,7 +10,7 @@
     
 }
 .LoginForm_H{
-    width: 100%;
+    max-width: 500px;
     height: 50vh;
     background: #fcfcfc; 
     display: flex;

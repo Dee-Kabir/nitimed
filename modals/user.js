@@ -40,6 +40,18 @@ const userSchema = new mongoose.Schema({
             ref: "Appointment"
         }
     ],
+    vaccinations: [
+        {
+            type: ObjectId,
+            ref: "Vaccination"
+        }
+    ],
+    inseminations: [
+        {
+            type: ObjectId,
+            ref: "Insemination"
+        }
+    ],
     aadharNumber: {
         type:String
     }

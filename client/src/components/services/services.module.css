@@ -1,13 +1,15 @@
 .Services{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
-    margin: 16px;
     text-align: center;
     justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
 }
 .services_box{
     margin-top: 32px;
+    text-align: center;
 }
 .Service_box_Heading {
     font-size: 2.5rem;
@@ -15,4 +17,39 @@
     text-align: center;
     letter-spacing: 1.62px;
     line-height: 1.3;
+}
+.blob{
+    transition: all linear 1s;
+}
+.blob :hover{
+    margin: 16px;
+}
+.services_middle_row{
+    display: flex;
+}
+.tillnow_box{
+    margin-top: 32px;
+    text-align: center;
+}
+.tillnows{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 16px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+@media (max-width : 800px){
+    .Services {
+        flex-direction: row;
+    }
+    .blob{
+        display: none;
+    }
+    .services_middle_row{
+        flex-wrap: wrap;
+        justify-content: center;
+
+    }
 }

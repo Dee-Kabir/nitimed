@@ -2,7 +2,7 @@ import { Container, Header } from "semantic-ui-react";
 import classes from "./Doctors.module.css";
 import DoctorSearchBox from "../../components/doctors/DoctorsSearchBox";
 import { useEffect } from "react";
-const Doctors = () => {
+const Doctors = (props) => {
   useEffect(()=>{
     document.title="Nitimed | Doctors"
   },[])
@@ -23,7 +23,7 @@ const Doctors = () => {
         </div>
       </div>
       <div className={classes.SearchResults}>
-        <DoctorSearchBox />
+        <DoctorSearchBox category={props.match.params.category}  />
       </div>
     </Container>
   );

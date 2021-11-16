@@ -35,7 +35,7 @@ const animalSchema = new mongoose.Schema({
     semination: [
         {
             type:ObjectId,
-            ref: 'Semination'
+            ref: 'RefModel'
         }
     ],
     remarks: [

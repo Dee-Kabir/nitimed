@@ -8,15 +8,18 @@
     position: fixed;
     top: 0px;
     z-index: 2;
+    overflow: hidden;
 }
 .NewHeader{
     display: flex;
     height: 71px;
+    margin-top: 71px;
     width: 100%;
     padding: 0px 16px;
     box-shadow: 2px 2px #eee;
     background-color: #fff;
     z-index: 2;
+    overflow: hidden;
 }
 .Header_Logo_Img{
     width: 50px;
@@ -72,6 +75,7 @@
     margin-left: 0px;
     display: flex;
     flex-grow: 4;
+    justify-content: space-around;
 }
 .NewHeader_Items_Block{
     margin-left: 0px;

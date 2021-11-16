@@ -44,7 +44,7 @@ const ShowAnimals = props => {
         }
         </Table.Body>
         </Table>
-        </div> :<div>No Animal registered yet <Link to={`/dashboard/${props.userId}?show=addAnimal`}>Register now</Link> </div>) : <LoadingComponent loading={loading} />
+        </div> :<div style={{fontSize: "24px"}}>No Animal registered yet <Link to={`/dashboard/${props.userId}?show=addAnimal`}>Register now</Link> </div>) : <LoadingComponent loading={loading} />
     )
 }
 export default ShowAnimals

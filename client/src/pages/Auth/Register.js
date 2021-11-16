@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Fragment } from "react";
 import RegisterForm from "../../components/user/RegisterForm";
 import firebase from "../../firebaseHelper";
-import { register } from "../../actions/auth";
+import { authenticateUser, register } from "../../actions/auth";
 import ErrorComponent from "../../utilities/ErrorComponent";
 import LoadingComponent from "../../utilities/LoadingComponent";
 import { connect } from "react-redux";
-import {setUserMobileNumber} from "../../store/actions"
+import {setUserMobileNumber,setUserLoggedIn} from "../../store/actions"
 import { webName } from "../../Config";
 import { scrollToTop } from "../../actions/firebaseapi";
 const Register = (props) => {
@@ -65,9 +65,23 @@ const Register = (props) => {
               (data) => {
                 if(data.success){
                       props.setUserMobileNumber('')
-                      setLoading(false);
-                      setError("");
-                      props.history.replace("/login/user");
+                      authenticateUser(
+                        "+91"+phone,
+                        "user"
+                      ).then((userData) => {
+                        if(userData.success){
+                          setLoading(false);
+                          localStorage.setItem("user", userData.user.id);
+                          localStorage.setItem("token",userData.token)
+                          props.setUserLoggedIn(userData.user)
+                          localStorage.setItem("userType","user" );
+                          props.history.replace("/dashboard/"+userData.user.id+"/?show=appointments");
+                        }else{
+                          setError("Error occurred.")
+                          setLoading(false)
+                        }
+                        
+                      })
                 }else{
                   setError("Try again after sometime.")
                 }
@@ -92,8 +106,8 @@ const Register = (props) => {
     } else if (phone.toString().length != 10) {
       setError("Valid mobile Number is required");
       return false;
-    } else if (address.length < 20) {
-      setError("Enter at least 20 character long address");
+    } else if (address==="") {
+      setError("Enter address");
     } else if (!state || !city) {
       setError("state and Name required");
     } else {
@@ -122,4 +136,4 @@ const Register = (props) => {
 const mapStateToProps = state => ({
   mobileNumber: state.user.mobileRegister
 })
-export default connect(mapStateToProps,{setUserMobileNumber})(Register);
+export default connect(mapStateToProps,{setUserMobileNumber,setUserLoggedIn})(Register);

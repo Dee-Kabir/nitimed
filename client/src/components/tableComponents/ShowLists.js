@@ -51,12 +51,18 @@ const ShowLists = (props) => {
   };
   const DiseaseTableHeader  = <TableHeader headerParams={props.headerList} />
 
-  const DiseaseTableBodyRow = (d) => (
+  const DiseaseTableBodyRow = (d,_) => (
     <Table.Row  key={d._id}>
     {
-        props.cellName.map((cName)=>(
+        props.cellName.map((cName)=>{
+          if(cName === "sNo"){
+            return <Table.Cell key={cName}>{from+_+1}</Table.Cell>
+          
+          }
+          return (
             <Table.Cell key={cName}>{d[`${cName}`]}</Table.Cell>
-        ))
+        )
+        })
     }
     </Table.Row>
   )
@@ -78,8 +84,8 @@ const ShowLists = (props) => {
   const controlButtons = (
     <Grid>
     <Grid.Row columns={2} stretched className="m-4">
-      <Grid.Column ><Button disabled={data[0] && data[0]["sNo"] === 1} secondary onClick={() => setFrom(from-100)} >Previous</Button></Grid.Column>
-      <Grid.Column ><Button disabled={data.length<99} positive onClick={() => setFrom(from+100)} >Next</Button></Grid.Column>
+      <Grid.Column ><Button disabled={from<=0} secondary onClick={() => setFrom(from-99)} >Previous</Button></Grid.Column>
+      <Grid.Column ><Button disabled={data.length<99} positive onClick={() => setFrom(from+99)} >Next</Button></Grid.Column>
   </Grid.Row>
     </Grid>
   )

@@ -31,22 +31,24 @@ const OrganizationDashboard = (props) => {
         if(isAuthenticated() != props.match.params.hospitalId){
             window.location.href = "/nvjnvjdv"
         }
-        setValues({...values,loading:true})
+        
         const token = localStorage.getItem('token')
         const par = new URLSearchParams(props.location.search).get('show')
         setShowComp(par);
         try{
+            setValues({...values,loading:true})
             getHospital(isAuthenticated(),token).then((data)=>{
             if(data.success){
                 setValues({...values,user:data.hospital})
             }else{
                 setError("Hospital data not found")
-            }   
+            } 
+            setValues({...values,loading : false})  
         })
         }catch(err){
             console.log(err)
+            setValues({...values,loading : false})
         }
-        setValues({...values,loading : false})
     }
     const handleChange = (e) => {
         setValues({...values,user:{...user,[e.target.name]:e.target.value}})

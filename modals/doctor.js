@@ -75,13 +75,13 @@ const doctorSchema = new mongoose.Schema({
     },
     registrationNumber:{
         type: String,
-        required: true,
-        unique: true
+        // required: true,
+        // unique: true
     },
     aadharNumber:{
         type:String,
-        required: true,
-        unique: true
+        // required: true,
+        // unique: true
     },
     appointments: 
         {
@@ -98,6 +98,36 @@ const doctorSchema = new mongoose.Schema({
                 }
             ]
         },
+    inseminations: 
+    {
+        completedInseminations : [
+            {
+                type: ObjectId,
+                ref: "Insemination"
+            }
+        ],
+        pendingInseminations: [
+            {
+                type: ObjectId,
+                ref: "Insemination"
+            }
+        ]
+    },
+    vaccinations: 
+    {
+        completedVaccinations : [
+            {
+                type: ObjectId,
+                ref: "Vaccination"
+            }
+        ],
+        pendingVaccinations : [
+            {
+                type: ObjectId,
+                ref: "Vaccination"
+            }
+        ]
+    },
     hospital : {
         type: ObjectId,
         ref : "Hospital"

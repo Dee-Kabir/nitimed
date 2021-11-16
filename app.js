@@ -17,6 +17,7 @@ const hospitalRoutes = require('./routes/hospital')
 const animalRoutes = require('./routes/animal')
 const queryRoutes = require('./routes/queries')
 const adminRoutes = require('./routes/admin')
+const messageRoutes = require('./routes/message')
 // middlewares
 app.use(cors());
 app.options('*',cors())
@@ -49,6 +50,7 @@ app.use(`${api}/hospitals`,hospitalRoutes)
 app.use(`${api}/animals`,animalRoutes)
 app.use(`${api}/queries`,queryRoutes)
 app.use(`${api}/admin`,adminRoutes)
+app.use(`${api}/messages`,messageRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));

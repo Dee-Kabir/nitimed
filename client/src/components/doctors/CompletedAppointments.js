@@ -2,7 +2,7 @@ import { Component } from "react";
 import { Header, Table } from "semantic-ui-react";
 import LoadingComponent from "../../utilities/LoadingComponent";
 import TableHeader from "../tableComponents/TableHeader";
-import { getCompletedAppointments } from "../../actions/firebaseapi";
+import { getPendingAppointments } from "../../actions/firebaseapi";
 import moment from "moment";
 class CompletedAppointments extends Component {
   state = { appointments: [], loading: false, error: "" };
@@ -13,9 +13,9 @@ class CompletedAppointments extends Component {
     this.setState({ loading: true });
     const token = localStorage.getItem('token')
     try{
-      getCompletedAppointments(this.props.doctorId,token).then((data) => {
+      getPendingAppointments(this.props.doctorId,token,this.props.category,this.props.status).then((data) => {
         if(data.success)
-        this.setState({appointments: data.appointments.completedAppointments})
+        this.setState({appointments: data.appointments[this.props.status]})
         else
         this.setState({error: data.message})
         this.setState({ loading: false })
