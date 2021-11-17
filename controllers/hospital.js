@@ -43,7 +43,8 @@ exports.registerHospital = async(req,res) => {
     
 }
 exports.loginHospital = async(req,res) => {
-    const hospital = await Hospital.findOne({email: req.body.email})
+    try{
+        const hospital = await Hospital.findOne({email: req.body.email})
     if(!hospital){
         return res.status(400).json({success: false, message: 'Hospital not found'})
     }
@@ -61,39 +62,55 @@ exports.loginHospital = async(req,res) => {
     }else{
         res.status(400).json({success: false,message: 'Either password or username is not valid'})
     }
+    }catch(err){
+        res.status(400).json({success: false,message: 'Either password or username is not valid'})
+    }
 }
 exports.getHospital = async(req,res) => {
-    if(mongoose.isValidObjectId(req.params.id)){
-        const hospital = await Hospital.findById(req.params.id)
-        if(!hospital){
-            return res.status(400).json({
-                success: false,
-                message : "No hospital Found."
-            })
-        }else{
-            return res.status(200).json({
-                success: true,
-                hospital : hospital 
-            })
+    try{
+        if(mongoose.isValidObjectId(req.params.id)){
+            const hospital = await Hospital.findById(req.params.id)
+            if(!hospital){
+                return res.status(400).json({
+                    success: false,
+                    message : "No hospital Found."
+                })
+            }else{
+                return res.status(200).json({
+                    success: true,
+                    hospital : hospital 
+                })
+            }
         }
+    }catch(err){
+        return res.status(400).json({
+            success: false,
+            message : "No hospital Found."
+        })
     }
+    
     
 }
 exports.updateHospital = async(req,res) => { 
-    if(mongoose.isValidObjectId(req.params.id) && req.user.userId === req.params.id){
-        Hospital.findByIdAndUpdate(req.params.id,req.body).then(user => {
-            if(user){
-                return res.status(200).json({success: true,user:user, message: 'Hospital data is updated'})
-            }else{
-                return res.status(400).json({success: false, message: "Hospital id not found"})
-            }
-        }).catch(err => {
-            return res.status(500).json({success: false,message: err})
-        })
+    try{
+        if(mongoose.isValidObjectId(req.params.id) && req.user.userId === req.params.id){
+            Hospital.findByIdAndUpdate(req.params.id,req.body).then(user => {
+                if(user){
+                    return res.status(200).json({success: true,user:user, message: 'Hospital data is updated'})
+                }else{
+                    return res.status(400).json({success: false, message: "Hospital id not found"})
+                }
+            }).catch(err => {
+                return res.status(500).json({success: false,message: "Unable to update. Try again!!!"})
+            })
+        }
+    }catch(err){
+        return res.status(500).json({success: false,message: "Unable to update"})
     }
 }
 exports.findHospitals = async(req,res) => {
-    const hospital = await Hospital.find({[req.query.type] : { $regex: req.query.value,$options: 'i'}}).select('name id phone address state city')
+    try{
+        const hospital = await Hospital.find({[req.query.type] : { $regex: req.query.value,$options: 'i'}}).select('name id phone address state city')
     if(!hospital){
         return res.status(400).json({
             success: false,
@@ -103,6 +120,12 @@ exports.findHospitals = async(req,res) => {
         return res.status(200).json({
             success: true,
             hospitals : hospital 
+        })
+    }
+    }catch(err){
+        return res.status(400).json({
+            success: false,
+            message : "No hospital Found."
         })
     }
 }
@@ -191,13 +214,20 @@ registrationNumber} = req.body.doctor
     }
 }
 exports.getDoctorsOfHospital = async(req,res) => {
-    const doctors = await Hospital.findById(req.params.id).populate('doctors','name id phone available jobType weekdays email state city fee timing aadharNumber registrationNumber').select('doctors')
+    try{
+        const doctors = await Hospital.findById(req.params.id).populate('doctors','name id phone available jobType weekdays email state city fee timing aadharNumber registrationNumber').select('doctors')
     if(doctors){
         return res.status(200).json({
             success: true,
           doctors
         })
     }else{
+        return res.status(400).json({
+            success: false,
+            message: "Error occurred while fetching!!!!"
+        })
+    }
+    }catch(err){
         return res.status(400).json({
             success: false,
             message: "Error occurred while fetching!!!!"

@@ -72,12 +72,12 @@ const DoctorDashboard = (props) => {
             {error && <ErrorComponent error={error}/>}
             {showComp==='info' && <ShowDoctorInfo user={user}  /> }
             {showComp==='edit' && <EditDoctorInfo user={user} />}
-            {showComp==='appointments' && <PendingAppointments category="appointments" status="pendingAppointments" doctorId = {user.id}/>}
-            {showComp==='appointmentHistory' && <CompletedAppointments category="appointments" status="completedAppointments" doctorId = {user.id}/>}
-            {showComp==='vaccinations' && <PendingAppointments category="vaccinations" status="pendingVaccinations" doctorId = {user.id}/>}
-            {showComp==='vaccinationHistory' && <CompletedAppointments category="vaccinations" status="completedVaccinations" doctorId = {user.id}/>}
-            {showComp==='inseminations' && <PendingAppointments category="inseminations" status="pendingInseminations" doctorId = {user.id}/>}
-            {showComp==='inseminationHistory' && <CompletedAppointments category="inseminations" status="completedInseminations" doctorId = {user.id}/>}
+            {showComp==='appointments' && <PendingAppointments heading="Pending Appointments" category="appointments" status="pendingAppointments" doctorId = {user.id}/>}
+            {showComp==='appointmentHistory' && <CompletedAppointments heading="Completed Appointments" category="appointments" status="completedAppointments" doctorId = {user.id}/>}
+            {showComp==='vaccinations' && <PendingAppointments heading="Pending vaccinatinons" category="vaccinations" status="pendingVaccinations" doctorId = {user.id}/>}
+            {showComp==='vaccinationHistory' && <CompletedAppointments heading="Completed vaccinatinons " category="vaccinations" status="completedVaccinations" doctorId = {user.id}/>}
+            {showComp==='inseminations' && <PendingAppointments heading="Pending Artificial Inseminations" category="inseminations" status="pendingInseminations" doctorId = {user.id}/>}
+            {showComp==='inseminationHistory' && <CompletedAppointments heading="Completed Artificial Inseminations" category="inseminations" status="completedInseminations" doctorId = {user.id}/>}
             </Fragment>
             : <LoadingComponent loading={loading} />
             }

@@ -56,7 +56,7 @@ class PendingAppointments extends Component {
       appointments.length > 0 ? (
         <div>
           {error && <ErrorComponent error={error} />}
-          <Header>Pending Appointments </Header>
+          <Header>{this.props.heading}</Header>
           <Table celled>
           <TableHeader headerParams={["#","Owner Name","created","Status","About animal","About Owner"]}/>
             <Table.Body>
@@ -111,7 +111,7 @@ class PendingAppointments extends Component {
           
         </div>
       ) : (
-        <Header>No appointment Pending</Header>
+        <Header>No {this.props.heading}</Header>
       )
     ) : (
       <LoadingComponent loading={loading} />

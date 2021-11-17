@@ -8,8 +8,7 @@ import LoadingComponent from "../../utilities/LoadingComponent"
 class Doctors extends Component{
   state = {
     error: "",
-    loading: "",
-    show: "",
+    loading: false,
     doctors: []
   }
 
@@ -23,18 +22,19 @@ class Doctors extends Component{
       this.props.hospitalId && getDoctorsOfHospital(isAuthenticated(),token).then((data)=> {
         if(data.success){
           this.setState({doctors : data.doctors.doctors},() => {
-            this.setState({loading: false})
+            
           })
         }else{
-          this.setState({error: "Unable to fetch!!",loading:false})
+          this.setState({error: "Unable to fetch!!"})
         }
+        this.setState({loading: false})
       })
     } catch(err) {
       this.setState({ error: "Error while connecting" , loading: false });
     }
   };
   render(){
-    const {loading,error,doctors,show} = this.state
+    const {loading,error,doctors} = this.state
   return (
     !loading ? 
       <div style={{ height: "100vh" }}>

@@ -277,3 +277,24 @@ exports.vaccinationForAnimal = async(req,res) =>{
         })
     }
 }
+exports.getValidMailIds = async(req,res) => {
+    try{
+        const animals = await Animal.find({gender: 'M', breed: req.query.breed}).select("id")
+        if(animals){
+            return res.status(200).json({
+                success: true,
+                animals
+            })
+        }else{
+            return res.status(400).json({
+                success:false,
+                message: "Unable to find matching male. Try again after some time!!!"
+            })
+        }
+    }catch(err){
+        return res.status(400).json({
+            success:false,
+            message: "Unable to find matching male. Try again after some time!!!"
+        })
+    }
+}

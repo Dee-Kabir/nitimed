@@ -92,3 +92,14 @@ export const getVaccines = async() => {
     }).then(res => res.json())
     .catch(err => console.log(err))
 }
+export const fetchValidIds = async(breed,token) => {
+    return await fetch(`${API_URL}/animals/validMale?breed=${breed}`,{
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+    }).then(res => res.json())
+    .catch(err => console.log(err))
+}

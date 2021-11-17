@@ -29,7 +29,7 @@ class CompletedAppointments extends Component {
     return !loading ? (
       appointments.length > 0 ? (
         <div>
-          <Header>Completed Appointmets</Header>
+          <Header>{this.props.heading}</Header>
           <Table celled striped >
           <TableHeader headerParams={["#","Owner Name","Created on","Completed on"]} />
             <Table.Body>
@@ -50,7 +50,7 @@ class CompletedAppointments extends Component {
           </Table>
         </div>
       ) : (
-        <Header>No appointment Completed Yet</Header>
+        <Header>No {this.props.heading} Yet</Header>
       )
     ) : (
       <LoadingComponent loading={loading} />

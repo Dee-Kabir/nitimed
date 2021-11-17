@@ -8,6 +8,8 @@ const breedOptions = [
     {text: 'Cow',value: 'cow'},
     {text: 'Buffalo',value: 'buffalo'},
     {text: 'Goat',value: 'goat'},
+    {text: 'Sheep', value: 'sheep'},
+    {text: 'Pig', value: 'pig'},
     {text: 'Others', value: 'other'}
 ]
 const genderOptions = [

@@ -1,4 +1,5 @@
 import { Fragment, useEffect } from "react"
+import ImageContainer2 from "../../components/imageContainer/ImageContainer2"
 import ImageContainer from "../../components/imageContainer/ImageContainer"
 import ServicesComponent from "../../components/services/ServicesComponent"
 import TillNow from "../../components/services/TillNow"

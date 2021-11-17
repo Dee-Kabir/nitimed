@@ -6,6 +6,8 @@ import LoginForm from "../../components/hospitals/LoginForm";
 import ErrorComponent from "../../utilities/ErrorComponent";
 import { Radio } from "antd";
 import { scrollToTop } from "../../actions/firebaseapi";
+import { connect } from "react-redux";
+import { setUserLoggedIn } from "../../store/actions";
 const RegisterHospital = (props) => {
   const [values, setValues] = useState({
     name: "",
@@ -111,9 +113,10 @@ const checkFormValidity = () => {
         if(data.success){
           localStorage.setItem("token", data.token);
           localStorage.setItem("userInfo", JSON.stringify(data.user));
+          props.setUserLoggedIn(data.user)
           localStorage.setItem("userType", "hospital");
           localStorage.setItem("user",data.user.id)
-          window.location.reload()
+          props.history.replace(`/hospital-dashboard/${data.user.id}?show=info`)
         }else{
           setError(data.message)
         }
@@ -142,4 +145,4 @@ const checkFormValidity = () => {
     </div> : <LoadingComponent loading={loading} />
   );
 };
-export default RegisterHospital;
+export default connect(null,{setUserLoggedIn})(RegisterHospital);

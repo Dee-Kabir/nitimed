@@ -9,18 +9,16 @@ import Doctors from "./Doctors";
 import RegisterForm from "../../components/hospitals/RegisterForm";
 import ErrorComponent from "../../utilities/ErrorComponent"
 const OrganizationDashboard = (props) => {
-    const [values,setValues] = useState({
-        user:{},
-        loading : false,
-    })
+    const [user, setUser] = useState("");
+    const [loading, setLoading] = useState(false)
     const [showComp,setShowComp] = useState('info')
     const [error, setError] = useState("")
     
-    const {user,loading} = values;
     useEffect(()=>{
         document.title="Nitimed | Dashboard"
         loadUser()
-    },[props.location.search])
+    },[])
+
     const changeComponent = (name) => {
         if(name!==showComp){
             props.history.push(`?show=${name}`)
@@ -29,45 +27,50 @@ const OrganizationDashboard = (props) => {
     }
     const loadUser = () => {
         if(isAuthenticated() != props.match.params.hospitalId){
-            window.location.href = "/nvjnvjdv"
+            window.location.href = "/not-authenticated"
         }
         
         const token = localStorage.getItem('token')
         const par = new URLSearchParams(props.location.search).get('show')
         setShowComp(par);
         try{
-            setValues({...values,loading:true})
+            setLoading(true);
             getHospital(isAuthenticated(),token).then((data)=>{
             if(data.success){
-                setValues({...values,user:data.hospital})
+                console.log(data.hospital)
+                setUser(data.hospital)
             }else{
                 setError("Hospital data not found")
             } 
-            setValues({...values,loading : false})  
+            setLoading(false)
         })
         }catch(err){
-            console.log(err)
-            setValues({...values,loading : false})
+            setLoading(false)
         }
     }
     const handleChange = (e) => {
-        setValues({...values,user:{...user,[e.target.name]:e.target.value}})
+        setUser({...user,[e.target.name]:e.target.value})
     }
     const handlePlaces = (data) => {
-        setValues({...values,user: {...user,[data.category]: data.text}})
+        setUser({...user,[data.category]: data.text})
     } 
     const handleEditSubmit = (e) => {
         e.preventDefault();
         try{
-            setValues({...values,error:"",loading:true})
+            setLoading(true);
             const token = localStorage.getItem('token')
             editHospitalInfo(user,isAuthenticated(),token).then((data) => {
-                setValues({...values,loading:false})
-                setError("")
-                window.location.reload();
+                if(data.success){
+                   
+                    setError("")
+                    window.location.reload();
+                }else{
+                    setError(data.message)
+                }
+                setLoading(false);
             })
         }catch{
-            setValues({...values,loading:false})
+            setLoading(false)
             setError("Connectivity error")
         }
     }
@@ -77,10 +80,10 @@ const OrganizationDashboard = (props) => {
         <div className={classes.Dashboard_row}>
         <div className={classes.Dashboard_menu_column}>
         <div className={classes.Dashboard_menu_items}>
-        <div className={classes.Dashboard_menu_item} onClick={() =>changeComponent('info')}>Hospital Information</div>
-        <div className={classes.Dashboard_menu_item} onClick={() => changeComponent('edit')}>Edit Hospital Information </div>
-        <div className={classes.Dashboard_menu_item} onClick={() => changeComponent('add')}>Add a doctor</div>
-        <div className={classes.Dashboard_menu_item} onClick={() => changeComponent('all')}>All Doctors</div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='info' ? classes.activeComp : ""}`} onClick={() =>changeComponent('info')}>Hospital Information</div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='edit' ? classes.activeComp : ""}`} onClick={() => changeComponent('edit')}>Edit Hospital Information </div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='add' ? classes.activeComp : ""}`} onClick={() => changeComponent('add')}>Add a doctor</div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='all' ? classes.activeComp : ""}`} onClick={() => changeComponent('all')}>All Doctors</div>
         </div>
         </div>
         <div className={classes.Dashboard_info_column}>

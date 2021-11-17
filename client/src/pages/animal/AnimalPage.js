@@ -162,7 +162,7 @@ const AnimalPage = props => {
         {props.userType!==0 && animal.gender==="F" && <Fragment><br/>
             <div>
             <Header>Artificial Insemination</Header>
-            <SelectSemination loadAnimal={loadAnimal} doctorId={props.location.state.doctorId} animalId = {animal.id} />
+            <SelectSemination loadAnimal={loadAnimal} doctorId={props.location.state.doctorId} animalBreed={animal.breed} animalId = {animal.id} />
             </div></Fragment>}
         <br />
         {animal.remarks && animal.remarks.length > 0 ?<Fragment><Header>Remarks </Header>

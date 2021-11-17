@@ -3,7 +3,6 @@ const Diagonstics = require('../modals/diagonstics')
 const Disease = require('../modals/disease')
 const Dispensary = require('../modals/dispensary')
 const FAQ = require('../modals/faq')
-const Services = require('../modals/services')
 const TillNow = require('../modals/tillNow')
 const Vaccine = require('../modals/vaccine')
 const mapModals = {
@@ -33,26 +32,7 @@ exports.getFaq = async(req,res) => {
         })
     })
 }
-exports.getServices = async(req,res) => {
-    Services.find().then((data)=>{
-        if(data)
-        return res.status(200).json({
-            success: true,
-            services: data
-        })
-        else{
-            return res.status(400).json({
-                success: false,
-                message: "No data found"
-            })
-        }
-    }).catch(err => {
-        return res.status(400).json({
-            success: false,
-            message: "No data found"
-        })
-    })
-}
+
 exports.getTillNow = async(req,res) => {
     TillNow.find().then((data)=>{
         if(data)
@@ -179,26 +159,6 @@ exports.postFaq = async(req,res) => {
 }
 exports.postTillNow = async(req,res) => {
     TillNow.create(req.body).then((data)=>{
-        if(data){
-            return res.status(200).json({
-                success: true,
-                message: "Added successfully"
-            })
-        }else{
-            return res.status(400).json({
-                success: false,
-                message: "Try Again after sometime."
-            })
-        }
-    }).catch(err => {
-        return res.status(400).json({
-            success: false,
-            message: "Try Again after sometime."
-        })
-    })
-}
-exports.postServices = async(req,res) => {
-    Services.create(req.body).then((data)=>{
         if(data){
             return res.status(200).json({
                 success: true,

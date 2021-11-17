@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { getServices } from "../../actions/queries";
 import ServiceCard from "../cards/ServiceCard";
 import classes from "./services.module.css";
 import serviceBlob from "../../assets/Images/blob.svg";
@@ -17,7 +15,7 @@ const services = [
   {
     title: "Pashu Credit Card",
     desc: "Pashu Credit Card is for getting instant money for getting fodder for your livestocks and various other things without much hassle.",
-    link: "#",
+    link: "https://drive.google.com/file/d/1GBnE_pSdGSh952U2wBqSYL88U_jVwZu5/view",
   },
   {
     desc: "State and Central Government has various schemes for Insuring your livestocks from various unfavourable circumstances.",
