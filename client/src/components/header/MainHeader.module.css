@@ -5,20 +5,20 @@
     padding: 0px 16px;
     box-shadow: 2px 2px #eee;
     background-color: #fff;
-    position: fixed;
+    position: sticky;
     top: 0px;
-    z-index: 2;
+    z-index: 10;
     overflow: hidden;
 }
 .NewHeader{
     display: flex;
     height: 71px;
-    margin-top: 71px;
+    margin-top: 0px;
     width: 100%;
     padding: 0px 16px;
     box-shadow: 2px 2px #eee;
     background-color: #fff;
-    z-index: 2;
+    z-index: 10;
     overflow: hidden;
 }
 .Header_Logo_Img{
@@ -28,7 +28,7 @@
     display: none !important;
     position: fixed;
     top: 0px;
-    z-index: 2;
+    z-index: 10;
     width: 100%;
 }
 .Header_Login{

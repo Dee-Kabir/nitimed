@@ -90,7 +90,7 @@ const ShowLists = (props) => {
     </Grid>
   )
   return (!loading ? 
-    <div style={{marginTop: "79px"}}>
+    <div style={{marginTop: "8px"}}>
       <div style={{display: 'flex',flexDirection:"column"}}>
         <div style={{display:"flex",width:"100%",alignItems:"center"}}>
           <div style={{width:"70%",display:"flex",alignItems:"center"}}>

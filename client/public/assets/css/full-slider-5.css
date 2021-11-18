@@ -1,0 +1,123 @@
+body {
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+a:hover, a:focus {
+  outline: 0;
+  text-decoration: none;
+}
+
+/*=====  End of carousel-creative-slider-1  ======*/
+.full-slider-5 .carousel-caption-inner {
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  max-width: 1170px;
+  margin: 0 auto;
+}
+.full-slider-5 .carousel-caption-inner::before {
+  background-color: #fb5b21;
+  content: "";
+  display: inline-block;
+  height: 8px;
+  left: 0;
+  margin: 0 auto;
+  position: absolute;
+  right: 0;
+  top: -5px;
+  width: 130px;
+  opacity: 0;
+  visibility: hidden;
+}
+.full-slider-5 .carousel-inner {
+  cursor: move;
+}
+.full-slider-5 .carousel-inner .carousel-item {
+  background-position: top center;
+  background-size: cover;
+  height: 100vh;
+}
+.full-slider-5 .carousel-inner .carousel-item h2 {
+  font-size: 3.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.full-slider-5 .carousel-inner .carousel-item h2 span {
+  color: #fb5b21;
+}
+.full-slider-5 .carousel-inner .carousel-item p {
+  font-size: 1.3rem;
+  margin: 10px 0 25px;
+}
+.full-slider-5 .carousel-inner .carousel-item .button {
+  background-color: transparent;
+  padding: 14px 40px;
+  display: inline-block;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: 2px solid #fb5b21;
+  color: #ffffff;
+  border-radius: 40px;
+}
+.full-slider-5 .carousel-inner .carousel-item .button:hover {
+  color: #ffffff;
+}
+.full-slider-5 .carousel-inner .carousel-item h2, .full-slider-5 .carousel-inner .carousel-item .button, .full-slider-5 .carousel-inner .carousel-item p {
+  opacity: 0;
+  visibility: hidden;
+}
+.full-slider-5 .carousel-inner .carousel-item.active h2, .full-slider-5 .carousel-inner .carousel-item.active .button, .full-slider-5 .carousel-inner .carousel-item.active p {
+  opacity: 1;
+  visibility: visible;
+}
+.full-slider-5 .carousel-inner .carousel-item.active h2 {
+  animation: 1500ms ease-in-out 0s normal none 1 running bounceInDown;
+}
+.full-slider-5 .carousel-inner .carousel-item.active p {
+  animation: 1500ms ease-in-out 0s normal none 1 running fadeInLeft;
+}
+.full-slider-5 .carousel-inner .carousel-item.active .button {
+  animation: 1500ms ease-in-out 0s normal none 1 running fadeInUp;
+}
+.full-slider-5 .carousel-inner .carousel-item.active .carousel-caption-inner::before {
+  animation: 1500ms ease-in-out 0s normal none 1 running bounceInDown;
+  opacity: 1;
+  visibility: visible;
+}
+.full-slider-5 .carousel-inner .carousel-item::after {
+  background-color: rgba(0, 0, 0, 0.55);
+  bottom: 0;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.full-slider-5 .carousel-inner .carousel-item .carousel-caption {
+  bottom: 50px;
+  left: 0;
+  right: 0;
+}
+.full-slider-5 .carousel-indicators {
+  bottom: 40px;
+}
+.full-slider-5 .carousel-indicators li {
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  cursor: pointer;
+  display: block;
+  height: 1.1rem;
+  width: 1.1rem;
+  border-radius: 50%;
+}
+.full-slider-5 .carousel-indicators li.active {
+  background-color: #ffffff;
+}
+
+@media screen and (max-width: 767px) {
+  .full-slider-5 .carousel-inner .carousel-item h2 {
+    font-size: 2rem;
+  }
+}
+/*=====  End of carousel-creative-slider-1  ======*/

@@ -1,52 +1,161 @@
-import classes from "./ImageContainer.module.css";
-import { Carousel } from "antd";
-import { Header, Image } from "semantic-ui-react";
-const ImageContainer2 = ({
-  imageName1,
-  imageName2,
-  imageName3,
-  mainHeading,
-}) => {
+import React, { useEffect } from "react";
+import classes from "./slidesCss.module.css"
+import image1 from '../../assets/Images/IMG_1.jpg'
+import image2 from '../../assets/Images/IMG_2.jpg'
+import image3 from '../../assets/Images/IMG_3.jpg'
+const slides = [
+  {
+    title: "Title 1",
+    description: "Adventure is never far away",
+    image: image1
+  },
+  {
+    title: "Title 2",
+    description: "Let your dreams come true",
+    image:image2
+},
+  {
+    title: "Title 3",
+    description: "A piece of heaven",
+    image:image3    
+}
+];
+
+function useTilt(active) {
+  const ref = React.useRef(null);
+
+  React.useEffect(() => {
+    if (!ref.current || !active) {
+      return;
+    }
+
+    const state = {
+      rect: undefined,
+      mouseX: undefined,
+      mouseY: undefined
+    };
+
+    let el = ref.current;
+
+    const handleMouseMove = (e) => {
+      if (!el) {
+        return;
+      }
+      if (!state.rect) {
+        state.rect = el.getBoundingClientRect();
+      }
+      state.mouseX = e.clientX;
+      state.mouseY = e.clientY;
+      const px = (state.mouseX - state.rect.left) / state.rect.width;
+      const py = (state.mouseY - state.rect.top) / state.rect.height;
+
+      el.style.setProperty("--px", px);
+      el.style.setProperty("--py", py);
+    };
+
+    el.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      el.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [active]);
+
+  return ref;
+}
+
+const initialState = {
+  slideIndex: 0
+};
+
+const slidesReducer = (state, event) => {
+  if (event.type === "NEXT") {
+    return {
+      ...state,
+      slideIndex: (state.slideIndex + 1) % slides.length
+    };
+  }
+  if (event.type === "PREV") {
+    return {
+      ...state,
+      slideIndex:
+        state.slideIndex === 0 ? slides.length - 1 : state.slideIndex - 1
+    };
+  }
+};
+
+function Slide({ slide, offset }) {
+  const active = offset === 0 ? true : null;
+  const ref = useTilt(active);
+
   return (
-      <div className={classes.imageContainer2}>
-    <div className={`ui container mt-4`}>
-    <div className="row" style={{width: "100%",height: "100%",justifyContent: "space-between"}} >
-      <div className="col-sm-8" style={{boxShadow: "0 0 15px #000",padding: "0px"}}>
-        <Carousel effect="fade" autoplay style={{height: "auto",width: "100%"}}>
-          <Image wrapped className={classes.Carousel_Image2} style={{height: '100%'}} src={imageName1} />
-          <Image className={classes.Carousel_Image2} src={imageName2} />
-          <Image className={classes.Carousel_Image2} src={imageName3} />
-        </Carousel>
-      </div>
-      <div className="col-sm-4" style={{marginBottom:"32px"}} >
-      <Header color="purple" content="Announcements" textAlign="center" className="mt-3" />
-        <div className={classes.scroll_container}>
-        <div className={classes.scroll_text}>
-          This is scrolling text.
-          <br/>
-          This is scrolling text.
-          <br/>
-          This is scrolling text.
-          <br/>
+    <div
+      ref={ref}
+      className={classes.slide}
+      data-active={active}
+      style={{
+        "--offset": offset,
+        "--dir": offset === 0 ? 0 : offset > 0 ? 1 : -1
+      }}
+    >
+    <div
+        className={classes.slideBackground}
+        style={{
+          backgroundImage: `url('${slide.image}')`
+        }}
+      />
+      <div
+        className={classes.slideContent}
+        style={{
+          backgroundImage: `url('${slide.image}')`
+        }}
+      >
+        <div className={classes.slideContentInner}>
+          <h2 className={classes.slideTitle}>{slide.title}</h2>
+          <h3 className={classes.slideSubtitle}>{slide.subtitle}</h3>
+          <p className={classes.slideDescription}>{slide.description}</p>
         </div>
       </div>
-      </div>
-    </div>
-    </div>
     </div>
   );
-};
-export default ImageContainer2;
-// <div className={classes.imageContainer}>
-//       <Carousel effect="fade" className={classes.imageContainer_bg} autoplay>
-//         <Image className={classes.Carousel_Image} src={imageName1} />
-//         <Image className={classes.Carousel_Image} src={imageName2} />
-//         <Image className={classes.Carousel_Image} src={imageName3} />
-//       </Carousel>
-//       <div className={classes.imageContainer_bg_mask}>
-      
-//       </div>
-//       <div className={classes.ImageContainer_main_heading}>
-//         <span>{mainHeading}</span>
-//       </div>
-//     </div>
+}
+
+const ImageContainer2 = (props) => {
+  const [state, dispatch] = React.useReducer(slidesReducer, initialState);
+  const timeoutRef = React.useRef(null);
+
+  function resetTimeout() {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  }
+
+  React.useEffect(() => {
+    resetTimeout();
+    timeoutRef.current = setTimeout(
+      () =>
+        dispatch({type: "NEXT"}),
+      4000
+    );
+
+    return () => {
+      resetTimeout();
+    };
+  }, [state.slideIndex]);
+  return (
+    <div style={{width: "100%",height: "80vh",display: 'flex',justifyContent:'center',alignItems: 'center',position:'relative',overflow:'hidden'}}>
+    <div className={classes.slides}>
+      <button onClick={() => dispatch({ type: "PREV" })}>‹</button>
+
+      {[...slides, ...slides, ...slides].map((slide, i) => {
+        let offset = slides.length + (state.slideIndex - i);
+        return <Slide slide={slide} offset={offset} key={i} />;
+      })}
+      <button onClick={() => dispatch({ type: "NEXT" })}>›</button>
+    </div>
+    <div className={classes.ImageContainer_main_heading}>
+        <span>{props.mainHeading}</span>
+      </div>
+    </div>
+  );
+}
+export default ImageContainer2

@@ -149,7 +149,6 @@ const MobileLogin = (props) => {
   };
   return (
     <Fragment>
-      <div style={{marginTop: '71px'}}></div>
       <ErrorComponent error={error} />
       <MobileAndOtpForm
         userType = {userType}

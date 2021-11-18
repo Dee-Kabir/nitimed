@@ -1,0 +1,100 @@
+@media screen and (max-width: 576px) {
+  .thumbs-slider-1 .carousel-inner .carousel-item h2, .thumbs-slider-2 .carousel-inner .carousel-item h2, .thumbs-slider-3 .carousel-inner .carousel-item h2, .full-slider-1 .carousel-inner .carousel-item h2, .full-slider-2 .carousel-inner .carousel-item h2, .full-slider-3 .carousel-inner .carousel-item h2 {
+    font-size: 2.3rem;
+  }
+
+  .slider-5 .carousel-control-next, .slider-5 .carousel-control-prev {
+    display: none;
+  }
+
+  .full-slider-4 .subscribe-content h1 {
+    font-size: 2.7rem;
+  }
+
+  .header-demo-top-row .header-demo-content h1 {
+    font-size: 2.3rem;
+  }
+  .header-demo-top-row .header-demo-content p {
+    font-size: 1.2rem;
+  }
+
+  .thumbs-slider-2 .carousel-indicators {
+    bottom: 0;
+    display: flex;
+    left: 0;
+    margin: 0;
+    top: auto;
+    right: 0;
+  }
+  .thumbs-slider-2 .carousel-indicators li.active .text {
+    left: 0;
+  }
+
+  .thumbs-slider-3 .carousel-inner .carousel-item .carousel-caption {
+    left: 0;
+  }
+
+  .full-slider-2 .carousel-control-next, .full-slider-2 .carousel-control-prev {
+    display: none;
+  }
+  .full-slider-2 .carousel-inner .carousel-item .carousel-caption {
+    left: 0;
+  }
+}
+@media screen and (max-width: 767px) {
+  .testinomials-2 .carousel-indicators li, .testinomials-3 .carousel-indicators li {
+    height: 40px;
+    width: 40px;
+  }
+
+  .testinomials-1 figure {
+    height: 100px;
+    width: 100px;
+  }
+
+  .product-slider-section-1 .carousel-indicators {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    overflow-y: auto;
+    height: auto;
+  }
+  .product-slider-section-1 .carousel-indicators li {
+    width: 43px;
+  }
+  .product-slider-section-1 .data-slide-content {
+    display: none;
+  }
+
+  .product-slider-section-4 .carousel-inner {
+    width: 240px;
+  }
+  .product-slider-section-4 .carousel-control-prev, .product-slider-section-4 .carousel-control-next {
+    display: none;
+  }
+  .product-slider-section-4 .carousel-indicators {
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 100%;
+    overflow-y: hidden;
+    margin: 0 0 20px 0 !important;
+  }
+  .product-slider-section-4 .carousel-indicators li {
+    float: none;
+    margin: 0 10px 0 0;
+    padding: 0 0 20px 0;
+    width: 140px;
+    display: inline-block;
+  }
+
+  .testinomials-5 .carousel {
+    padding: 10px;
+  }
+  .testinomials-5 .arrow {
+    font-size: 40px;
+  }
+
+  .testinomials-6 .arrow {
+    font-size: 40px;
+  }
+}

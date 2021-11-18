@@ -14,7 +14,7 @@ const Home = () => {
     return (
         <Fragment>
         <NewHeader />
-        <ImageContainer imageName1={homeImageName1} imageName2={homeImageName2} imageName3={homeImageName3} mainHeading={MainPageImageHeading}/>
+        <ImageContainer2 imageName1={homeImageName1} imageName2={homeImageName2} imageName3={homeImageName3} mainHeading={MainPageImageHeading}/>
         <br/>
         
         <DividerComponent />

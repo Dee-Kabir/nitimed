@@ -1,0 +1,66 @@
+/*=================================
+=            demo page            =
+=================================*/
+.header-demo-top-row {
+  background-image: url("../../assets/images/demo.jpg");
+  background-position: center center;
+  background-size: cover;
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+}
+.header-demo-top-row:after {
+  background-color: rgba(0, 0, 0, 0.55);
+  bottom: 0;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.header-demo-top-row .header-demo-content {
+  bottom: 0;
+  color: #ffffff;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+.header-demo-top-row .header-demo-content h1 {
+  font-size: 3.7rem;
+}
+.header-demo-top-row .header-demo-content p {
+  font-size: 1.7rem;
+}
+
+.section {
+  padding-top: 60px;
+  word-wrap: break-word;
+}
+.section.portfolio-section {
+  padding-bottom: 60px;
+}
+
+.heading {
+  position: relative;
+  padding-bottom: 13px;
+}
+
+.heading::after {
+  content: "";
+  border-bottom: 3px solid red;
+  bottom: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100px;
+  margin: 0 auto;
+}
+
+.img-figure {
+  border: 2px solid #333333;
+  padding: 3px;
+}
+
+/*=====  End of demo page  ======*/

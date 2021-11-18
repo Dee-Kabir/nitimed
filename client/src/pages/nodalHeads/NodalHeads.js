@@ -66,10 +66,9 @@ const NodalHeads = () => {
   </Table>
   }
   return (!loading ? data &&
-    <Grid className="m-4">
+    <Grid className="m-2" style={{justifyContent: "center"}}>
     <Grid.Row>
-    <div style={{marginTop: '71px'}}></div>
-    <Form.Input style={{width: '50%',marginLeft:"16px"}} label="State Name" name="searchTerm" value={searchterm} onChange={handleSearchChange} type="text" placeholder="Enter State" />
+    <Form.Input style={{width: '50%',marginLeft:"32px"}} label="State Name" name="searchTerm" value={searchterm} onChange={handleSearchChange} type="text" placeholder="Enter State" />
     </Grid.Row>
     <Grid.Row>
     <Header>List of Nodal Heads</Header>
