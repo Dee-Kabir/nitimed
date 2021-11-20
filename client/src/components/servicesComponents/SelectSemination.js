@@ -38,7 +38,7 @@ const SelectSemination = props => {
 
             fetchValidIds(props.animalBreed,token).then((data)=>{
                 if(data.success){
-                    data && data.animals.map((d) => animalArr.push({key: d.id,text: d.id,value: d.id}))
+                    data && data.animals.map((d) => animalArr.push({key: d.id,text: `id: ${d.id}, name: ${d.name}`,value: d.id}))
                     setError("")
                 }else{
                     
@@ -52,7 +52,7 @@ const SelectSemination = props => {
         }
     }
     useEffect(()=>{
-        
+         
         props.animalBreed && loadValidIds(props.animalBreed)
     },[props.animalBreed])
     return(
@@ -60,6 +60,7 @@ const SelectSemination = props => {
         {error && <ErrorComponent error={error} /> }
         <Form onSubmit={handleInsemination} loading={loading}>
         <Form.Select
+        search
         label="Male animal unique id"
         name="insemination"
         onChange={(e,{value,id}) => setMaleId(value)}

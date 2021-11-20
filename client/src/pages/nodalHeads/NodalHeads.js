@@ -1,8 +1,8 @@
-import firebase from "../../firebaseHelper"
 import { useEffect, useState } from "react";
 import LoadingComponent from "../../utilities/LoadingComponent";
 import { Form, Grid, Header, Table } from "semantic-ui-react";
 import TableHeader from "../../components/tableComponents/TableHeader";
+import { getNodalHeads } from "../../actions/queries";
 
 const NodalHeads = () => {
   const [data, setdata] = useState("");
@@ -15,10 +15,19 @@ const NodalHeads = () => {
   }, []);
   const loadNodalHeads = () =>{
     setLoading(true)
-    firebase.database().ref("jsonfiles").child("nodal_Heads").orderByChild("/State ").once("value",(snap)=>{
-      setdata(snap.val())
+    try{
+      getNodalHeads().then(data => {
+        if(data.success){
+          setdata(data.nodalHeads)
+        }else{
+          setdata([])
+        }
+        setLoading(false)
+      })
+    }catch(err){
       setLoading(false)
-    })
+      setdata([])
+    }
   }
   useEffect(()=>{
     if(searchterm){
@@ -33,7 +42,7 @@ const NodalHeads = () => {
     const regex = new RegExp(searchterm, "gi");
     const searchResults = nodal_heads_list.reduce((acc, message) => {
       if (
-        (message["State "] && message["State "].match(regex))
+        (message["state"] && message["state"].match(regex))
       ) {
         acc.push(message);
       }
@@ -45,16 +54,19 @@ const NodalHeads = () => {
   const displayList = (data) => {
     return data && <Table celled striped >
     {data.length > 0 && (
-      <TableHeader headerParams={["Sno.","State","Nodal Officer","Mobile no."]} />
+      <TableHeader headerParams={["Sno.","State","Name of Nodal Officer","Designation","Landline","Mobile","Email Id"]} />
     )}
     <Table.Body>
       {data.length > 0  ? (
         data.map((d,_) => (
-          <Table.Row key={`${d["Mobile No"]}${_}`}>
+          <Table.Row key={d._id}>
           <Table.Cell >{_+1}</Table.Cell>
-            <Table.Cell>{d["State "]}</Table.Cell>
-            <Table.Cell>{d["Name of Nodal Officer"]}</Table.Cell>
-            <Table.Cell>{d["Mobile No"]}</Table.Cell>
+            <Table.Cell>{d["state"]}</Table.Cell>
+            <Table.Cell>{d["name"]}</Table.Cell>
+            <Table.Cell>{d["designation"]}</Table.Cell>
+            <Table.Cell>{d["landline"]}</Table.Cell>
+            <Table.Cell>{d["mobile"]}</Table.Cell>
+            <Table.Cell>{d["email"]}</Table.Cell>
           </Table.Row>
         ))
       ) : (

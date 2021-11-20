@@ -30,7 +30,7 @@ const AddAnimal = props => {
     
     const handleSubmit = e => {
         e.preventDefault()
-        if(age && breed && gender){
+        if(name && age && breed && gender){
             const token = localStorage.getItem('token')
             try{
                 setLoading(true)
@@ -68,6 +68,7 @@ const AddAnimal = props => {
         placeholder="Enter Animal Name"
         value={name}
         onChange={handleChange}
+        required
         />
         <Form.Input label="Registration Id" 
         type="text" 

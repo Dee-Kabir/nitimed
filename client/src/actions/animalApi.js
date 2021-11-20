@@ -12,8 +12,8 @@ export const addAnimal = async(data,id,token) => {
     }).then(res => res.json())
     .catch(err => console.log(err))
 }
-export const fetchAnimals = async(id,token) => {
-    return await fetch(`${API_URL}/animals/all/${id}`,{
+export const fetchAnimals = async(id,token,category) => {
+    return await fetch(`${API_URL}/animals/all/${id}?category=${category}`,{
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -71,6 +71,7 @@ export const bookVaccine = async(id,refId,token) => {
     .catch(err => console.log(err))
 }
 export const seminationCompleted = async(id,bullId,token,doctorId) => {
+    console.log("front",bullId)
     return await fetch(`${API_URL}/animals/seminationCompleted/${id}`,{
         method: 'POST',
         headers: {
@@ -78,7 +79,7 @@ export const seminationCompleted = async(id,bullId,token,doctorId) => {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({bullId,doctorId})
+        body: JSON.stringify({bullId: bullId,doctorId})
     }).then(res => res.json())
     .catch(err => console.log(err))
 }

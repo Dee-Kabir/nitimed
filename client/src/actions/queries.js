@@ -1,5 +1,14 @@
 import { API_URL } from "../Config";
-
+export const getNodalHeads = async()=>{
+    return await fetch(`${API_URL}/queries/nodalHeads`,{
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+    }).then(res => res.json())
+    .catch(err => console.log(err))
+}
 export const getFaqs = async()=>{
     return await fetch(`${API_URL}/queries/faq`,{
         method: 'GET',

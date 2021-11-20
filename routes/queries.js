@@ -1,10 +1,10 @@
 const express = require('express')
-const { getFaq, getTillNow,postFaq, postTillNow, getListOfCenters, getListOfCentersByName, postData, getVaccines} = require('../controllers/queries')
+const { getFaq, getTillNow,postFaq, postTillNow, getListOfCenters, getListOfCentersByName, postData, getVaccines, getNodalHeads} = require('../controllers/queries')
 const router = express.Router()
 
 
 router.get('/faq',getFaq)
-
+router.get('/nodalHeads',getNodalHeads)
 router.get('/tillnow',getTillNow)
 router.get('/diagonstic',getListOfCenters)
 router.get('/diagonsticQuery',getListOfCentersByName)

@@ -168,7 +168,7 @@ const BookAppointment = (props) => {
             </form>
         </div>
         </div>
-        <ShowAnimals userId={props.user.id} booking={'true'} selected={selectedAnimal} onSelect={handleSelection}/>
+        <ShowAnimals userId={props.user.id} category={category} booking={'true'} selected={selectedAnimal} onSelect={handleSelection}/>
         </Fragment>
     )
 }

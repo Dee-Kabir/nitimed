@@ -26,7 +26,7 @@
 }
 .mobileHeader{
     display: none !important;
-    position: fixed;
+    position: sticky;
     top: 0px;
     z-index: 10;
     width: 100%;

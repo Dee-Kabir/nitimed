@@ -9,7 +9,6 @@ import LoadingComponent from "../../utilities/LoadingComponent";
 import TableHeader from '../../components/tableComponents/TableHeader'
 import moment from 'moment'
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import SelectSemination from "../../components/servicesComponents/SelectSemination";
 
 const AnimalPage = props => {
@@ -83,7 +82,7 @@ const AnimalPage = props => {
         }
     }
     return(!loading ? animal &&
-        <div style={{marginTop:"71px"}}>
+        <div >
         {error && <ErrorComponent error={error} />}
         <div style={{padding : '8px 32px'}}>
             <Descriptions
@@ -102,7 +101,7 @@ const AnimalPage = props => {
             <br/>
             <Header>Suggested Vaccines Information</Header>
             {animal.vaccines.length > 0 ?  <Table celled striped>
-            <TableHeader headerParams={["#","vaccine name","Suggested on","Age at first dose","Subsequent doses",props.userType!==0 ? "Given" : null]} />
+            <TableHeader headerParams={["#","vaccine name","Suggested on","Dose and Age","Subsequent doses",props.userType!==0 ? "Given" : null]} />
             <Table.Body>
                 {
                     animal.vaccines.filter(vacc => vacc.completed===false).map((vacc,_) =>(
@@ -110,7 +109,7 @@ const AnimalPage = props => {
                         <Table.Cell>{_+1}</Table.Cell>
                         <Table.Cell>{vacc.onThis && vacc.onThis.diseaseName}</Table.Cell>
                         <Table.Cell>{moment(vacc.createdAt).fromNow()}</Table.Cell>
-                        <Table.Cell>{vacc.onThis.ageAtFirstDose!="NA" ? vacc.onThis.ageAtFirstDose + " days" : "Not applicable" }</Table.Cell>
+                        <Table.Cell>{vacc.onThis.ageAtFirstDose!="NA" ? vacc.onThis.ageAtFirstDose : "Not available" }</Table.Cell>
                         <Table.Cell>{vacc.onThis.subsequentDoseOrRemark}</Table.Cell>
                         {props.userType!==0 ? <Table.Cell><Input type="checkbox" onChange={() => vaccineGiven(vacc._id)} /></Table.Cell> : null}
                         </Table.Row>

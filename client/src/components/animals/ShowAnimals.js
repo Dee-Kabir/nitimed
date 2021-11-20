@@ -9,8 +9,9 @@ const ShowAnimals = props => {
     const [loading,setLoading] = useState(true)
     const loadAnimals = () => {
         const token = localStorage.getItem('token')
+        
         try{
-            fetchAnimals(props.userId,token).then(data => {
+            fetchAnimals(props.userId,token,props.category).then(data => {
                 if(data.success){
                     setAnimals(data.animals)
                 }

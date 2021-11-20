@@ -1,8 +1,6 @@
 const mongoose = require('mongoose')
 const diagonsticsSchema = new mongoose.Schema({
-    sNo: {
-        type: Number,
-    },
+   
     district: {
         type: String,
     },

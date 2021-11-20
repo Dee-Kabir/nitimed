@@ -25,8 +25,8 @@ const Appointment = props => {
     }
     return (appointment &&
         <Fragment>
-        <div style={{marginTop: "71px"}}>
-        <Descriptions column={2} bordered title="Information about the Owner">
+        <div>
+        <Descriptions column={2} bordered title="Information about the Owner" style={{marginBottom:"16px"}}>
             <Descriptions.Item label="Owner Name">{appointment.name}</Descriptions.Item>
             <Descriptions.Item label="Owner mobile number">{appointment.phone}</Descriptions.Item>
             <Descriptions.Item label="Owner address">{appointment.address}</Descriptions.Item>

@@ -1,9 +1,5 @@
 const mongoose = require('mongoose')
-const {ObjectId} = mongoose.Schema
 const vaccineSchema = new mongoose.Schema({
-    sNo: {
-        type:Number
-    },
     diseaseName: {
         type: String,
     },

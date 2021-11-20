@@ -33,8 +33,12 @@ exports.getAnimalInfo = async(req,res) => {
     }
 }
 exports.getAllAnimalsInfo = async(req,res) => {
+    var query = {owner : req.params.id};
+    if(req.query.category==="artificialInsemination"){
+        query = {...query,gender: 'F'}
+    }
     if(mongoose.isValidObjectId(req.params.id)){
-        const animals = await Animal.find({owner : req.params.id}).select('name id age breed registrationId gender')
+        const animals = await Animal.find(query).select('name id age breed registrationId gender')
         if(animals){
             return res.status(200).json({
                 success: true,
@@ -191,8 +195,10 @@ exports.BookVaccinationForAnimal = async(req,res) => {
 exports.BookSeminationForAnimal = async(req,res) => {
     if(mongoose.isValidObjectId(req.params.id) && mongoose.isValidObjectId(req.body.bullId)){
         try{
+            console.log("bullId,", req.body.bullId)
+            console.log("bullId,", req.body.doctorId)
             Animal.findById(req.body.bullId).then(async(data) => {
-                if(data && data.gender === 'M' && req.body.bullId !== req.params.id){
+                if(data && data.gender === 'M'){
                     let refm = new RefModel({
                         onThis : req.body.bullId,
                         onModel : 'Animal',
@@ -224,6 +230,7 @@ exports.BookSeminationForAnimal = async(req,res) => {
                         })
                     }
                 }else{
+                    console.log(data)
                     return res.status(400).json({
                         success:false,
                         message: "Animal should be male and registered."
@@ -279,7 +286,7 @@ exports.vaccinationForAnimal = async(req,res) =>{
 }
 exports.getValidMailIds = async(req,res) => {
     try{
-        const animals = await Animal.find({gender: 'M', breed: req.query.breed}).select("id")
+        const animals = await Animal.find({gender: 'M', breed: req.query.breed}).select("id name gender")
         if(animals){
             return res.status(200).json({
                 success: true,

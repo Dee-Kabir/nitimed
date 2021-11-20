@@ -3,6 +3,8 @@ const Diagonstics = require('../modals/diagonstics')
 const Disease = require('../modals/disease')
 const Dispensary = require('../modals/dispensary')
 const FAQ = require('../modals/faq')
+const NodalHead = require('../modals/nodalHead')
+
 const TillNow = require('../modals/tillNow')
 const Vaccine = require('../modals/vaccine')
 const mapModals = {
@@ -10,7 +12,28 @@ const mapModals = {
     "Disease" : Disease,
     "Dispensary" : Dispensary,
     "Faq" : FAQ,
-    "Vaccine" : Vaccine
+    "Vaccine" : Vaccine,
+    "NodalHead" : NodalHead
+}
+exports.getNodalHeads = async(req,res) => {
+    NodalHead.find().then((data)=>{
+        if(data)
+        return res.status(200).json({
+            success: true,
+            nodalHeads: data
+        })
+        else{
+            return res.status(400).json({
+                success: false,
+                message: "No data found"
+            })
+        }
+    }).catch(err => {
+        return res.status(400).json({
+            success: false,
+            message: "No data found"
+        })
+    })
 }
 exports.getFaq = async(req,res) => {
     FAQ.find().then((data)=>{
@@ -134,28 +157,29 @@ exports.postFaq = async(req,res) => {
     //     })
     // })
     const excelData = excelToJson({
-        sourceFile: 'C:/Users/Deepanshu yadav/Desktop/faq.xlsx',
+        sourceFile: 'C:/Users/Deepanshu yadav/Desktop/Disease Diagnosis Treatment Etiology Clinical Signs.xlsx',
         sheets:[{
             // Excel Sheet Name 
-            name: 'Sheet1',
+            name: 'Sheet2',
             
             // Header Row -> be skipped and will not be present at our result object.
-            // header:{
-            //     rows: 1
-            // },
+            header:{
+                rows: 1
+            },
             // Mapping columns to keys
             columnToKey: {
-                A: 'sNo',
-                B: 'question',
-                C: 'answer',
+                A: 'diseaseName',
+                B: 'forBreed',
+                C: 'ageAtFirstDose',
+                D: 'subsequentDoseOrRemark'
             }
         }]
     });
-    FAQ.insertMany(excelData.Sheet1).then((data)=> {
+    Vaccine.insertMany(excelData.Sheet2).then((data)=> {
         return res.json({excelData})
     })
     // console.log(excelData)
-    // return res.json({excelData})
+    return res.json({excelData})
 }
 exports.postTillNow = async(req,res) => {
     TillNow.create(req.body).then((data)=>{

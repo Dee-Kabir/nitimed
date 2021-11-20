@@ -41,6 +41,7 @@ const SelectVaccine = props => {
         <Fragment>
         <Form onSubmit={handlebookVaccine} loading={loading}>
         <Form.Select
+        search
         label="Select Vaccine"
         name="vaccine"
         onChange={(e,{value,id}) => setVaccine(value)}
