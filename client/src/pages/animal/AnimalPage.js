@@ -10,6 +10,8 @@ import TableHeader from '../../components/tableComponents/TableHeader'
 import moment from 'moment'
 import { connect } from "react-redux";
 import SelectSemination from "../../components/servicesComponents/SelectSemination";
+import { Helmet } from "react-helmet";
+import { webName } from "../../Config";
 
 const AnimalPage = props => {
     const [animal,setAnimal] = useState('');
@@ -83,6 +85,9 @@ const AnimalPage = props => {
     }
     return(!loading ? animal &&
         <div >
+        <Helmet>
+        <title>{webName} | Dashboard</title>
+        </Helmet>
         {error && <ErrorComponent error={error} />}
         <div style={{padding : '8px 32px'}}>
             <Descriptions
@@ -104,7 +109,7 @@ const AnimalPage = props => {
             <TableHeader headerParams={["#","vaccine name","Suggested on","Dose and Age","Subsequent doses",props.userType!==0 ? "Given" : null]} />
             <Table.Body>
                 {
-                    animal.vaccines.filter(vacc => vacc.completed===false).map((vacc,_) =>(
+                    animal.vaccines && animal.vaccines.filter(vacc => vacc.completed===false).map((vacc,_) =>(
                         <Table.Row key={vacc.createdAt}>
                         <Table.Cell>{_+1}</Table.Cell>
                         <Table.Cell>{vacc.onThis && vacc.onThis.diseaseName}</Table.Cell>
@@ -124,7 +129,7 @@ const AnimalPage = props => {
             <TableHeader headerParams={["#","vaccine name","Given on","Subsequent dose or Remark"]} />
             <Table.Body>
                 {
-                    animal.vaccines.filter(vacc => vacc.completed===true).map((vacc,_) =>(
+                    animal.vaccines && animal.vaccines.filter(vacc => vacc.completed===true).map((vacc,_) =>(
                         <Table.Row key={vacc.createdAt}>
                         <Table.Cell>{_+1}</Table.Cell>
                         <Table.Cell>{vacc.onThis && vacc.onThis.diseaseName}</Table.Cell>
@@ -142,14 +147,15 @@ const AnimalPage = props => {
             </div></Fragment>}
             <br />
             <Header>Artificial Insemination Information</Header>
-            {animal.semination.length > 0 ?  <Table celled striped>
-            <TableHeader headerParams={["#","animal id","Done on","age(in years)"]} />
+            {animal.semination && animal.semination.length > 0 ?  <Table celled striped>
+            <TableHeader headerParams={["#","Animal id", "Name", "Done on","age(in years)"]} />
             <Table.Body>
                 {
-                    animal.semination.map((vacc,_) =>(
+                    animal.semination && animal.semination.map((vacc,_) =>(
                         <Table.Row key={vacc._id}>
                         <Table.Cell>{_+1}</Table.Cell>
                         <Table.Cell>{vacc.onThis && vacc.onThis._id}</Table.Cell>
+                        <Table.Cell>{vacc.onThis && vacc.onThis.name}</Table.Cell>
                         <Table.Cell>{moment(vacc.updatedAt).fromNow()}</Table.Cell>
                         <Table.Cell>{vacc.onThis&& vacc.onThis.age}</Table.Cell>
                         </Table.Row>

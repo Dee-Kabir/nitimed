@@ -9,6 +9,8 @@ import { bookAppointment, bookVaccination, bookInsemination } from "../../action
 import { connect } from "react-redux"
 import ShowAnimals from "../../components/animals/ShowAnimals"
 import ChargesNote from "../../components/doctors/ChargesNote"
+import { Helmet } from "react-helmet"
+import { webName } from "../../Config"
 const loadRazorpay = async(data) => {
     return new Promise((resolve)=>{
       const script = document.createElement('script')
@@ -35,7 +37,7 @@ const BookAppointment = (props) => {
     const [loading,setLoading] = useState(false)
     const [selectedAnimal,setSelectedAnimal] = useState("");
     useEffect(() => {
-        document.title="Nitimed | Book Appointment"
+        
         if(props.selectedDoc === ""){
             props.history.goBack()
         }
@@ -151,6 +153,9 @@ const BookAppointment = (props) => {
     }
     return (<Fragment>
         <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',paddingTop: '16px',marginTop:"71px"}}>
+        <Helmet>
+        <title>{webName} | Book Appointment</title>
+        </Helmet>
         {error && <ErrorComponent error={error} />}
         <div style={{border: '4px solid #551D8B', borderRadius: '8px',padding:'8px'}} >
             <h2 style={{textAlign:'center'}}>Booking Details</h2>

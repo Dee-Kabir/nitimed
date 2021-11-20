@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import {Button, Form} from 'semantic-ui-react'
 import { suggestVaccine, getVaccines } from "../../actions/animalApi";
-import { isAuthenticated } from "../../actions/auth";
 
 const SelectVaccine = props => {
     const [vaccine,setVaccine] = useState("");

@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 import { Container, Divider, Form, Header, Message } from "semantic-ui-react";
 import { sendEmail } from "../../actions/email";
+import { webName } from "../../Config";
 import ErrorComponent from "../../utilities/ErrorComponent";
 import LoadingComponent from "../../utilities/LoadingComponent";
 
@@ -47,6 +49,9 @@ const ContactUs = (props) => {
     }
     return(!loading ? 
         <Container style={{marginTop: "85px"}}>
+        <Helmet>
+        <title>{webName} | Contact us</title>
+        </Helmet>
         {error && <ErrorComponent error={error}/>}
         {message && <Message info content={message}/>}
         <Header>Contact Us</Header>

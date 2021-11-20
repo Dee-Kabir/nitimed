@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { connect } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { isAuthenticated } from "../actions/auth";
+import { webName } from "../Config";
 import MessageSection from "../RoomPage/MessageSection/MessageSection";
 import { setIsRoomHost } from "../store/actions";
 import JoinRoomContent from "./JoinRoomContent";
@@ -43,6 +45,9 @@ const JoinRoomPage = (props) => {
   },[])
   return (
     <div className="join_room_page_container">
+    <Helmet>
+    <title>{webName} | Join call</title>
+    </Helmet>
       <div className="join_room_page_panel">
         <JoinRoomTitle isRoomHost={isRoomHost} />
         <JoinRoomContent setShowLoadingOverlay={setShowLoadingOverlay} name={name} userId={userId} />

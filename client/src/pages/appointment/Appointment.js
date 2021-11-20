@@ -1,7 +1,9 @@
 import { Descriptions } from "antd";
 import React, { Fragment, useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useLocation } from "react-router";
 import {getAppointment} from "../../actions/firebaseapi"
+import { webName } from "../../Config";
 import MessageSection from "../../RoomPage/MessageSection/MessageSection";
 const Appointment = props => {
     const [appointment,setAppointment] = useState('')
@@ -25,6 +27,9 @@ const Appointment = props => {
     }
     return (appointment &&
         <Fragment>
+        <Helmet>
+        <title>{webName} | Dashboard</title>
+        </Helmet>
         <div>
         <Descriptions column={2} bordered title="Information about the Owner" style={{marginBottom:"16px"}}>
             <Descriptions.Item label="Owner Name">{appointment.name}</Descriptions.Item>

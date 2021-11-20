@@ -8,6 +8,8 @@ import AddDoctor from "../../components/hospitals/AddDoctor";
 import Doctors from "./Doctors";
 import RegisterForm from "../../components/hospitals/RegisterForm";
 import ErrorComponent from "../../utilities/ErrorComponent"
+import { Helmet } from "react-helmet";
+import { webName } from "../../Config";
 const OrganizationDashboard = (props) => {
     const [user, setUser] = useState("");
     const [loading, setLoading] = useState(false)
@@ -15,7 +17,6 @@ const OrganizationDashboard = (props) => {
     const [error, setError] = useState("")
     
     useEffect(()=>{
-        document.title="Nitimed | Dashboard"
         loadUser()
     },[])
 
@@ -76,6 +77,9 @@ const OrganizationDashboard = (props) => {
     }
     return(!loading ? 
         <div className={classes.Dashboard}>
+        <Helmet>
+        <title>{webName} | Dashboard</title>
+        </Helmet>
         <div className={classes.Dashboard_block}>
         <div className={classes.Dashboard_row}>
         <div className={classes.Dashboard_menu_column}>

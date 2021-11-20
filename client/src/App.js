@@ -37,7 +37,6 @@ import LoadingComponent from "./utilities/LoadingComponent";
 import Appointment from "./pages/appointment/Appointment";
 import ForgotPassword from "./components/hospitals/ForgotPassword";
 import ResetPassword from "./components/hospitals/ResetPassword";
-import Vaccine from "./pages/vaccination/vaccine";
 import FaqContainer from "./components/imageContainer/FaqContainer"
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminRoutes from "./secureRoutes/AdminRoutes";
@@ -127,7 +126,7 @@ const App = (props) => {
         
         <LoginRoutes path="/forgotPassword" exact component={ForgotPassword} />
         <LoginRoutes path="/reset/:token/:id" exact component={ResetPassword} />
-        <Route path="/vaccination" exact component={Vaccine} />
+       
         <Route path="/" component={NotAuthorised} />
         
       </Switch>

@@ -7,6 +7,8 @@ import LoadingComponent from "../../utilities/LoadingComponent";
 import AddAnimal from "../../components/user/AddAnimal";
 import ShowAnimals from "../../components/animals/ShowAnimals";
 import { connect } from "react-redux";
+import { Helmet } from "react-helmet";
+import { webName } from "../../Config";
 const UserDashboard = (props) =>{
     const [values,setValues] = useState({
         user:"",
@@ -16,7 +18,6 @@ const UserDashboard = (props) =>{
     
     const {user,loading} = values;
     useEffect(()=>{
-        document.title="Nitimed | Dashboard"
         loadUser()
     },[props.user,props.location.search])
     const changeComponent = (name) => {
@@ -36,6 +37,9 @@ const UserDashboard = (props) =>{
     }
     return(!loading ? <Fragment>
         <div className={classes.Dashboard}>
+        <Helmet>
+        <title>{webName} | Dashboard</title>
+        </Helmet>
         <div className={classes.Dashboard_block}>
         <div className={classes.Dashboard_row}>
         <div className={classes.Dashboard_menu_column}>

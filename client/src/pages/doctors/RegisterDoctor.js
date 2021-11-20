@@ -7,6 +7,8 @@ import RegisterDoctorForm from "../../components/doctors/RegisterDoctorForm";
 import { connect } from "react-redux";
 import { setUserMobileNumber, setUserLoggedIn  } from "../../store/actions";
 import { authenticateUser } from "../../actions/auth";
+import { Helmet } from "react-helmet";
+import { webName } from "../../Config";
 const RegisterDoctor = (props) => {
   const [values, setValues] = useState({
     name: "",
@@ -53,7 +55,6 @@ const RegisterDoctor = (props) => {
   const [error,setError] = useState("");
 
   useEffect(()=>{
-    document.title = "Nitimed | Register"
     checkmobileNUmber()
   },[])
   useEffect(()=>{
@@ -140,6 +141,9 @@ const RegisterDoctor = (props) => {
   };
   return (!loading ? 
     <div className={classes.RegisterForm} >
+    <Helmet>
+    <title>{webName} | Register</title>
+    </Helmet>
     <div style={{marginTop: '71px'}}></div>
     <div className={classes.RegisterForm_Block}>
     <div className={classes.Heading_Add_doctor}>Register on NitiMed</div>

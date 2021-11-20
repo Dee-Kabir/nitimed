@@ -1,13 +1,15 @@
 import { Container, Header } from "semantic-ui-react";
 import classes from "./Doctors.module.css";
 import DoctorSearchBox from "../../components/doctors/DoctorsSearchBox";
-import { useEffect } from "react";
+import { Helmet } from "react-helmet";
+import { webName } from "../../Config";
 const Doctors = (props) => {
-  useEffect(()=>{
-    document.title="Nitimed | Doctors"
-  },[])
+
   return (
     <Container fluid>
+    <Helmet>
+    <title>{webName} | Doctors</title>
+    </Helmet>
       <div className={classes.Doctors_flow}>
         <Header
           style={{ color: "white", fontSize: "2rem", textAlign: "center" }}

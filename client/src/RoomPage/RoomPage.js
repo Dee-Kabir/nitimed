@@ -7,6 +7,8 @@ import { connect } from "react-redux";
 import { setTwilioAccessToken } from "../store/actions";
 import { getTokenFromTwilio } from "../utils/twilioUtils";
 import Overlay from "./VideoSection/Overlay";
+import { Helmet } from "react-helmet";
+import { webName } from "../Config";
 
 const RoomPage = (props) => {
   const { identity, roomId, setTwilioAccessTokenAction, showOverlay } = props;
@@ -23,6 +25,9 @@ const RoomPage = (props) => {
 
   return (
     <div className="room_container">
+    <Helmet>
+    <title>{webName}</title>
+    </Helmet>
       <ParticipantsSection />
       <VideoSection />
       {showOverlay && <Overlay />}

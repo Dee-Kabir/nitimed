@@ -317,7 +317,7 @@ hr {
   right: 35px;
 }
 .carousel-slider-wrapper .carousel-indicators.position-center {
-  left: 35%;
+  left: 50%;
   transform: translateX(-50%);
 }
 .carousel-slider-wrapper .carousel-indicators li {

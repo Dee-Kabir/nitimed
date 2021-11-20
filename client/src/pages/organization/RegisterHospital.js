@@ -8,6 +8,8 @@ import { Radio } from "antd";
 import { scrollToTop } from "../../actions/firebaseapi";
 import { connect } from "react-redux";
 import { setUserLoggedIn } from "../../store/actions";
+import { Helmet } from "react-helmet";
+import { webName } from "../../Config";
 const RegisterHospital = (props) => {
   const [values, setValues] = useState({
     name: "",
@@ -28,9 +30,6 @@ const RegisterHospital = (props) => {
     setValues({ ...values, [e.target.name]: e.target.value});
     setError("")
   };
-  useEffect(()=>{
-    document.title="Nitimed | Register"
-  },[])
   useEffect(()=>{
     scrollToTop()
   },[error])
@@ -128,7 +127,9 @@ const checkFormValidity = () => {
   
   return (!loading ? 
     <div style={{marginTop: "96px"}}>
-      
+      <Helmet>
+      <title>{webName} | Register</title>
+      </Helmet>
       <div style={{margin: '16px auto',textAlign: 'center'}}>
         <Radio.Group buttonStyle="solid" value={formLogin}>
         {error && <ErrorComponent error={error} />}

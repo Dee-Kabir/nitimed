@@ -21,7 +21,7 @@ const ForgotPassword = props => {
             setError("")
             getOtp(email).then(data => {
                 if(data.success){
-                    setMessage(data.message);
+                    setMessage(data.message + "also check spam folder.");
                 }else{
                     setError(data.error)
                 }

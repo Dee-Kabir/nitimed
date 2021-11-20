@@ -6,6 +6,8 @@ import PendingAppointments from "../../components/admin/PendingAppointments";
 import ErrorComponent from "../../utilities/ErrorComponent";
 import LoadingComponent from "../../utilities/LoadingComponent";
 import classes from "../user/UserDashboard.module.css"
+import {Helmet} from "react-helmet"
+import { webName } from "../../Config";
 const AdminDashboard = (props) => {
     const [values,setValues] = useState({
         info:true,
@@ -15,9 +17,6 @@ const AdminDashboard = (props) => {
     const [showComp,setShowComp] = useState('info');
     const [loading,setLoading] = useState(false)
     const [error, setError] = useState("")
-    useEffect(()=>{
-        document.title = "Nitimed | Dashboard"
-    },[])
     useEffect(()=>{
         const para = new URLSearchParams(props.location.search).get('show')
         setShowComp(para)
@@ -29,6 +28,9 @@ const AdminDashboard = (props) => {
         setShowComp(name)
     }
     return(!loading ? <Fragment>
+        <Helmet>
+        <title>{webName} | Dashboard</title>
+        </Helmet>
         {error && <ErrorComponent error={error} />}
         <div className={classes.Dashboard}>
         <div className={classes.Dashboard_block}>

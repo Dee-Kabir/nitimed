@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import {setUserMobileNumber,setUserLoggedIn} from "../../store/actions"
 import { webName } from "../../Config";
 import { scrollToTop } from "../../actions/firebaseapi";
+import { Helmet } from "react-helmet";
 const Register = (props) => {
   const [values, setValues] = useState({
     name: "",
@@ -44,7 +45,6 @@ const Register = (props) => {
     }
   };
   useEffect(() => {
-    document.title = "Nitimed | Register"
     checkmobileNUmber();
     window.onbeforeunload = handleBeforeUnload
   }, []);
@@ -119,6 +119,9 @@ const Register = (props) => {
   };
   return !loading ? (
     <Fragment>
+    <Helmet>
+    <title>{webName} | Register</title>
+    </Helmet>
     <div style={{marginTop: '71px'}}></div>
       <ErrorComponent error={error} />
       <RegisterForm

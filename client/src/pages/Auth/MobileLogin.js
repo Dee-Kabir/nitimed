@@ -6,6 +6,8 @@ import MobileAndOtpForm from "../../components/auth/MobileAndOtpForm";
 import ErrorComponent from "../../utilities/ErrorComponent";
 import { connect } from "react-redux";
 import { setUserMobileNumber,setUserLoggedIn } from "../../store/actions";
+import { Helmet } from "react-helmet";
+import { webName } from "../../Config";
 const MobileLogin = (props) => {
   const {userType} = props.match.params;
   const [values, setValues] = useState({
@@ -18,7 +20,6 @@ const MobileLogin = (props) => {
     firebaseEvent: "",
   });
   useEffect(() => {
-    document.title = "Nitimed | Login"
     if (
       userType !== "user" &&
       userType !== "doctor"
@@ -149,6 +150,9 @@ const MobileLogin = (props) => {
   };
   return (
     <Fragment>
+    <Helmet>
+    <title>{webName} | Login</title>
+    </Helmet>
       <ErrorComponent error={error} />
       <MobileAndOtpForm
         userType = {userType}

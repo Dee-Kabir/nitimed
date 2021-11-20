@@ -7,6 +7,8 @@ import CompletedAppointments from "../../components/doctors/CompletedAppointment
 import classes from "../../pages/user/UserDashboard.module.css"
 import LoadingComponent from "../../utilities/LoadingComponent"
 import ErrorComponent from "../../utilities/ErrorComponent"
+import { Helmet } from "react-helmet"
+import { webName } from "../../Config"
 const DoctorDashboard = (props) => {
     const [values,setValues] = useState({
         info:true,
@@ -20,7 +22,6 @@ const DoctorDashboard = (props) => {
     const [error, setError] = useState("")
     const {user} = values;
     useEffect(()=>{
-        document.title = "Nitimed | Dashboard"
         loadUser()
     },[])
     useEffect(()=>{
@@ -51,6 +52,9 @@ const DoctorDashboard = (props) => {
         
     }
     return(!loading ? <Fragment>
+        <Helmet>
+        <title>{webName} | Dashboard</title>
+        </Helmet>
         {error && <ErrorComponent error={error} />}
         <div className={classes.Dashboard}>
         <div className={classes.Dashboard_block}>

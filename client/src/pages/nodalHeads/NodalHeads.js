@@ -3,6 +3,8 @@ import LoadingComponent from "../../utilities/LoadingComponent";
 import { Form, Grid, Header, Table } from "semantic-ui-react";
 import TableHeader from "../../components/tableComponents/TableHeader";
 import { getNodalHeads } from "../../actions/queries";
+import { Helmet } from "react-helmet";
+import { webName } from "../../Config";
 
 const NodalHeads = () => {
   const [data, setdata] = useState("");
@@ -10,7 +12,6 @@ const NodalHeads = () => {
   const [result,setResult] = useState("")
   const [searchterm,setSearchterm] = useState("");
   useEffect(() => {
-    document.title="Nitimed | NodalHeads"
     loadNodalHeads();
   }, []);
   const loadNodalHeads = () =>{
@@ -78,9 +79,12 @@ const NodalHeads = () => {
   </Table>
   }
   return (!loading ? data &&
-    <Grid className="m-2" style={{justifyContent: "center"}}>
+    <Grid className="m-2" style={{justifyContent: "center",padding: "8px"}}>
+    <Helmet>
+    <title>{webName} | Nodal heads</title>
+    </Helmet>
     <Grid.Row>
-    <Form.Input style={{width: '50%',marginLeft:"32px"}} label="State Name" name="searchTerm" value={searchterm} onChange={handleSearchChange} type="text" placeholder="Enter State" />
+    <Form.Input style={{width: '50%',marginLeft:"32px",padding: "8px"}} label="State Name" name="searchTerm" value={searchterm} onChange={handleSearchChange} type="text" placeholder="Enter State" />
     </Grid.Row>
     <Grid.Row>
     <Header>List of Nodal Heads</Header>

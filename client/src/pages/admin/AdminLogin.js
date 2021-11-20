@@ -5,6 +5,8 @@ import { loginAdmin } from "../../actions/admin";
 import LoadingComponent from "../../utilities/LoadingComponent";
 import { connect } from "react-redux";
 import { setUserLoggedIn } from "../../store/actions";
+import { Helmet } from "react-helmet";
+import { webName } from "../../Config";
 const AdminLogin = (props) => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState("");
@@ -32,6 +34,9 @@ const AdminLogin = (props) => {
     };
     return ( !loading ?
         <Container textAlign="center" style={{marginTop: "100px"}}>
+        <Helmet>
+        <title>{webName} | Admin</title>
+        </Helmet>
         <Header>Login for Admin only</Header>
         <Form
           name="basic"
