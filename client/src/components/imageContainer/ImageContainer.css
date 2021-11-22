@@ -91,6 +91,8 @@ hr {
   display: none;
   min-width: 100%;
   text-align: center;
+  /* added after */
+
 }
 .carousel-slider-wrapper .carousel-slide.swipe {
   user-select: none;
@@ -99,6 +101,7 @@ hr {
 .carousel-slider-wrapper .carousel-slide.active-slide {
   display: block;
   background-color: #f3f3f3;
+  max-height:780px;
 }
 .carousel-slider-wrapper .carousel-slide.active-slide.next-active-slide {
   position: absolute;
@@ -234,6 +237,7 @@ hr {
   background-color: rgba(0, 0, 0, 0);
   filter: alpha(opacity=50);
   z-index: 1;
+  display:none;
 }
 .carousel-slider-wrapper .carousel-control .left-triangle {
   width: 0;

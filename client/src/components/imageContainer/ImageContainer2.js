@@ -3,23 +3,7 @@ import classes from "./slidesCss.module.css"
 import image1 from '../../assets/Images/IMG_1.jpg'
 import image2 from '../../assets/Images/IMG_2.jpg'
 import image3 from '../../assets/Images/IMG_3.jpg'
-const slides = [
-  {
-    title: "Title 1",
-    description: "Adventure is never far away",
-    image: image1
-  },
-  {
-    title: "Title 2",
-    description: "Let your dreams come true",
-    image:image2
-},
-  {
-    title: "Title 3",
-    description: "A piece of heaven",
-    image:image3    
-}
-];
+
 
 function useTilt(active) {
   const ref = React.useRef(null);
@@ -71,14 +55,14 @@ const slidesReducer = (state, event) => {
   if (event.type === "NEXT") {
     return {
       ...state,
-      slideIndex: (state.slideIndex + 1) % slides.length
+      slideIndex: (state.slideIndex + 1) % 6
     };
   }
   if (event.type === "PREV") {
     return {
       ...state,
       slideIndex:
-        state.slideIndex === 0 ? slides.length - 1 : state.slideIndex - 1
+        state.slideIndex === 0 ? 6 - 1 : state.slideIndex - 1
     };
   }
 };
@@ -120,6 +104,7 @@ function Slide({ slide, offset }) {
 }
 
 const ImageContainer2 = (props) => {
+  const {slides} = props;
   const [state, dispatch] = React.useReducer(slidesReducer, initialState);
   const timeoutRef = React.useRef(null);
 
