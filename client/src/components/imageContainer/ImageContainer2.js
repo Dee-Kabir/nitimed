@@ -55,14 +55,14 @@ const slidesReducer = (state, event) => {
   if (event.type === "NEXT") {
     return {
       ...state,
-      slideIndex: (state.slideIndex + 1) % 6
+      slideIndex: state.slideIndex === 0 ? 7 - 1 : state.slideIndex - 1
     };
   }
   if (event.type === "PREV") {
     return {
       ...state,
-      slideIndex:
-        state.slideIndex === 0 ? 6 - 1 : state.slideIndex - 1
+      slideIndex:(state.slideIndex + 1) % 7
+        
     };
   }
 };

@@ -13,12 +13,14 @@ import IMG_3 from "../../assets/Images/IMG_3.jpg"
 import IMG_4 from "../../assets/Images/IMG_4.jpg"
 import IMG_5 from "../../assets/Images/IMG_5.jpg"
 import IMG_6 from "../../assets/Images/IMG_6.jpg"
-const slides=[{title: "Title 1", image: IMG_1},
-{title: "Title 1", image: IMG_2},
-{title: "Title 1", image: IMG_3},
-{title: "Title 1", image: IMG_4},
-{title: "Title 1", image: IMG_5},
-{title: "Title 1", image: IMG_6}]
+import IMG_7 from "../../assets/Images/IMG_7.jpg"
+const slides=[{title: "Title 7", image: IMG_1},
+{title: "Title 6", image: IMG_2},
+{title: "Title 5", image: IMG_3},
+{title: "Title 4", image: IMG_4},
+{title: "Title 3", image: IMG_5},
+{title: "Title 2", image: IMG_6},
+{title: "Title 1", image: IMG_7}]
 
 const Home = () => {
     return (

@@ -398,7 +398,7 @@ class SlideShow extends Component {
   // to use it in your app replace the previous line with the following
   // - export default Radium(SlideShow);
   
-  const ImageContainer = ({imageName1,imageName2,imageName3,mainHeading}) => (
+  const ImageContainer = ({images,mainHeading}) => (
     <div className="text-center" style={{margin: "0px",padding: "0px"}}>
       {/*slideshow properties:
       - autoPlay => can be ture, false (default: false)
@@ -436,25 +436,16 @@ class SlideShow extends Component {
           </svg>
         }
       >
-        <div>
-          <img src={imageName1} />
+      {
+        images && images.map((image,i) => (
+          <div>
+          <img src={image} />
           <div className="carousel-caption">
             <h3 className="carousel-caption-title">{mainHeading}</h3>
           </div>
         </div>
-        <div>
-          <img src={imageName2} />
-          <div className="carousel-caption">
-            <h3 className="carousel-caption-title">{mainHeading}</h3>
-          </div>
-        </div>
-        <div>
-          <img src={imageName3} />
-          <div className="carousel-caption">
-            <h3 className="carousel-caption-title">{mainHeading}</h3>
-            
-          </div>
-        </div>
+        ))
+      }
       </SlideShow>
     </div>
   );
