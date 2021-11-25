@@ -93,11 +93,7 @@ function Slide({ slide, offset }) {
           backgroundImage: `url('${slide.image}')`
         }}
       >
-        <div className={classes.slideContentInner}>
-          <h2 className={classes.slideTitle}>{slide.title}</h2>
-          <h3 className={classes.slideSubtitle}>{slide.subtitle}</h3>
-          <p className={classes.slideDescription}>{slide.description}</p>
-        </div>
+
       </div>
     </div>
   );
