@@ -28,7 +28,6 @@ const RoomPage = (props) => {
     <Helmet>
     <title>{webName}</title>
     </Helmet>
-      <ParticipantsSection />
       <VideoSection />
       {showOverlay && <Overlay />}
     </div>

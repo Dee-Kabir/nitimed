@@ -113,7 +113,7 @@ const MobileLogin = (props) => {
                       localStorage.setItem("token",data.token)
                       props.setUserLoggedIn(data.user)
                       localStorage.setItem("userType", userType === "user" ? "user" : "doctor");
-                      props.history.replace(`${userType==="user" ? "/" : "/doctor-dashboard/"+data.user.id+"/?show=appointments"}`);
+                      props.history.replace(`${userType==="user" ? "/dashboard/"+data.user.id+"/?show=appointments" : "/doctor-dashboard/"+data.user.id+"/?show=appointments"}`);
                     }
                     
                   });

@@ -74,7 +74,7 @@ const EditAccountInfo = (props) => {
         }
       };
     return(!loading ?
-        <div>
+        <div style={{width:"100%"}}>
         {error && <ErrorComponent error={error} />}
         <RegisterForm values={values}
         heading = "Edit Account Information"

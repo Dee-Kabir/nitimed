@@ -65,7 +65,7 @@ class PendingAppointments extends Component {
                   <Table.Cell>{_ + 1}</Table.Cell>
                   <Table.Cell>{app.user && app.user.name}</Table.Cell>
                   <Table.Cell>
-                    {app.createdAt && moment(app.createdAt).fromNow()}
+                    {app.createdAt && moment(app.createdAt).format("DD/MM/YYYY")}
                   </Table.Cell>
                   <Table.Cell>
                   <Modal closeIcon onOpen={() => this.setState({open: true})} onClose={() => this.setState({open:false})} open={this.state.open} size="small" trigger={

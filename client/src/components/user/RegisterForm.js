@@ -5,7 +5,7 @@ const RegisterForm = (props) => {
     const {name,phone,address,state,city,loading,aadharNumber} = props.values
     const {handlePlaces,handleChange,handleSubmit,heading} = props
     return (
-        <Grid stackable>
+        <Grid stackable style={{margin: "1px"}}>
         <Grid.Row className="m-4">
             <Form  onSubmit={handleSubmit}>
               <Header >{heading}</Header>
