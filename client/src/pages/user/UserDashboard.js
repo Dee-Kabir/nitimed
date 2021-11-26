@@ -46,7 +46,7 @@ const UserDashboard = (props) =>{
         <div className={classes.Dashboard_menu_items}>
         <div className={`${classes.Dashboard_menu_item} ${showComp==='info' ? classes.activeComp : ""}`} onClick={() =>changeComponent('info')}>Account Information</div>
         <div className={`${classes.Dashboard_menu_item} ${showComp==='edit' ? classes.activeComp : ""}`} onClick={() => changeComponent('edit')}>Edit Account </div>
-        <div className={`${classes.Dashboard_menu_item} ${showComp==='appointments' ? classes.activeComp : ""}`} onClick={() => changeComponent('appointments')}>Appointment History</div>
+        <div className={`${classes.Dashboard_menu_item} ${showComp==='appointments' ? classes.activeComp : ""}`} onClick={() => changeComponent('appointments')}>Appointment Bookings</div>
         <div className={`${classes.Dashboard_menu_item} ${showComp==='vaccinations' ? classes.activeComp : ""}`} onClick={() => changeComponent('vaccinations')}>Vaccination bookings</div>
         <div className={`${classes.Dashboard_menu_item} ${showComp==='artificialInseminations' ? classes.activeComp : ""}`} onClick={() => changeComponent('artificialInseminations')}>Artificial Insemination bookings</div>
         <div className={`${classes.Dashboard_menu_item} ${showComp==='addAnimal' ? classes.activeComp : ""}`} onClick={() => changeComponent('addAnimal')}>Add Animal</div>
