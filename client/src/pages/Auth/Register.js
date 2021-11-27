@@ -122,7 +122,7 @@ const Register = (props) => {
     <Helmet>
     <title>{webName} | Register</title>
     </Helmet>
-    <div style={{marginTop: '71px'}}></div>
+    <div style={{marginTop: '16px'}}></div>
       <ErrorComponent error={error} />
       <RegisterForm
         values={values}

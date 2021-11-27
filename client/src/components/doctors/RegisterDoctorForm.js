@@ -44,6 +44,7 @@ const RegisterDoctorForm = ({handleSubmit,handleChange,setValues,values,handlePl
             value={aadharNumber}
             onChange={handleChange}
             pattern="[0-9]{12}"
+            required
           />
             </Fragment>
           }
@@ -148,7 +149,7 @@ const RegisterDoctorForm = ({handleSubmit,handleChange,setValues,values,handlePl
           </div>
         </div>
         <div className={`${classes.RegisterForm_HInput} required field`}>
-          <label>City</label>
+          <label>District</label>
           <div style={{ width: "100%" }}>
             <SearchInput
               category={state}

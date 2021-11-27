@@ -86,7 +86,7 @@ const RegisterDoctor = (props) => {
             props.setUserMobileNumber('')
             authenticateUser(
               "+91"+phone,
-              "user"
+              "doctor"
             ).then((userData) => {
               if(userData.success){
                 setLoading(false);
