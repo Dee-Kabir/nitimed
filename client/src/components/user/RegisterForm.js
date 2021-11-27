@@ -27,8 +27,8 @@ const RegisterForm = (props) => {
             <Form.Input label="Aadhar number" className={classes.Form_Input}
             type="text"
             name="aadharNumber"
-            placeholder="Enter 14 digit aadhar number"
-            pattern="[0-9]{14}"
+            placeholder="Enter 12 digit aadhar number"
+            pattern="[0-9]{12}"
             value={aadharNumber}
             onChange={handleChange}
             />
@@ -45,8 +45,8 @@ const RegisterForm = (props) => {
             <SearchInput category={`states`} value={state}  name="state" handlePlaces={handlePlaces} placeholder="select State" />
             </div>
             <div className={`${classes.Form_Input} required field`}>
-            <label>City</label>
-            <SearchInput category={state} value={city} name="city" handlePlaces={handlePlaces} placeholder="select city" />
+            <label>District</label>
+            <SearchInput category={state} value={city} name="city" handlePlaces={handlePlaces} placeholder="select District" />
             </div> 
             <div style={{textAlign:'end'}}>
             <Button primary disabled={loading} loading={loading} type="submit">

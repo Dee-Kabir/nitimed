@@ -31,7 +31,7 @@ const NewHeader = (props) => {
             active="diseases"
           />
           <HeaderItem
-            itemHeading="Health Services"
+            itemHeading="Other Health Services"
             itemDesc="veterinary health services"
             to="/health-services"
             active="health-services"

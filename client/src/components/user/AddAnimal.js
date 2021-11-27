@@ -92,7 +92,7 @@ const AddAnimal = props => {
         options={genderOptions}
         />
         <Form.Select 
-        label="Breed"
+        label="Animal"
         value={breed}
         onChange={(e,{value}) => setValues({...values, 'breed': value})}
         placeholder="Select breed"

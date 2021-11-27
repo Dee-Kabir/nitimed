@@ -63,13 +63,23 @@
     flex-grow: 1;
 }
 .Logo_niti{
-    color: #233286;
+    
     font-size: 1.4rem;
     display: flex;
 }
 .Web_Name{
+    color: #233286;
     font-weight: 500;
     font-size: 1.7rem;
+}
+.Header_Login_mobile{
+    background-color: #fff;
+    color: #233286;
+    border: 2px solid #233286;
+    padding: 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    margin-right: 4px;
 }
 .Header_Items_Block{
     margin-left: 0px;

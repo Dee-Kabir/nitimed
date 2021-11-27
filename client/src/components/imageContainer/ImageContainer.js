@@ -438,7 +438,7 @@ class SlideShow extends Component {
       >
       {
         images && images.map((image,i) => (
-          <div>
+          <div key={i}>
           <img src={image} />
           <div className="carousel-caption">
             <h3 className="carousel-caption-title">{mainHeading}</h3>

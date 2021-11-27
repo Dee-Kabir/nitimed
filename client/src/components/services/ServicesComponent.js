@@ -19,7 +19,7 @@ const services = [
   },
   {
     desc: "State and Central Government has various schemes for Insuring your livestocks from various unfavourable circumstances.",
-    link: "#",
+    link: "https://drive.google.com/file/d/179WVXW6pqv4D85zGLm4F4AOXksiyDATZ/view",
     title: "Insurance",
   },
 ];

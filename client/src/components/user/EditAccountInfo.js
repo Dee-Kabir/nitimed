@@ -66,8 +66,9 @@ const EditAccountInfo = (props) => {
         }else if(phone.toString().length !== 13){
             setValues({ ...values, error: "Valid phone Number is required" });
             return false;
-        }if(address.length < 20){
-            setValues({...values,error: "Enter at least 20 character long address"})
+        }else if(!state || !city){
+          setValues({...values,error: "State and District is required."})
+          return false
         }
         else {
           return true;

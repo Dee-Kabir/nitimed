@@ -43,12 +43,12 @@ const MainHeader = (props) => {
       </Link>
     )
   )
-  const NitiVetLogo = <Link to="/">
+  const NitiVetLogo = 
               <div className={classes.Logo_niti}>
-              <img className={classes.Header_Logo_Img} src="https://www.niti.gov.in//sites/default/files/gbb-uploads/NITI-Aayog-logo-d7ykne.png" />
-               <span className={classes.Web_Name}>{webName}</span>
+              <a href="https://www.niti.gov.in" target="_blank" rel="noreferrer"><img className={classes.Header_Logo_Img} src="https://www.niti.gov.in//sites/default/files/gbb-uploads/NITI-Aayog-logo-d7ykne.png" /></a>
+              <Link to="/"><span className={classes.Web_Name}>{webName}</span></Link>
               </div>
-            </Link>
+            
   
   const mobileHeader = (
       <Fragment>
@@ -88,12 +88,12 @@ const MainHeader = (props) => {
                 vertical
                 visible={visible}
                 width="thin"
-                style={{ backgroundColor: "rgb(85,26,139)", width: "50vw" }}
+                style={{ backgroundColor: "#233286", width: "50vw" }}
               >
                 <Menu.Item>
                   <HeaderItem
                     itemHeading="Nodal Heads"
-                    itemDesc="Find Nodal Heads"
+                  
                     to="/nodal-heads"
                     active="nodal-heads"
                   />
@@ -101,7 +101,7 @@ const MainHeader = (props) => {
                 <Menu.Item>
                   <HeaderItem
                     itemHeading="Doctors"
-                    itemDesc="Book an appointment"
+                
                     to="/doctors/appointment"
                     active="doctors"
                   />
@@ -109,7 +109,7 @@ const MainHeader = (props) => {
                 <Menu.Item>
                   <HeaderItem
                     itemHeading="Diagonstics"
-                    itemDesc="Get Lab test done"
+                  
                     to="/diagonstic-laboratories"
                     active="diagonsis"
                   />
@@ -117,7 +117,7 @@ const MainHeader = (props) => {
                 <Menu.Item>
                   <HeaderItem
                     itemHeading="Diseases"
-                    itemDesc="Diseases and Symptoms"
+                   
                     to="/diseases"
                     active="diseases"
                   />
@@ -125,8 +125,8 @@ const MainHeader = (props) => {
                 
                 <Menu.Item>
                 <HeaderItem
-            itemHeading="Health Services"
-            itemDesc="veterinary health services"
+            itemHeading=" Other Health Services"
+        
             to="/health-services"
             active="health-services"
           />
@@ -134,7 +134,7 @@ const MainHeader = (props) => {
                 <Menu.Item>
                 <HeaderItem
             itemHeading="Artifical Insemination"
-            itemDesc="Book artificial insemination"
+           
             to="/doctors/artificialInsemination"
             active=""
           />
@@ -142,7 +142,7 @@ const MainHeader = (props) => {
           <Menu.Item>
           <HeaderItem
             itemHeading="Vaccination"
-            itemDesc="Book vaccination"
+     
             to="/doctors/vaccination"
             active="vaccination"
           />
@@ -159,19 +159,22 @@ const MainHeader = (props) => {
                   <Menu.Item onClick={() => {signout() 
                     props.setUserLoggedOut()
                     }}>
-                    <AuthButton text="Logout" to="/" />
+                    <HeaderItem
+                    itemHeading="Log out"
+                    to="/"                      />
                   </Menu.Item>
                 )}
                 {!props.loggedIn && (
                   <Fragment>
-                    <Menu.Item>
-                      <AuthButton text="Farmer Login" to="/login/user" />
+                    <Menu.Item >
+                    <HeaderItem  
+            to="/login/user" itemHeading="Farmer Login" />
                     </Menu.Item>
                     <Menu.Item>
-                      <AuthButton text="Hospital Login" to="/hospital-auth" />
+                      <HeaderItem to="/hospital-auth" itemHeading="Hospital Login"/>
                     </Menu.Item>
                     <Menu.Item>
-                      <AuthButton text="Doctor Login" to="/login/doctor" />
+                      <HeaderItem to="/login/doctor" itemHeading="Doctor Login" />
                     </Menu.Item>
                   </Fragment>
                 )}
