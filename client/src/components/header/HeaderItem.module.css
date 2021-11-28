@@ -50,5 +50,9 @@
     .HeaderItem_heading{
         color: white;
     }
-    
+    .HeaderItem_block:hover {
+        background: transparent;
+      
+        
+    }
 }

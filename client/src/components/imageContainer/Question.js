@@ -7,7 +7,7 @@ const Question = ({ ques,sNo }) => {
       <div onClick={() => setShow(!show)} className={classes.question}>
         {sNo}. {ques.question}
       </div>
-      {show && <div className={classes.answer}>{ques.link ? <a href={ques.answer} target="_blank">{ques.answer}</a> : ques.answer}</div>}
+      {show && <div className={classes.answer} dangerouslySetInnerHTML={{__html : ques.answer}}></div>}
     </div>
   );
 };

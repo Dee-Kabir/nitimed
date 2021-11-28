@@ -1,7 +1,6 @@
 import { Component } from "react";
 import {isAuthenticated} from "../../actions/auth"
 import LoadingComponent from "../../utilities/LoadingComponent"
-import firebase from "../../firebaseHelper";
 import { Link } from "react-router-dom";
 import { Header, Table } from "semantic-ui-react";
 import TableHeader from "../tableComponents/TableHeader";
@@ -43,8 +42,8 @@ class AppointmentHistory extends Component {
                 <Table.Row key={app.id+5+_} >
                 <Table.Cell>{_+1}</Table.Cell>
                 <Table.Cell>{moment(app.createdAt).format('DD/MM/YYYY')}</Table.Cell>
-                <Table.Cell>{app.doctor.name}</Table.Cell>
-                <Table.Cell>{app.doctor.phone}</Table.Cell>
+                <Table.Cell>{app.doctor && app.doctor.name}</Table.Cell>
+                <Table.Cell>{app.doctor && app.doctor.phone}</Table.Cell>
                 <Table.Cell>{app.completed ? "Yes" : "No"}</Table.Cell>
                 <Table.Cell>{app.completed ? <Link to="/contact-us">Raise issue</Link> : <Link to={`/join-room?host=${false}&name=${this.props.userName}&doctorId=${(app.doctor.id)}&appointmentId=${app.id}&category=${this.props.category}`}>Video call</Link>}</Table.Cell>
                 </Table.Row>
