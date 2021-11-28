@@ -27,6 +27,8 @@ const Footer = () => {
             <div className={classes.Footer_Social}>
                 <a href="https://www.youtube.com/channel/UCctkAm71u0Lo1pi-QmKYidQ" target="_blank" rel="noreferrer"><div className={classes.Footer_Icon}><Icon name="youtube" circular /></div></a>
                 <a href="https://twitter.com/nitiaayogvet" target="_blank" rel="noreferrer"><div className={classes.Footer_Icon}><Icon name="twitter square" circular /></div></a>
+                <a href="https://www.facebook.com/profile.php?id=100075360493501" target="_blank" rel="noreferrer"><div className={classes.Footer_Icon}><Icon name="facebook" circular /></div></a>
+                <a href="https://www.instagram.com/nitiaayogvet/" target="_blank" rel="noreferrer"><div className={classes.Footer_Icon}><Icon name="instagram" circular /></div></a>
                 
             </div>
         </div>

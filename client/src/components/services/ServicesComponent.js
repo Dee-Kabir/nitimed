@@ -10,7 +10,7 @@ const services = [
   {
     title: "Schemes",
     desc: "There are various Schemes for farmers benefit provided by state and central government. You can get Information about them by your Nodal Officer.",
-    link: "https://drive.google.com/file/d/1s-PkhjCHbdMh7Rn1Vo59rL-0JIypbYBH/view",
+    link: "https://drive.google.com/file/d/1CtKYyE7dgz-BW4QPT3XaZwAiso3E_piE/view",
   },
   {
     title: "Pashu Credit Card",

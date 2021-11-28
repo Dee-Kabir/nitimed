@@ -101,11 +101,12 @@ const EditDoctorInfo = (props) => {
     }
     const handleSubmit = (e) =>{
         e.preventDefault()
-        setLoading(true);
+        
         const id = user.id
         const token = localStorage.getItem('token')
         if(formIsValid()){
           try{
+            setLoading(true);
             editDoctor(name,email,id,"+91"+phone,qualification,jobType,servingType,workTime,weekdays,address,speciality,state,city,fee,consultingTime,token).then((data)=>{
               if(data.success){
                 getDoctor(id,token).then(data => {
@@ -115,8 +116,10 @@ const EditDoctorInfo = (props) => {
               }else{
                 setError(data.message)
               }
+              setLoading(false)
             }) 
           }catch(err){
+            setLoading(false)
             setError("Try again after some time.")
           }  
         }
