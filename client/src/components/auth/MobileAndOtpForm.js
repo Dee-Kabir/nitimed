@@ -1,7 +1,7 @@
 import {Button, Form} from "semantic-ui-react"
 import { webName } from "../../Config";
 import classes from "../../pages/Auth/MobileLogin.module.css";
-const MobileAndOtpForm = ({handleChange,handleMobileNumberSubmit,handleotpSubmit,phone,otp,loading,mobileNumberSubmit,otpSubmit,userType}) => {
+const MobileAndOtpForm = ({handleChange,tAndC,setTAndC,handleMobileNumberSubmit,handleotpSubmit,phone,otp,loading,mobileNumberSubmit,otpSubmit,userType}) => {
     const mobileNumberForm = (
     <Form loading={loading} onSubmit={handleMobileNumberSubmit}>
       <Form.Input 
@@ -28,6 +28,7 @@ const MobileAndOtpForm = ({handleChange,handleMobileNumberSubmit,handleotpSubmit
       >
         GET OTP
       </Button>
+      <Form.Checkbox checked={tAndC} onChange={()=>setTAndC(!tAndC)} style={{marginTop: "8px"}} label="I accept all the terms and condition" />
     </Form>
   );
   const otpForm = (

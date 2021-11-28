@@ -19,6 +19,7 @@ const MobileLogin = (props) => {
     loading: false,
     firebaseEvent: "",
   });
+  const [tAndC,setTAndC] = useState(false)
   useEffect(() => {
     if (
       userType !== "user" &&
@@ -47,7 +48,7 @@ const MobileLogin = (props) => {
   };
   const handleMobileNumberSubmit = (e) => {
     e.preventDefault();
-    if (phone.toString().length === 10) {
+    if (isFormValid()) {
       setValues({ ...values, loading: true });
       try {
         setLanguageCode();
@@ -72,6 +73,7 @@ const MobileLogin = (props) => {
               error: "try again" && err.message,
               loading: false,
             });
+            window.location.reload()
           });
       } catch (err) {
         setValues({
@@ -79,14 +81,27 @@ const MobileLogin = (props) => {
           error: "error while connecting",
           loading: false,
         });
+        window.location.reload()
       }
-    } else {
+    } 
+  };
+  const isFormValid = () => {
+    if(phone.toString().length !== 10){
       setValues({
         ...values,
         error: "Enter 10 digit valid Mobile Number",
       });
+      return false
+    }else if(!tAndC){
+      setValues({
+        ...values,
+        error: "Accept terms and conditons.",
+      });
+      return false
+    }else{
+      return true;
     }
-  };
+  }
   const handleotpSubmit = (e) => {
     e.preventDefault();
     if (otp.toString().length === 6) {
@@ -131,6 +146,7 @@ const MobileLogin = (props) => {
               otp: "",
               loading: false,
             });
+            window.location.reload()
           });
       } catch (err) {
         setValues({
@@ -138,6 +154,7 @@ const MobileLogin = (props) => {
           error: "Error!!!" && err.message,
           loading: false,
         });
+        window.location.reload()
       }
     } else {
 
@@ -164,6 +181,8 @@ const MobileLogin = (props) => {
         phone={phone}
         otp={otp}
         loading={loading}
+        tAndC={tAndC}
+        setTAndC={setTAndC}
       />
     </Fragment>
   );
