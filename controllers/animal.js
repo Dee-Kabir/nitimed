@@ -3,6 +3,8 @@ const User = require('../modals/user')
 const RefModel = require('../modals/refModel')
 const mongoose = require('mongoose')
 const Vaccine = require('../modals/vaccine')
+const Totalcount = require('../modals/totalcount')
+const totalcount = require('../modals/totalcount')
 exports.addAnimals = async(req,res) => {
     Animal.insertMany(req.body.animals
         )
@@ -62,8 +64,10 @@ exports.addAnimalToUser = async(req,res) => {
         const {name,registrationId,age,gender,breed} = req.body
         const check = await Animal.findOne({registrationId})
         if(!check){
+            var uniqueNumber = await Totalcount.findOneAndUpdate({type: "animalsRegistered"},{$inc : {count : 1}},{new: true})
+            uniqueNumber = uniqueNumber.count;
             let animal = new Animal({
-                name,registrationId,age,gender,breed,owner : req.params.id
+                name,registrationId,age,gender,breed,owner : req.params.id,uniqueNumber
             })
             animal = await animal.save();
             if(animal){
@@ -195,8 +199,6 @@ exports.BookVaccinationForAnimal = async(req,res) => {
 exports.BookSeminationForAnimal = async(req,res) => {
     if(mongoose.isValidObjectId(req.params.id) && mongoose.isValidObjectId(req.body.bullId)){
         try{
-            console.log("bullId,", req.body.bullId)
-            console.log("bullId,", req.body.doctorId)
             Animal.findById(req.body.bullId).then(async(data) => {
                 if(data && data.gender === 'M'){
                     let refm = new RefModel({
@@ -213,6 +215,7 @@ exports.BookSeminationForAnimal = async(req,res) => {
                             new: true
                         })
                         if(animal){
+                            await totalcount.updateOne({type: "inseminationCompleted"},{$inc : {count : 1}})
                             return res.status(200).json({
                                 success: true,
                                 message: "semination done successfully"
@@ -267,6 +270,7 @@ exports.vaccinationForAnimal = async(req,res) =>{
         let refm = await RefModel.findByIdAndUpdate(req.body.refId,{completed: true})
         
         if(refm){
+            await totalcount.updateOne({type: "vaccineAdministered"},{$inc : {count : 1}})
             return res.status(200).json({
                 success: true,
                 message: "vaccination done successfully"

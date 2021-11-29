@@ -5,11 +5,17 @@ const Animal = require("../modals/animal")
 const Vaccination = require("../modals/vaccination")
 const mongoose = require('mongoose')
 const Insemination = require('../modals/Insemination')
-const refModel = require('../modals/refModel')
+
+const totalcount = require('../modals/totalcount')
 const helper = {
     "appointments" : [Appointment,"pendingAppointments","completedAppointments"],
     "vaccinations" : [Vaccination,"pendingVaccinations","completedVaccinations"],
     "inseminations" : [Insemination, "pendingInseminations","completedInseminations"]
+}
+const categoryCount = {
+    "appointments" : "consultationCompleted",
+    "vaccinations" : "vaccineAdministered",
+    "inseminations" : "inseminationCompleted"
 }
 exports.createAppointment = async(req,res) => {
     const {amount,completed,doctorId,userId,order_id,payment_id,razorpay_signature,animal} = req.body;
@@ -17,6 +23,7 @@ exports.createAppointment = async(req,res) => {
     let appointment = new Appointment({
         amount,completed,doctor: doctorId,user: userId,order_id,payment_id,razorpay_signature,animal:animal ? animal : null
     })
+    var uniqueNumber = await totalcount.updateOne({type: "consultationPending"},{$inc : {count : 1}})
     try{
         appointment = await appointment.save();
     await User.findByIdAndUpdate(userId,{$push: {appointments : appointment}}
@@ -52,12 +59,13 @@ exports.updateAppointment = async(req,res) => {
             completed: completed
         }, {
             new: true
-        }).then((appointment) => {
+        }).then(async(appointment) => {
             if(!appointment){
                 return res.status(400).json({
                     success:false, message: "Unable to save"
                 })
             }else{
+                await totalcount.updateOne({type: categoryCount[category]},{$inc : {count : 1}})
                 Doctor.findByIdAndUpdate(appointment.doctor,{$pull : {[`${category}.${helper[category][1]}`]: appointment._id},
                 $push : {[`${category}.${helper[category][2]}`] : appointment._id}
                 }).then(()=>{
@@ -112,16 +120,19 @@ exports.getAppointment = async(req,res) => {
     }
 }
 exports.getCountAppointments = async(req,res) => {
-    let vaccineAdministered = await Vaccination.countDocuments({completed: true},(err,count)=>{
-        return count;
-    }).clone()
-    let consultationCompleted = await Appointment.countDocuments({completed: true},(err,count)=>{
-        return count;
-    }).clone()
-    let inseminationCompleted = await refModel.countDocuments({onModel: "Animal",completed: true},(err,count)=>{
-        return count;
-    }).clone()
-    return res.json({consultationCompleted: consultationCompleted,inseminationCompleted: inseminationCompleted,vaccineAdministered: vaccineAdministered,creditCards: 0,insuranceRolledOut: 0})
+    // let vaccineAdministered = await Vaccination.countDocuments({completed: true},(err,count)=>{
+    //     return count;
+    // }).clone()
+    // let consultationCompleted = await Appointment.countDocuments({completed: true},(err,count)=>{
+    //     return count;
+    // }).clone()
+    // let inseminationCompleted = await refModel.countDocuments({onModel: "Animal",completed: true},(err,count)=>{
+    //     return count;
+    // }).clone()
+    const animalRegistered = await totalcount.find({})
+    var results = {};
+    animalRegistered.map((obj,i) => (results[obj.type] = obj.count))
+    return res.json(results)
 }
 exports.createVaccination = async(req,res) => {
     const {amount,completed,doctorId,userId,order_id,payment_id,razorpay_signature,animal} = req.body;

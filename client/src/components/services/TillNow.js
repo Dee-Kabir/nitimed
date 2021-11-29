@@ -10,6 +10,7 @@ const TillNow = () => {
     vaccineAdministered: 0,
     creditCards: 0,
     insuranceRolledOut: 0,
+    animalsRegistered: 0
   });
   const [workDone, setWorkDone] = useState([]);
   useEffect(() => {
@@ -23,11 +24,13 @@ const TillNow = () => {
     }catch(err){
       console.log(err)
     }
+    return setValues({})
   }, []);
   const getRecords = () => {
     try{
       getRecordsNumber().then(data => {
-      setValues({...data})})
+      setValues({...data})
+    })
     }catch(err){
       console.log(err)
     }

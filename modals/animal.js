@@ -42,7 +42,12 @@ const animalSchema = new mongoose.Schema({
         {
             type:String
         }
-    ]
+    ],
+    uniqueNumber: {
+        type : Number,
+        required: true,
+        unique: true
+    }
 },{timestamps: true})
 
 animalSchema.virtual('id').get(function () {
