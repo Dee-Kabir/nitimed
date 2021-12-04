@@ -19,7 +19,7 @@ const HealthServices = () => {
     </Helmet>
     <ImageContainer
     images = {[IMG_1,IMG_2,IMG_3,IMG_4,IMG_5,IMG_6,IMG_7]}
-    mainHeading="Telemedicine for Livestocks - NITIVet"
+    mainHeading="NITIVet - Telemedicine for Livestock Health and Safety."
   />
       <Divider />
       <SelectLiveStocks />
