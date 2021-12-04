@@ -10,7 +10,7 @@ import IMG_5 from "../../assets/Images/IMG_5.jpg"
 import IMG_6 from "../../assets/Images/IMG_6.jpg"
 import IMG_7 from "../../assets/Images/IMG_7.jpg"
 import { Helmet } from "react-helmet";
-import { webName } from "../../Config";
+import { MainPageImageHeading, webName } from "../../Config";
 const HealthServices = () => {
   return (
     <Fragment>
@@ -19,7 +19,7 @@ const HealthServices = () => {
     </Helmet>
     <ImageContainer
     images = {[IMG_1,IMG_2,IMG_3,IMG_4,IMG_5,IMG_6,IMG_7]}
-    mainHeading="NITIVet - Telemedicine for Livestock Health and Safety."
+    mainHeading={MainPageImageHeading}
   />
       <Divider />
       <SelectLiveStocks />
