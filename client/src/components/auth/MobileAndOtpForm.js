@@ -28,7 +28,7 @@ const MobileAndOtpForm = ({handleChange,tAndC,setTAndC,handleMobileNumberSubmit,
       >
         GET OTP
       </Button>
-      <Form.Checkbox checked={tAndC} onChange={()=>setTAndC(!tAndC)} style={{marginTop: "8px"}} label="Yes, I consent to avail health services for my animal via telemedicine." />
+      {userType==="user" && <Form.Checkbox checked={tAndC} onChange={()=>setTAndC(!tAndC)} style={{marginTop: "8px"}} label="Yes, I consent to avail health services for my animal via telemedicine." />}
     </Form>
   );
   const otpForm = (
