@@ -92,7 +92,7 @@ const MobileLogin = (props) => {
         error: "Enter 10 digit valid Mobile Number",
       });
       return false
-    }else if(!tAndC){
+    }else if(userType==="user" && !tAndC){
       setValues({
         ...values,
         error: "Accept terms and conditons.",
